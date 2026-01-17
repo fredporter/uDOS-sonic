@@ -47,13 +47,20 @@ sudo bash scripts/reflash-complete.sh
 
 ### 3. Boot & configure
 - Reboot with SONIC stick inserted
-- Select TinyCore, Ubuntu installer, or Alpine from the Ventoy menu
-- Mount `/dev/sdb5` for your encrypted SSH/GPG keys
+- Select from the Ventoy menu:
+  - **[LIVE]** Alpine — runs from USB, type `setup-alpine` to install
+  - **[INSTALLER]** Ubuntu flavours — installs to your system disk
+  - **[IMAGES]** Raspberry Pi images — write to SD cards
+- See [docs/ventoy-usage.md](docs/ventoy-usage.md) for what's live vs installer
 
-### 4. (Optional) Add Ventoy menu config
+### 4. Customize the Ventoy menu (optional)
 ```bash
+sudo mkdir -p /mnt/sonic
+sudo mount /dev/sdb2 /mnt/sonic
 sudo cp config/ventoy/ventoy.json.example /mnt/sonic/ventoy/ventoy.json
-# Edit ISO names and submenus as needed
+sudo nano /mnt/sonic/ventoy/ventoy.json  # Edit menu names & descriptions
+sudo umount /mnt/sonic
+# Reboot—menu updates automatically!
 ```
 
 ## Project Layout
