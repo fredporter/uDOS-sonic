@@ -1,0 +1,39 @@
+{
+  "control": [
+    {
+      "VTOY_DEFAULT_SEARCH_ROOT": "/ISOS"
+    }
+  ],
+  "menu": [
+    {
+      "title": "Flash & Rescue",
+      "sublist": [
+        {
+          "title": "TinyCore 15.0",
+          "image_path": "/ISOS/Rescue/CorePure64-15.0.iso"
+        },
+        {
+          "title": "Alpine Linux 3.19.1",
+          "image_path": "/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso"
+        }
+      ]
+    },
+    {
+      "title": "Installers",
+      "sublist": [
+        {
+          "title": "Ubuntu 22.04 LTS Desktop",
+          "image_path": "/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso"
+        },
+        {
+          "title": "Lubuntu 22.04 LTS",
+          "image_path": "/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso"
+        },
+        {
+          "title": "Ubuntu MATE 22.04 LTS",
+          "image_path": "/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso"
+        }
+      ]
+    }
+  ]
+}

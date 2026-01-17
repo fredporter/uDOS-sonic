@@ -1,0 +1,7 @@
+ISOS/
+RaspberryPi/
+TOOLS/
+*.iso
+*.img.xz
+*.tar.gz
+*.DS_Store
