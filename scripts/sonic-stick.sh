@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-VERSION="1.0.0.4"
+VERSION="1.0.0.5"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 USB="${USB:-/dev/sdb}"
