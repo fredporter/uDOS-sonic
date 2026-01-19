@@ -36,10 +36,16 @@ wait_for_ventoy_parts() {
         blockdev --rereadpt "$dev" 2>/dev/null || true
         partprobe "$dev" 2>/dev/null || true
         udevadm settle 2>/dev/null || true
+        lsblk "$dev" -o NAME,SIZE,TYPE,FSTYPE,LABEL 2>/dev/null | head -5 >> "$VENTOY_INSTALL_LOG" || true
         sleep 1
     done
     return 1
 }
+
+# Global log for Ventoy installer (write where user can read)
+LOG_DIR="$BASE_DIR/LOGS"
+mkdir -p "$LOG_DIR"
+VENTOY_INSTALL_LOG="$LOG_DIR/ventoy-install-$(date -Iseconds).log"
 
 # Dependencies
 NEED_EXFAT=0
@@ -149,7 +155,6 @@ fi
 
 # Run Ventoy installer with -I flag (force install, wipe disk)
 cd "$VENTOY_DIR"
-VENTOY_INSTALL_LOG=$(mktemp /tmp/ventoy-install-XXXX.log)
 echo "yes" | ./Ventoy2Disk.sh -I -g "$USB" 2>&1 | tee "$VENTOY_INSTALL_LOG" || {
     echo -e "${RED}Ventoy installation failed${NC}"
     echo "Ventoy install log: $VENTOY_INSTALL_LOG"
@@ -177,6 +182,7 @@ wait_for_ventoy_parts "$USB" 60 || {
         log_error "Ventoy partitions not detected after install (missing ${USB}1 or ${USB}2)"
         log_info "lsblk output:" && lsblk "$USB" -o NAME,SIZE,TYPE,FSTYPE,LABEL || true
         log_info "fdisk -l output:" && fdisk -l "$USB" 2>/dev/null || true
+        echo "Ventoy install log: $VENTOY_INSTALL_LOG"
         exit 1
     }
 }
