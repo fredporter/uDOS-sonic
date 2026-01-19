@@ -25,6 +25,15 @@ BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 NC='\033[0m'
 
+# Dependencies
+NEED_EXFAT=0
+if ! command -v exfatresize &>/dev/null; then
+    NEED_EXFAT=1
+    log_warn "exfatresize (exfatprogs) not found; FLASH partition creation will be skipped"
+    log_info "Install with: sudo apt install exfatprogs"
+fi
+FLASH_DONE=0
+
 log_info "Starting complete rebuild on $USB"
 log_env_snapshot
 
@@ -208,11 +217,9 @@ echo ""
 echo -e "${BLUE}[6/7] Creating FLASH data partition...${NC}"
 echo -e "${YELLOW}This will shrink the Ventoy partition and create a 4GB ext4 partition${NC}"
 
-# Check if exfatprogs is installed (needed for resize)
-if ! command -v exfatresize &>/dev/null; then
-    echo -e "${YELLOW}⚠ exfatresize not found - cannot create data partition${NC}"
+if [ "$NEED_EXFAT" -eq 1 ]; then
+    echo -e "${YELLOW}⚠ exfatresize not found - skipping FLASH partition creation${NC}"
     echo -e "${YELLOW}  Install it with: sudo apt install exfatprogs${NC}"
-    echo -e "${YELLOW}  Continuing without data partition...${NC}"
     NEW_SIZE=0
 else
     # Get current size of partition 1 in MB
@@ -316,6 +323,7 @@ EOF
         sync
         umount /mnt/sonic-data
         
+        FLASH_DONE=1
         echo -e "${GREEN}✓ FLASH data partition initialized${NC}"
     else
         echo -e "${YELLOW}⚠ Partition ${USB}3 not found${NC}"
@@ -342,7 +350,11 @@ lsblk "$USB" -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT
 echo ""
 echo -e "${GREEN}✓ $ISO_COUNT ISOs ready to boot${NC}"
 echo -e "${GREEN}✓ Custom Ventoy menu installed${NC}"
-echo -e "${GREEN}✓ Data partition ready${NC}"
+if [ "$FLASH_DONE" -eq 1 ]; then
+    echo -e "${GREEN}✓ FLASH data partition ready${NC}"
+else
+    echo -e "${YELLOW}⚠ FLASH data partition not created (install exfatprogs and rerun)${NC}"
+fi
 echo ""
 echo -e "${YELLOW}═══════════════════════════════════════════════════════════${NC}"
 echo -e "${YELLOW}                     NEXT STEPS:${NC}"
