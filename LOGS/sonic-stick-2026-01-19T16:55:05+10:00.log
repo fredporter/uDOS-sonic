@@ -229,3 +229,148 @@ Verifying partition 1 filesystem...
 Copying Ubuntu ISOs...
 
 Copying Ubuntu ISOs...
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso'
+[0;32m  ✓ Ubuntu ISOs copied[0m
+[0;32m  ✓ Ubuntu ISOs copied[0m
+Copying Minimal ISOs...
+Copying Minimal ISOs...
+'/home/wizard/Code/sonic-stick/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso' -> '/mnt/sonic/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso' -> '/mnt/sonic/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso'
+[0;32m  ✓ Minimal ISOs copied[0m
+[0;32m  ✓ Minimal ISOs copied[0m
+Copying Rescue ISOs...
+Copying Rescue ISOs...
+'/home/wizard/Code/sonic-stick/ISOS/Rescue/CorePure64-15.0.iso' -> '/mnt/sonic/ISOS/Rescue/CorePure64-15.0.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Rescue/CorePure64-15.0.iso' -> '/mnt/sonic/ISOS/Rescue/CorePure64-15.0.iso'
+[0;32m  ✓ Rescue ISOs copied[0m
+[0;32m  ✓ Rescue ISOs copied[0m
+Copying Raspberry Pi images...
+Copying Raspberry Pi images...
+'/home/wizard/Code/sonic-stick/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz' -> '/mnt/sonic/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/raspios-bookworm-arm64-lite.img.xz' -> '/mnt/sonic/RaspberryPi/raspios-bookworm-arm64-lite.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz' -> '/mnt/sonic/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz' -> '/mnt/sonic/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/raspios-bookworm-arm64-lite.img.xz' -> '/mnt/sonic/RaspberryPi/raspios-bookworm-arm64-lite.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz' -> '/mnt/sonic/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz'
+[0;32m  ✓ RPi images copied[0m
+[0;32m  ✓ RPi images copied[0m
+
+[0;34m[4/7] Installing custom Ventoy menu configuration...[0m
+
+[0;34m[4/7] Installing custom Ventoy menu configuration...[0m
+'/home/wizard/Code/sonic-stick/config/ventoy/ventoy.json' -> '/mnt/sonic/ventoy/ventoy.json'
+'/home/wizard/Code/sonic-stick/config/ventoy/ventoy.json' -> '/mnt/sonic/ventoy/ventoy.json'
+[0;32m  ✓ Custom menu installed[0m
+
+  Menu includes:
+    • Ubuntu 22.04.5 LTS Desktop
+[0;32m  ✓ Custom menu installed[0m
+
+  Menu includes:
+    • Lubuntu 22.04.5 LTS (Lightweight)
+    • Ubuntu MATE 22.04.5 LTS
+    • Ubuntu 22.04.5 LTS Desktop
+    • Lubuntu 22.04.5 LTS (Lightweight)
+    • Alpine Linux 3.19.1 (Minimal)
+    • Ubuntu MATE 22.04.5 LTS
+    • Alpine Linux 3.19.1 (Minimal)
+    • TinyCore Pure64 15.0 (Rescue)
+
+Verifying ISOs on stick:
+    • TinyCore Pure64 15.0 (Rescue)
+
+Verifying ISOs on stick:
+[0;32m  Found: 5 ISOs[0m
+[0;32m  Found: 5 ISOs[0m
+alpine-standard-3.19.1-x86_64.iso
+CorePure64-15.0.iso
+lubuntu-22.04.5-desktop-amd64.iso
+ubuntu-22.04.5-desktop-amd64.iso
+ubuntu-mate-22.04.5-desktop-amd64.iso
+alpine-standard-3.19.1-x86_64.iso
+CorePure64-15.0.iso
+lubuntu-22.04.5-desktop-amd64.iso
+ubuntu-22.04.5-desktop-amd64.iso
+ubuntu-mate-22.04.5-desktop-amd64.iso
+[0;32m✓ ISOs and config installed[0m
+
+[0;34m[5/7] Relabeling partition to SONIC...[0m
+[0;32m✓ ISOs and config installed[0m
+
+[0;34m[5/7] Relabeling partition to SONIC...[0m
+exfatprogs version : 1.2.2
+new label: SONIC
+exfatprogs version : 1.2.2
+new label: SONIC
+[0;32m✓ Partition relabeled to SONIC[0m
+[0;32m✓ Partition relabeled to SONIC[0m
+
+[0;34m[6/7] Creating FLASH data partition...[0m
+[1;33mThis will backup data, repartition, and restore[0m
+
+[0;34m[6/7] Creating FLASH data partition...[0m
+[1;33mThis will backup data, repartition, and restore[0m
+  Current partition size: 123014MB
+  New Ventoy partition size: 118918MB
+  FLASH partition size: 4096MB (~4GB)
+
+  Current partition size: 123014MB
+  New Ventoy partition size: 118918MB
+  FLASH partition size: 4096MB (~4GB)
+
+  Backing up data from /dev/sdb1...
+  Backing up data from /dev/sdb1...
+  Repartitioning...
+  Repartitioning...
+parted: invalid token: exfat
+Error: Expecting a file system type.
+parted: invalid token: exfat
+Error: Expecting a file system type.
+[1;33m  ⚠ Failed to create partition[0m
+[1;33m  ⚠ Failed to create partition[0m
+
+
+[1;33m⚠ Skipping FLASH partition creation[0m
+[1;33m  You can create it manually later with:[0m
+[1;33m  sudo bash scripts/create-data-partition.sh[0m
+
+[0;34m[8/8] Final verification...[0m
+[1;33m⚠ Skipping FLASH partition creation[0m
+[1;33m  You can create it manually later with:[0m
+[1;33m  sudo bash scripts/create-data-partition.sh[0m
+
+[0;34m[8/8] Final verification...[0m
+
+
+[0;32m╔════════════════════════════════════════════════════════════╗[0m
+[0;32m║              REBUILD COMPLETE - READY TO BOOT!             ║[0m
+[0;32m╔════════════════════════════════════════════════════════════╗[0m
+[0;32m║              REBUILD COMPLETE - READY TO BOOT!             ║[0m
+[0;32m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;32m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;34mFinal USB stick layout:[0m
+[0;34mFinal USB stick layout:[0m
+NAME     SIZE FSTYPE LABEL   MOUNTPOINT
+sdb    114.6G                
+└─sdb2    32M vfat   VTOYEFI 
+NAME     SIZE FSTYPE LABEL   MOUNTPOINT
+sdb    114.6G                
+└─sdb2    32M vfat   VTOYEFI 
+
+[0;32m✓ 5 ISOs ready to boot[0m
+[0;32m✓ Custom Ventoy menu installed[0m
+
+[0;32m✓ 5 ISOs ready to boot[0m
+[0;32m✓ Custom Ventoy menu installed[0m
+[0;31m✗ FLASH data partition missing (this build is incomplete)[0m
+[0;31m✗ FLASH data partition missing (this build is incomplete)[0m
+[2026-01-19T17:01:55+10:00] [WARN] Rebuild failed or cancelled
+[2026-01-19T17:01:55+10:00] [WARN] Rebuild failed or cancelled
+Press Enter to continue...

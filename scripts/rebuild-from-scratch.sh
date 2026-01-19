@@ -459,7 +459,7 @@ if [ "$NEW_SIZE" -gt 0 ]; then
 fi
 
 if [ "$NEW_SIZE" -gt 0 ]; then
-    parted -s "$USB" mkpart primary exfat 2048s ${NEW_SIZE}MB || {
+    parted -s "$USB" mkpart primary 2048s ${NEW_SIZE}MB || {
         echo -e "${YELLOW}  ⚠ Failed to create partition${NC}"
         NEW_SIZE=0
     }
@@ -495,7 +495,7 @@ if [ "$NEW_SIZE" -gt 0 ]; then
     # Create partition 3 (data)
     echo ""
     echo "  Creating partition 3 for FLASH data..."
-    parted -s "$USB" mkpart primary ext4 ${NEW_SIZE}MB 100% || {
+    parted -s "$USB" mkpart primary ${NEW_SIZE}MB 100% || {
         echo -e "${YELLOW}  ⚠ Could not create partition 3${NC}"
         NEW_SIZE=0
     }
