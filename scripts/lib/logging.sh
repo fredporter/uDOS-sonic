@@ -125,6 +125,7 @@ log_env_snapshot() {
 
 detect_ventoy_partition() {
   # Find the VTOYEFI boot partition (fat32 with VTOYEFI label)
+  # Returns empty string if not found (not an error - caller handles it)
   local device="$1"
   local part
   for part in "${device}"*[0-9]; do
@@ -146,11 +147,12 @@ detect_ventoy_partition() {
       fi
     fi
   done
-  return 1
+  return 0  # Not an error, just not found
 }
 
 detect_sonic_partition() {
   # Find the SONIC data partition (exfat with SONIC label)
+  # Returns empty string if not found (not an error - caller handles it)
   local device="$1"
   local part
   for part in "${device}"*[0-9]; do
@@ -172,11 +174,11 @@ detect_sonic_partition() {
       fi
     fi
   done
-  return 1
+  return 0  # Not an error, just not found
 }
 
 detect_flash_partition() {
-  # Find the FLASH data partition (ext4 with FLASH label)
+  # Returns empty string if not found (not an error - caller handles it)
   local device="$1"
   local part
   for part in "${device}"*[0-9]; do
@@ -198,7 +200,7 @@ detect_flash_partition() {
       fi
     fi
   done
-  return 1
+  return 0  # Not an error, just not found
 }
 
 get_partition_number() {

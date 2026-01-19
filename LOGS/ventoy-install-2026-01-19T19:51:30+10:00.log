@@ -1,0 +1,43 @@
+
+**********************************************
+      Ventoy: 1.1.10  x86_64
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+**********************************************
+
+Disk : /dev/sdb
+Model:  USB  SanDisk 3.2Gen1 (scsi)
+Size : 114 GiB
+Style: GPT
+
+
+[33mAttention:[0m
+[33mYou will install Ventoy to /dev/sdb.[0m
+[33mAll the data on the disk /dev/sdb will be lost!!![0m
+
+
+[33mAll the data on the disk /dev/sdb will be lost!!![0m
+
+Create partitions on /dev/sdb by parted in GPT style ...
+Done
+Wait for partitions ...
+partition exist OK
+create efi fat fs /dev/sdb2 ...
+mkfs.fat 4.2 (2021-01-31)
+success
+Wait for partitions /dev/sdb1 and /dev/sdb2 ...
+/dev/sdb1 exist OK
+/dev/sdb2 exist OK
+partition exist OK
+[32mFormat partition 1 /dev/sdb1 ...[0m
+mkexfatfs 1.3.0
+Creating... done.
+Flushing... done.
+File system created successfully.
+mkexfatfs success
+[32mwriting data to disk ...[0m
+[32msync data ...[0m
+[32mesp partition processing ...[0m
+
+[32mInstall Ventoy to /dev/sdb successfully finished.[0m
+

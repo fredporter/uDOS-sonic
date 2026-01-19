@@ -315,14 +315,16 @@ wait_for_ventoy_parts "$USB" 60 || {
 
 # Detect Ventoy partitions dynamically (don't assume partition numbers!)
 echo "Detecting Ventoy partitions..."
-SONIC_PART=$(detect_sonic_partition "$USB")
-VENTOY_PART=$(detect_ventoy_partition "$USB")
+SONIC_PART=$(detect_sonic_partition "$USB" || true)
+VENTOY_PART=$(detect_ventoy_partition "$USB" || true)
 
 if [ -z "$SONIC_PART" ]; then
-    # Find first exfat partition (Ventoy creates this as partition 1)
+    # Find first exfat partition (Ventoy creates this as partition 1, labeled "Ventoy")
+    echo "SONIC label not found, searching for exFAT partition..."
     for part in ${USB}*[0-9] ${USB}p*[0-9]; do
         if [ -b "$part" ] && blkid "$part" 2>/dev/null | grep -q "TYPE=\"exfat\""; then
             SONIC_PART="$part"
+            echo "✓ Found exFAT partition: $SONIC_PART"
             break
         fi
     done
@@ -330,10 +332,12 @@ fi
 
 if [ -z "$SONIC_PART" ]; then
     log_error "Could not find Ventoy data partition (exFAT)"
+    echo "Available partitions:"
+    lsblk "$USB" -o NAME,SIZE,FSTYPE,LABEL
     exit 1
 fi
 
-log_info "✓ Found SONIC partition: $SONIC_PART"
+log_info "✓ Using data partition: $SONIC_PART"
 
 # Verify partition has exFAT filesystem and SONIC label
 echo "Verifying SONIC partition filesystem..."
