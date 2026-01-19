@@ -149,10 +149,13 @@ fi
 
 # Run Ventoy installer with -I flag (force install, wipe disk)
 cd "$VENTOY_DIR"
-echo "yes" | ./Ventoy2Disk.sh -I -g "$USB" || {
+VENTOY_INSTALL_LOG=$(mktemp /tmp/ventoy-install-XXXX.log)
+echo "yes" | ./Ventoy2Disk.sh -I -g "$USB" 2>&1 | tee "$VENTOY_INSTALL_LOG" || {
     echo -e "${RED}Ventoy installation failed${NC}"
+    echo "Ventoy install log: $VENTOY_INSTALL_LOG"
     exit 1
 }
+log_info "Ventoy install log: $VENTOY_INSTALL_LOG"
 
 cd "$BASE_DIR"
 sleep 3
@@ -163,8 +166,9 @@ sync
 wait_for_ventoy_parts "$USB" 60 || {
     log_warn "Partitions missing after first Ventoy run; retrying install..."
     cd "$VENTOY_DIR"
-    echo "yes" | ./Ventoy2Disk.sh -I -g "$USB" || {
+    echo "yes" | ./Ventoy2Disk.sh -I -g "$USB" 2>&1 | tee -a "$VENTOY_INSTALL_LOG" || {
         log_error "Ventoy installation failed on retry"
+        echo "Ventoy install log: $VENTOY_INSTALL_LOG"
         exit 1
     }
     cd "$BASE_DIR"

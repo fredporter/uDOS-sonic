@@ -182,20 +182,13 @@ verify_stick() {
         return $?
       fi
     else
-      echo "  → Run 'Fix Ventoy error' (option 7) to repair configuration"
-      echo "  → Or run 'Rebuild from scratch' (option 4) for complete reset"
+      echo "  → Recommended: Rebuild from scratch (menu option 3)"
       echo ""
-      read -rp "Fix now? (7=fix config, 4=rebuild, N=skip): " response
-      case "$response" in
-        7)
-          USB="$USB" bash "$SCRIPT_DIR/fix-ventoy-stick.sh"
-          return $?
-          ;;
-        4)
-          USB="$USB" VENTOY_VERSION="$VENTOY_VERSION_DEFAULT" bash "$SCRIPT_DIR/rebuild-from-scratch.sh"
-          return $?
-          ;;
-      esac
+      read -rp "Run rebuild now? [y/N]: " response
+      if [[ "$response" =~ ^[Yy]$ ]]; then
+        USB="$USB" VENTOY_VERSION="$VENTOY_VERSION_DEFAULT" bash "$SCRIPT_DIR/rebuild-from-scratch.sh"
+        return $?
+      fi
     fi
   fi
   
@@ -207,16 +200,11 @@ menu() {
   echo "Select an action:"
   echo "  1) Download payloads (ISOs, Ventoy, Pi images)"
   echo "  2) Install/Upgrade Ventoy only"
-  echo "  3) Reflash stick (install Ventoy + copy ISOs + data partition)"
-  echo "  4) Rebuild from scratch (wipe and rebuild)"
-  echo "  5) Create data partition only"
-  echo "  6) Scan library (refresh iso-catalog)"
-  echo "  7) Fix 'not a standard ventoy' error"
-  echo "  8) Verify stick (check structure and configuration)"
-  echo "  9) Collect support logs"
-  echo "  10) Quit"
+  echo "  3) Rebuild from scratch (wipe, copy ISOs, create FLASH)"
+  echo "  4) Verify stick (check structure, config, offer fixes)"
+  echo "  5) Quit"
   echo ""
-  read -rp "Choice [1-10]: " choice
+  read -rp "Choice [1-5]: " choice
   case "$choice" in
     1)
       log_section "Download payloads"
@@ -227,36 +215,13 @@ menu() {
       USB="$USB" VENTOY_VER="$VENTOY_VERSION_DEFAULT" bash "$SCRIPT_DIR/install-ventoy.sh" || log_warn "Install/upgrade failed or cancelled"
       ;;
     3)
-      log_section "Reflash complete"
-      USB="$USB" bash "$SCRIPT_DIR/reflash-complete.sh" || log_warn "Reflash failed or cancelled"
-      ;;
-    4)
       log_section "Rebuild from scratch"
       USB="$USB" VENTOY_VERSION="$VENTOY_VERSION_DEFAULT" bash "$SCRIPT_DIR/rebuild-from-scratch.sh" || log_warn "Rebuild failed or cancelled"
       ;;
-    5)
-      log_section "Create data partition"
-      USB="$USB" bash "$SCRIPT_DIR/create-data-partition.sh" "$USB" || log_warn "Data partition creation failed or cancelled"
-      ;;
-    6)
-      log_section "Scan library"
-      # Try common mount points; user can edit if different
-      DATA_MNT="${DATA_MNT:-/mnt/sonic-data}"
-      VTOY_MNT="${VTOY_MNT:-/mnt/sonic}"
-      bash "$SCRIPT_DIR/scan-library.sh" "$DATA_MNT" "$VTOY_MNT" || log_warn "Scan failed (partition not mounted?)"
-      ;;
-    7)
-      log_section "Fix Ventoy error"
-      USB="$USB" bash "$SCRIPT_DIR/fix-ventoy-stick.sh" || log_warn "Fix failed"
-      ;;
-    8)
+    4)
       verify_stick
       ;;
-    9)
-      log_section "Collect support logs"
-      USB="$USB" bash "$SCRIPT_DIR/collect-logs.sh" "$USB" || log_warn "Log collection failed"
-      ;;
-    10)
+    5)
       log_ok "Done"
       exit 0
       ;;
