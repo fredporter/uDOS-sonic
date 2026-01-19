@@ -137,6 +137,23 @@ echo "Waiting for partitions to settle..."
 partprobe "$USB" 2>/dev/null || true
 sleep 3
 
+# Ensure Ventoy partitions are present before proceeding
+PART1="${USB}1"
+PART2="${USB}2"
+for i in $(seq 1 20); do
+    if [ -b "$PART1" ] && [ -b "$PART2" ]; then
+        break
+    fi
+    partprobe "$USB" 2>/dev/null || true
+    udevadm settle 2>/dev/null || true
+    sleep 1
+done
+
+if [ ! -b "$PART1" ] || [ ! -b "$PART2" ]; then
+    log_error "Ventoy partitions not detected after install (missing ${PART1} or ${PART2})"
+    exit 1
+fi
+
 # Step 3: Mount and copy ISOs
 echo ""
 echo -e "${BLUE}[3/7] Mounting Ventoy partition and copying ISOs...${NC}"
