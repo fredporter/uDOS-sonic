@@ -33,8 +33,6 @@ declare -a DOWNLOADS=(
   "$RASPI_DIR/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz|https://cdimage.ubuntu.com/releases/22.04/release/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz"
   "$RASPI_DIR/DietPi_RPi234-ARMv8-Bookworm.img.xz|https://dietpi.com/downloads/images/DietPi_RPi234-ARMv8-Bookworm.img.xz"
   "$ISOS_DIR/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso|https://releases.ubuntu.com/jammy/ubuntu-22.04.5-desktop-amd64.iso"
-  "$ISOS_DIR/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso|https://cdimage.ubuntu.com/lubuntu/releases/jammy/release/lubuntu-22.04.5-desktop-amd64.iso"
-  "$ISOS_DIR/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso|https://cdimage.ubuntu.com/ubuntu-mate/releases/jammy/release/ubuntu-mate-22.04.5-desktop-amd64.iso"
 )
 
 echo "Planned downloads (${#DOWNLOADS[@]}):"
@@ -55,8 +53,8 @@ for i in "${!DOWNLOADS[@]}"; do
   echo "[$current/$total] Downloading: $filename"
   echo "    URL: $url"
   
-  # Use wget with resume (-c) capability
-  if wget -c "$url" -O "$dest" 2>&1 | tail -5; then
+  # Use wget with resume (-c) capability and progress bar
+  if wget -c --show-progress --progress=bar:force "$url" -O "$dest"; then
     echo "    ✓ Complete"
   else
     echo "    ✗ Failed (check network and URL)"

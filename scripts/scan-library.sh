@@ -100,12 +100,6 @@ if [ -d "$VENTOY_MOUNT/ISOS/Ubuntu" ]; then
             if [[ "$BASENAME" =~ "ubuntu-22" ]]; then
                 DESC="Ubuntu 22.04 LTS Desktop - Full-featured installer"
                 MODE="installer+live"
-            elif [[ "$BASENAME" =~ "lubuntu" ]]; then
-                DESC="Lubuntu 22.04 LTS - Lightweight Ubuntu with LXDE"
-                MODE="installer+live"
-            elif [[ "$BASENAME" =~ "mate" ]]; then
-                DESC="Ubuntu MATE 22.04 LTS - Traditional desktop experience"
-                MODE="installer+live"
             else
                 DESC="Ubuntu-based distribution"
                 MODE="installer"

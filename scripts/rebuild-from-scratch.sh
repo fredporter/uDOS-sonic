@@ -353,29 +353,81 @@ mkdir -p /mnt/sonic/RaspberryPi
 mkdir -p /mnt/sonic/ventoy
 mkdir -p /mnt/sonic/LOGS
 
-# Copy Ubuntu ISOs
+# Copy Ubuntu ISOs with progress
 echo ""
 echo "Copying Ubuntu ISOs..."
-if [ -d "$BASE_DIR/ISOS/Ubuntu" ]; then
-    cp -v "$BASE_DIR"/ISOS/Ubuntu/*.iso /mnt/sonic/ISOS/Ubuntu/ 2>/dev/null && echo -e "${GREEN}  ✓ Ubuntu ISOs copied${NC}" || echo -e "${YELLOW}  ⚠ No Ubuntu ISOs${NC}"
+if [ -d "$BASE_DIR/ISOS/Ubuntu" ] && ls "$BASE_DIR"/ISOS/Ubuntu/*.iso &>/dev/null; then
+    for iso in "$BASE_DIR"/ISOS/Ubuntu/*.iso; do
+        filename=$(basename "$iso")
+        echo "  → $filename"
+        if command -v rsync &>/dev/null; then
+            rsync -ah --progress "$iso" /mnt/sonic/ISOS/Ubuntu/
+        elif command -v pv &>/dev/null; then
+            pv "$iso" > "/mnt/sonic/ISOS/Ubuntu/$filename"
+        else
+            cp -v "$iso" /mnt/sonic/ISOS/Ubuntu/
+        fi
+    done
+    echo -e "${GREEN}  ✓ Ubuntu ISOs copied${NC}"
+else
+    echo -e "${YELLOW}  ⚠ No Ubuntu ISOs${NC}"
 fi
 
-# Copy Minimal ISOs
+# Copy Minimal ISOs with progress
 echo "Copying Minimal ISOs..."
-if [ -d "$BASE_DIR/ISOS/Minimal" ]; then
-    cp -v "$BASE_DIR"/ISOS/Minimal/*.iso /mnt/sonic/ISOS/Minimal/ 2>/dev/null && echo -e "${GREEN}  ✓ Minimal ISOs copied${NC}" || echo -e "${YELLOW}  ⚠ No Minimal ISOs${NC}"
+if [ -d "$BASE_DIR/ISOS/Minimal" ] && ls "$BASE_DIR"/ISOS/Minimal/*.iso &>/dev/null; then
+    for iso in "$BASE_DIR"/ISOS/Minimal/*.iso; do
+        filename=$(basename "$iso")
+        echo "  → $filename"
+        if command -v rsync &>/dev/null; then
+            rsync -ah --progress "$iso" /mnt/sonic/ISOS/Minimal/
+        elif command -v pv &>/dev/null; then
+            pv "$iso" > "/mnt/sonic/ISOS/Minimal/$filename"
+        else
+            cp -v "$iso" /mnt/sonic/ISOS/Minimal/
+        fi
+    done
+    echo -e "${GREEN}  ✓ Minimal ISOs copied${NC}"
+else
+    echo -e "${YELLOW}  ⚠ No Minimal ISOs${NC}"
 fi
 
-# Copy Rescue ISOs
+# Copy Rescue ISOs with progress
 echo "Copying Rescue ISOs..."
-if [ -d "$BASE_DIR/ISOS/Rescue" ]; then
-    cp -v "$BASE_DIR"/ISOS/Rescue/*.iso /mnt/sonic/ISOS/Rescue/ 2>/dev/null && echo -e "${GREEN}  ✓ Rescue ISOs copied${NC}" || echo -e "${YELLOW}  ⚠ No Rescue ISOs${NC}"
+if [ -d "$BASE_DIR/ISOS/Rescue" ] && ls "$BASE_DIR"/ISOS/Rescue/*.iso &>/dev/null; then
+    for iso in "$BASE_DIR"/ISOS/Rescue/*.iso; do
+        filename=$(basename "$iso")
+        echo "  → $filename"
+        if command -v rsync &>/dev/null; then
+            rsync -ah --progress "$iso" /mnt/sonic/ISOS/Rescue/
+        elif command -v pv &>/dev/null; then
+            pv "$iso" > "/mnt/sonic/ISOS/Rescue/$filename"
+        else
+            cp -v "$iso" /mnt/sonic/ISOS/Rescue/
+        fi
+    done
+    echo -e "${GREEN}  ✓ Rescue ISOs copied${NC}"
+else
+    echo -e "${YELLOW}  ⚠ No Rescue ISOs${NC}"
 fi
 
-# Copy Raspberry Pi images
+# Copy Raspberry Pi images with progress
 echo "Copying Raspberry Pi images..."
-if [ -d "$BASE_DIR/RaspberryPi" ]; then
-    cp -v "$BASE_DIR"/RaspberryPi/*.img.xz /mnt/sonic/RaspberryPi/ 2>/dev/null && echo -e "${GREEN}  ✓ RPi images copied${NC}" || echo -e "${YELLOW}  ⚠ No RPi images${NC}"
+if [ -d "$BASE_DIR/RaspberryPi" ] && ls "$BASE_DIR"/RaspberryPi/*.img.xz &>/dev/null; then
+    for img in "$BASE_DIR"/RaspberryPi/*.img.xz; do
+        filename=$(basename "$img")
+        echo "  → $filename"
+        if command -v rsync &>/dev/null; then
+            rsync -ah --progress "$img" /mnt/sonic/RaspberryPi/
+        elif command -v pv &>/dev/null; then
+            pv "$img" > "/mnt/sonic/RaspberryPi/$filename"
+        else
+            cp -v "$img" /mnt/sonic/RaspberryPi/
+        fi
+    done
+    echo -e "${GREEN}  ✓ RPi images copied${NC}"
+else
+    echo -e "${YELLOW}  ⚠ No RPi images${NC}"
 fi
 
 # Step 4: Install custom Ventoy menu
@@ -387,8 +439,6 @@ if [ -f "$BASE_DIR/config/ventoy/ventoy.json" ]; then
     echo ""
     echo "  Menu includes:"
     echo "    • Ubuntu 22.04.5 LTS Desktop"
-    echo "    • Lubuntu 22.04.5 LTS (Lightweight)"
-    echo "    • Ubuntu MATE 22.04.5 LTS"
     echo "    • Alpine Linux 3.19.1 (Minimal)"
     echo "    • TinyCore Pure64 15.0 (Rescue)"
 else
@@ -609,8 +659,6 @@ echo "3. Select 'USB' or 'UEFI: SONIC' from boot menu"
 echo "4. You should see the custom Ventoy menu with:"
 echo ""
 echo "   • Ubuntu 22.04.5 LTS Desktop (Installer)"
-echo "   • Lubuntu 22.04.5 LTS (Lightweight Installer)"
-echo "   • Ubuntu MATE 22.04.5 LTS (Installer)"
 echo "   • Alpine Linux 3.19.1 (Live + Installer)"
 echo "   • TinyCore Pure64 15.0 (Recovery Tool)"
 echo ""

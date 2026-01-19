@@ -182,6 +182,21 @@ verify_stick() {
         bash "$SCRIPT_DIR/relabel-sonic.sh"
         return $?
       fi
+    elif [[ " ${ISSUES[*]} " =~ " no_isos " ]] && [[ ${#ISSUES[@]} -le 2 ]]; then
+      echo "  → Recommended: Copy ISOs to stick (quick repair)"
+      echo "  → Alternative: Rebuild from scratch (menu option 3)"
+      echo ""
+      read -rp "Copy ISOs now (faster)? [Y/n]: " response
+      if [[ -z "$response" ]] || [[ "$response" =~ ^[Yy]$ ]]; then
+        bash "$SCRIPT_DIR/repair-isos.sh"
+        return $?
+      else
+        read -rp "Run full rebuild instead? [y/N]: " response2
+        if [[ "$response2" =~ ^[Yy]$ ]]; then
+          USB="$USB" VENTOY_VERSION="$VENTOY_VERSION_DEFAULT" bash "$SCRIPT_DIR/rebuild-from-scratch.sh"
+          return $?
+        fi
+      fi
     else
       echo "  → Recommended: Rebuild from scratch (menu option 3)"
       echo ""

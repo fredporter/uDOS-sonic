@@ -165,8 +165,6 @@ if [[ "$boottest" == "y" ]]; then
   echo "2. Press F12 or ESC at startup to select USB boot"
   echo "3. You should see the custom Ventoy menu with:"
   echo "   • Ubuntu 22.04.5 LTS Desktop"
-  echo "   • Lubuntu 22.04.5 LTS"
-  echo "   • Ubuntu MATE 22.04.5 LTS"
   echo "   • Alpine Linux 3.19.1"
   echo "   • TinyCore Pure64 15.0"
   echo ""

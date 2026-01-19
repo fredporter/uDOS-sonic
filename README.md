@@ -11,6 +11,16 @@ Sonic Stick is a Ventoy-powered USB toolkit that boots a custom menu offering re
 - All three partitions (SONIC, VTOYEFI, FLASH) now created successfully
 - Complete rebuild workflow tested and verified
 
+📊 **Progress indicators for all operations**
+- Download progress bars with wget `--show-progress`
+- File copy progress with rsync or pv (automatically detected)
+- No more wondering if the script is hanging!
+
+🔧 **Quick repair functionality**
+- New `repair-isos.sh` script to copy ISOs without full rebuild
+- Automatic detection of missing ISOs in verify script
+- Interactive prompts offer quick repair or full rebuild options
+
 ## Previous Updates
 
 ### v1.0.0.4
@@ -39,7 +49,7 @@ Sonic Stick is a Ventoy-powered USB toolkit that boots a custom menu offering re
 
 💾 **Pre-loaded payloads** (ISOs not included; you download)
 - **TinyCore 15** — tiny, fast, ultra-portable
-- **Ubuntu 22.04 LTS** + Lubuntu, Ubuntu MATE flavours
+- **Ubuntu 22.04 LTS** — full desktop installer
 - **Alpine Linux** — lightweight rescue environment
 - **Raspberry Pi images** — prep SD cards on the go
 
@@ -58,9 +68,10 @@ Sonic Stick (128 GB)
 sudo ./scripts/sonic-stick.sh
 ```
 Interactive menu to:
-- Download payloads (ISOs + Ventoy)
+- Download payloads (ISOs + Ventoy) with progress bars
 - Install/upgrade Ventoy
-- **Full rebuild from scratch** (wipes, installs Ventoy, copies ISOs, creates FLASH partition)
+- **Full rebuild from scratch** (wipes, installs Ventoy, copies ISOs with progress, creates FLASH partition)
+- **Verify stick** (checks structure, config, offers quick repair or full rebuild)
 - Scan library and generate catalog
 - Collect logs for troubleshooting
 
@@ -70,7 +81,7 @@ Interactive menu to:
 ```bash
 bash scripts/download-payloads.sh
 ```
-Fetches TinyCore, Ubuntu, Alpine, RaspberryPi images, and Ventoy. wget resumes partial downloads.
+Fetches TinyCore, Ubuntu, Alpine, RaspberryPi images, and Ventoy with progress bars. wget resumes partial downloads.
 
 #### 2. Full rebuild from scratch
 ```bash
@@ -78,13 +89,24 @@ sudo bash scripts/rebuild-from-scratch.sh
 ```
 - Wipes USB completely
 - Installs fresh Ventoy bootloader
-- Copies all ISOs with organized structure
+- Copies all ISOs with organized structure (with progress indicators!)
 - Installs custom Ventoy menu
 - Relabels main partition to SONIC
 - **Creates FLASH partition (4GB ext4) automatically**
 - Initializes library catalog system
 
 The rebuild will prompt you to type "REBUILD" to confirm the destructive operation.
+
+#### 2b. Quick repair (copy ISOs only)
+If your stick has Ventoy installed but is missing ISOs:
+```bash
+sudo bash scripts/repair-isos.sh
+```
+- Mounts existing SONIC partition
+- Copies all ISOs from repo with progress indicators
+- Updates Ventoy config if needed
+- Much faster than full rebuild (no repartitioning or Ventoy reinstall)
+- Automatically offered by verify script when ISOs are missing
 
 ### Troubleshooting
 
@@ -94,8 +116,6 @@ For detailed troubleshooting and boot error fixes, see archived documentation in
 - Reboot with SONIC stick inserted
 - Select from the Ventoy menu:
   - **Ubuntu 22.04.5 LTS Desktop** — full Ubuntu installation
-  - **Lubuntu 22.04.5 LTS** — lightweight Ubuntu flavor
-  - **Ubuntu MATE 22.04.5 LTS** — classic desktop experience
   - **Alpine Linux 3.19.1** — minimal rescue environment
   - **TinyCore Pure64 15.0** — ultra-lightweight rescue system
 
@@ -114,7 +134,8 @@ sudo umount /mnt/sonic
 sonic-stick/
 ├── README.md                           # This file
 ├── LICENSE                             # MIT License
-├── sonic-stick.code-workspace          # VS Code workspace configuration
+├── sonirepair-isos.sh                  # Quick repair - copy ISOs without rebuilding
+│   ├── download-payloads.sh            # Fetch ISOs (wget with progress barsiguration
 ├── .gitignore                          # Excludes large ISO/payloads
 ├── docs/
 │   └── .archive/                       # Archived troubleshooting docs
@@ -154,7 +175,8 @@ sonic-stick/
 
 **To build the stick:**
 - Ubuntu 22.04 LTS or similar
-- sudo access
+- sudo access with progress bars)
+- rsync or pv (optional, for file copy progress indicators
 - wget (for downloads)
 - ~150 GB free disk space (for downloads)
 - Ventoy 1.1.10 (auto-downloaded)

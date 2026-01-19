@@ -6,3 +6,4 @@ TOOLS/
 *.tar.gz
 *.DS_Store
 **/.archive/
+ISOS/.archive/

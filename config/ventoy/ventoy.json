@@ -52,14 +52,6 @@
       "class": "ubuntu"
     },
     {
-      "key": "lubuntu",
-      "class": "ubuntu"
-    },
-    {
-      "key": "mate",
-      "class": "ubuntu"
-    },
-    {
       "key": "alpine",
       "class": "alpine"
     },
