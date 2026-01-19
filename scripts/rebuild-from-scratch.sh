@@ -188,6 +188,72 @@ if [ ! -f "$VENTOY_DIR/Ventoy2Disk.sh" ]; then
     exit 1
 fi
 
+# Patch Ventoy's wait_and_create_part to be more robust
+echo "Patching Ventoy for better partition detection..."
+if [ -f "$VENTOY_DIR/tool/ventoy_lib.sh" ]; then
+    # Backup original
+    cp "$VENTOY_DIR/tool/ventoy_lib.sh" "$VENTOY_DIR/tool/ventoy_lib.sh.orig" 2>/dev/null || true
+    
+    # Replace wait_and_create_part with robust version
+    cat > /tmp/ventoy_wait_patch.sh << 'PATCH_EOF'
+wait_and_create_part() {
+    vPART1=$1
+    vPART2=$2
+    echo "Wait for partitions $vPART1 and $vPART2 ..."
+    
+    # Aggressive udev settling first
+    sync; sleep 1
+    udevadm settle --timeout=10 2>/dev/null || true
+    partprobe 2>/dev/null || true
+    
+    for i in 0 1 2 3 4 5 6 7 8 9; do
+        if [ -b "$vPART1" ] && [ -b "$vPART2" ]; then
+            break
+        else
+            echo "Wait for $vPART1 and $vPART2 ..."
+            udevadm settle --timeout=2 2>/dev/null || true
+            sleep 1
+        fi
+    done
+
+    # Check part1
+    if [ -b "$vPART1" ]; then
+        echo "$vPART1 exist OK"
+    else
+        if [ -f "/sys/class/block/${vPART1#/dev/}/dev" ]; then
+            MajorMinor=$(sed "s/:/ /" /sys/class/block/${vPART1#/dev/}/dev)        
+            echo "mknod -m 0660 $vPART1 b $MajorMinor ..."
+            mknod -m 0660 $vPART1 b $MajorMinor 2>/dev/null || true
+        fi
+    fi
+    
+    # Check part2
+    if [ -b "$vPART2" ]; then
+        echo "$vPART2 exist OK"
+    else
+        if [ -f "/sys/class/block/${vPART2#/dev/}/dev" ]; then
+            MajorMinor=$(sed "s/:/ /" /sys/class/block/${vPART2#/dev/}/dev)        
+            echo "mknod -m 0660 $vPART2 b $MajorMinor ..."
+            mknod -m 0660 $vPART2 b $MajorMinor 2>/dev/null || true
+        fi
+    fi
+
+    # Final check
+    if [ -b "$vPART1" ] && [ -b "$vPART2" ]; then
+        echo "partition exist OK"
+    else
+        echo "[WARN] Partitions not fully ready, but continuing..."
+    fi
+}
+PATCH_EOF
+    
+    # Replace the function in ventoy_lib.sh
+    sed -i '/^wait_and_create_part() {/,/^}/d' "$VENTOY_DIR/tool/ventoy_lib.sh"
+    cat /tmp/ventoy_wait_patch.sh >> "$VENTOY_DIR/tool/ventoy_lib.sh"
+    rm /tmp/ventoy_wait_patch.sh
+    echo "✓ Ventoy patched"
+fi
+
 # Run Ventoy installer with -I flag (force install, wipe disk)
 cd "$VENTOY_DIR"
 # Ventoy requires TWO confirmations: first "y", then "y" again for double-check
@@ -265,6 +331,26 @@ wait_for_ventoy_parts "$USB" 60 || {
         exit 1
     }
 }
+
+# Verify partition 1 has exFAT filesystem
+echo "Verifying partition 1 filesystem..."
+if ! blkid "${USB}1" | grep -q "TYPE=\"exfat\""; then
+    log_warn "Partition 1 is not exFAT, formatting now..."
+    # Determine cluster size based on disk size
+    disk_size_gb=$(lsblk -b -d -n -o SIZE "$USB" | awk '{print int($1/1024/1024/1024)}')
+    if [ $disk_size_gb -gt 32 ]; then
+        cluster_sectors=256  # 128KB for >32GB
+    else
+        cluster_sectors=64   # 32KB for <=32GB
+    fi
+    
+    mkexfatfs -n "SONIC" -s $cluster_sectors "${USB}1" || {
+        log_error "Failed to format ${USB}1 as exFAT"
+        exit 1
+    }
+    log_info "✓ Formatted ${USB}1 as exFAT (label: SONIC)"
+    sync; sleep 2
+fi
 
 # Step 3: Mount and copy ISOs
 echo ""

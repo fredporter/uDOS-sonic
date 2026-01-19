@@ -1,0 +1,49 @@
+[2026-01-19T16:21:36+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/rebuild-from-scratch-2026-01-19T16:21:36+10:00.log
+[2026-01-19T16:21:36+10:00] [WARN] exfatresize (exfatprogs) is required to create FLASH partition
+[2026-01-19T16:21:36+10:00] [WARN] exfatresize (exfatprogs) is required to create FLASH partition
+Install exfatprogs now? [Y/n]: [2026-01-19T16:22:00+10:00] [INFO] Installing exfatprogs...
+[2026-01-19T16:22:00+10:00] [INFO] Installing exfatprogs...
+Hit:1 http://au.archive.ubuntu.com/ubuntu noble InRelease
+Hit:2 http://au.archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:3 http://au.archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:4 https://packages.microsoft.com/repos/code stable InRelease
+Hit:5 http://security.ubuntu.com/ubuntu noble-security InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+exfatprogs is already the newest version (1.2.2-1build1).
+0 upgraded, 0 newly installed, 0 to remove and 1229 not upgraded.
+[2026-01-19T16:22:04+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T16:22:04+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T16:22:04+10:00] [INFO] Environment snapshot:
+[2026-01-19T16:22:04+10:00] [INFO] Environment snapshot:
+[2026-01-19T16:22:04+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T16:22:04+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T16:22:04+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   12.2M squashfs ;loop10  38.8M squashfs ;loop11  48.1M squashfs ;loop12   500K squashfs ;loop13   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 114.6G          ;└─sdb2    32M          ;sr0     1024M          ;
+[2026-01-19T16:22:04+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   12.2M squashfs ;loop10  38.8M squashfs ;loop11  48.1M squashfs ;loop12   500K squashfs ;loop13   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 114.6G          ;└─sdb2    32M          ;sr0     1024M          ;
+[2026-01-19T16:22:04+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   20M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K  205K   47K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  124K  764M /run/user/1000;
+[2026-01-19T16:22:04+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   20M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K  205K   47K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  124K  764M /run/user/1000;
+[H[2J[3J[0;35m╔════════════════════════════════════════════════════════════╗[0m
+[0;35m║         SONIC STICK - COMPLETE REBUILD FROM SCRATCH       ║[0m
+[0;35m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;35mThis will:[0m
+  1. WIPE all data on /dev/sdb
+  2. Install fresh Ventoy bootloader
+  3. Copy all ISOs with organized structure
+  4. Install custom Ventoy menu with organized categories
+  5. Relabel main partition to SONIC
+  6. Create FLASH partition for logs/tracking (4GB ext4)
+  7. Initialize library catalog system
+
+[0;31m═══════════════════════════════════════════════════════════[0m
+[0;31mWARNING: ALL DATA ON /dev/sdb WILL BE PERMANENTLY ERASED![0m
+[0;31m═══════════════════════════════════════════════════════════[0m
+
+NAME     SIZE TYPE FSTYPE LABEL MOUNTPOINT
+sdb    114.6G disk              
+├─sdb1 114.6G part              
+└─sdb2    32M part              
+
+Type 'REBUILD' in capitals to continue: [0;34mCancelled.[0m

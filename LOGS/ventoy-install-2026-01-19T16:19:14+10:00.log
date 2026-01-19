@@ -1,0 +1,35 @@
+
+**********************************************
+      Ventoy: 1.1.10  x86_64
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+**********************************************
+
+Disk : /dev/sdb
+Model:  USB  SanDisk 3.2Gen1 (scsi)
+Size : 114 GiB
+Style: GPT
+
+
+[33mAttention:[0m
+[33mYou will install Ventoy to /dev/sdb.[0m
+[33mAll the data on the disk /dev/sdb will be lost!!![0m
+
+
+[33mAll the data on the disk /dev/sdb will be lost!!![0m
+
+Create partitions on /dev/sdb by parted in GPT style ...
+Done
+Wait for partitions ...
+partition exist OK
+create efi fat fs /dev/sdb2 ...
+mkfs.fat 4.2 (2021-01-31)
+success
+Wait for partitions $vPART1 and $vPART2 ...
+/dev/sdb1 exist OK
+sed: can't read /sys/class/block/sdb2/dev: No such file or directory
+mknod -m 0660 /dev/sdb2 b  ...
+mknod: missing operand after ‘b’
+Special files require major and minor device numbers.
+Try 'mknod --help' for more information.
+[FAIL] /dev/sdb1//dev/sdb2 does not exist
