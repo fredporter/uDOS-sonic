@@ -45,13 +45,22 @@ echo ""
 echo -e "${BLUE}This is much faster than a full rebuild!${NC}"
 echo ""
 
-# Check if partition exists
-if [[ ! -b "${USB}1" ]]; then
-    echo -e "${RED}ERROR: ${USB}1 not found${NC}"
-    echo "You may need to run a full rebuild instead (option 3)."
-    exit 1
+# Check if partition exists - detect dynamically
+SONIC_PART=$(detect_sonic_partition "$USB")
+if [ -z "$SONIC_PART" ]; then
+    # Fallback: try ${USB}1
+    if [ -b "${USB}1" ]; then
+        SONIC_PART="${USB}1"
+    elif [ -b "${USB}p1" ]; then
+        SONIC_PART="${USB}p1"
+    else
+        echo -e "${RED}ERROR: SONIC partition not found on $USB${NC}"
+        echo "You may need to run a full rebuild instead (option 3)."
+        exit 1
+    fi
 fi
 
+echo -e "${BLUE}Using SONIC partition: $SONIC_PART${NC}"
 echo "Target USB device: $USB"
 lsblk "$USB" -o NAME,SIZE,TYPE,FSTYPE,LABEL,MOUNTPOINT
 echo ""
@@ -63,17 +72,17 @@ if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
 fi
 
 # Unmount if already mounted
-if mount | grep -q "${USB}1"; then
-    echo "Unmounting ${USB}1..."
-    umount "${USB}1" 2>/dev/null || true
+if mount | grep -q "$SONIC_PART"; then
+    echo "Unmounting $SONIC_PART..."
+    umount "$SONIC_PART" 2>/dev/null || true
 fi
 
 # Mount partition
 echo ""
-echo -e "${BLUE}Mounting ${USB}1...${NC}"
+echo -e "${BLUE}Mounting $SONIC_PART...${NC}"
 mkdir -p /mnt/sonic
-mount "${USB}1" /mnt/sonic || {
-    echo -e "${RED}Failed to mount ${USB}1${NC}"
+mount "$SONIC_PART" /mnt/sonic || {
+    echo -e "${RED}Failed to mount $SONIC_PART${NC}"
     exit 1
 }
 echo -e "${GREEN}✓ Mounted${NC}"
@@ -101,7 +110,7 @@ if [ -d "$BASE_DIR/ISOS/Ubuntu" ] && ls "$BASE_DIR"/ISOS/Ubuntu/*.iso &>/dev/nul
         filename=$(basename "$iso")
         echo "  → $filename"
         if command -v rsync &>/dev/null; then
-            rsync -ah --progress "$iso" /mnt/sonic/ISOS/Ubuntu/
+            rsync -h --no-perms --progress "$iso" /mnt/sonic/ISOS/Ubuntu/
         elif command -v pv &>/dev/null; then
             pv "$iso" > "/mnt/sonic/ISOS/Ubuntu/$filename"
         else
@@ -122,7 +131,7 @@ if [ -d "$BASE_DIR/ISOS/Minimal" ] && ls "$BASE_DIR"/ISOS/Minimal/*.iso &>/dev/n
         filename=$(basename "$iso")
         echo "  → $filename"
         if command -v rsync &>/dev/null; then
-            rsync -ah --progress "$iso" /mnt/sonic/ISOS/Minimal/
+            rsync -h --no-perms --progress "$iso" /mnt/sonic/ISOS/Minimal/
         elif command -v pv &>/dev/null; then
             pv "$iso" > "/mnt/sonic/ISOS/Minimal/$filename"
         else
@@ -143,7 +152,7 @@ if [ -d "$BASE_DIR/ISOS/Rescue" ] && ls "$BASE_DIR"/ISOS/Rescue/*.iso &>/dev/nul
         filename=$(basename "$iso")
         echo "  → $filename"
         if command -v rsync &>/dev/null; then
-            rsync -ah --progress "$iso" /mnt/sonic/ISOS/Rescue/
+            rsync -h --no-perms --progress "$iso" /mnt/sonic/ISOS/Rescue/
         elif command -v pv &>/dev/null; then
             pv "$iso" > "/mnt/sonic/ISOS/Rescue/$filename"
         else
@@ -164,7 +173,7 @@ if [ -d "$BASE_DIR/RaspberryPi" ] && ls "$BASE_DIR"/RaspberryPi/*.img.xz &>/dev/
         filename=$(basename "$img")
         echo "  → $filename"
         if command -v rsync &>/dev/null; then
-            rsync -ah --progress "$img" /mnt/sonic/RaspberryPi/
+            rsync -h --no-perms --progress "$img" /mnt/sonic/RaspberryPi/
         elif command -v pv &>/dev/null; then
             pv "$img" > "/mnt/sonic/RaspberryPi/$filename"
         else

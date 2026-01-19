@@ -57,8 +57,8 @@ if ! command -v exfatlabel &>/dev/null; then
 fi
 
 # Relabel
-echo -e "${BLUE}Relabeling ${USB}1 from 'Ventoy' to 'SONIC'...${NC}"
-exfatlabel "${USB}1" "SONIC" || {
+echo -e "${BLUE}Relabeling $SONIC_PART from 'Ventoy' to 'SONIC'...${NC}"
+exfatlabel "$SONIC_PART" "SONIC" || {
     echo -e "${RED}Failed to relabel partition${NC}"
     exit 1
 }

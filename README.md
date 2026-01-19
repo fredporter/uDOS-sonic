@@ -1,10 +1,26 @@
-# Sonic Stick Pack v1.0.0.5
+# Sonic Stick Pack v1.0.0.6
 
 **The ultimate multiboot rescue + install USB for Linux sysadmins, makers, and tinkerers.**
 
 Sonic Stick is a Ventoy-powered USB toolkit that boots a custom menu offering rescue tools, installers, persistent storage, and a built-in security dongle—all from one 128 GB stick. Keep it in your pocket, plug into any UEFI machine, and get instant access to TinyCore, Ubuntu, Alpine, Raspberry Pi tools, and more.
 
-## What's New in v1.0.0.5
+## What's New in v1.0.0.6
+
+🔧 **Dynamic partition detection**
+- **CRITICAL FIX**: Scripts now detect partitions by LABEL instead of assuming partition numbers
+- Works with non-standard Ventoy installations and different partition layouts
+- Supports both standard (`/dev/sdb1`) and NVMe (`/dev/nvme0n1p1`) partition naming
+- Fixes issues where Ventoy partitions weren't in expected order
+
+🎯 **Why this matters:**
+- Previously scripts assumed partition 1 = SONIC, partition 2 = VTOYEFI, partition 3 = FLASH
+- Now they dynamically detect partitions using labels (`SONIC`, `VTOYEFI`, `FLASH`)
+- Works regardless of partition numbering or USB device type
+- Essential for USB sticks with pre-existing partitions or manual Ventoy installations
+
+## Previous Updates
+
+### v1.0.0.5
 
 🎉 **FLASH partition creation now works!**
 - Fixed critical `parted` filesystem type error that prevented partition creation
@@ -20,8 +36,6 @@ Sonic Stick is a Ventoy-powered USB toolkit that boots a custom menu offering re
 - New `repair-isos.sh` script to copy ISOs without full rebuild
 - Automatic detection of missing ISOs in verify script
 - Interactive prompts offer quick repair or full rebuild options
-
-## Previous Updates
 
 ### v1.0.0.4
 

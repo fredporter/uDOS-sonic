@@ -313,10 +313,32 @@ wait_for_ventoy_parts "$USB" 60 || {
     }
 }
 
-# Verify partition 1 has exFAT filesystem
-echo "Verifying partition 1 filesystem..."
-if ! blkid "${USB}1" | grep -q "TYPE=\"exfat\""; then
-    log_warn "Partition 1 is not exFAT, formatting now..."
+# Detect Ventoy partitions dynamically (don't assume partition numbers!)
+echo "Detecting Ventoy partitions..."
+SONIC_PART=$(detect_sonic_partition "$USB")
+VENTOY_PART=$(detect_ventoy_partition "$USB")
+
+if [ -z "$SONIC_PART" ]; then
+    # Find first exfat partition (Ventoy creates this as partition 1)
+    for part in ${USB}*[0-9] ${USB}p*[0-9]; do
+        if [ -b "$part" ] && blkid "$part" 2>/dev/null | grep -q "TYPE=\"exfat\""; then
+            SONIC_PART="$part"
+            break
+        fi
+    done
+fi
+
+if [ -z "$SONIC_PART" ]; then
+    log_error "Could not find Ventoy data partition (exFAT)"
+    exit 1
+fi
+
+log_info "✓ Found SONIC partition: $SONIC_PART"
+
+# Verify partition has exFAT filesystem and SONIC label
+echo "Verifying SONIC partition filesystem..."
+if ! blkid "$SONIC_PART" | grep -q "TYPE=\"exfat\""; then
+    log_warn "SONIC partition is not exFAT, formatting now..."
     # Determine cluster size based on disk size
     disk_size_gb=$(lsblk -b -d -n -o SIZE "$USB" | awk '{print int($1/1024/1024/1024)}')
     if [ $disk_size_gb -gt 32 ]; then
@@ -325,12 +347,17 @@ if ! blkid "${USB}1" | grep -q "TYPE=\"exfat\""; then
         cluster_sectors=64   # 32KB for <=32GB
     fi
     
-    mkexfatfs -n "SONIC" -s $cluster_sectors "${USB}1" || {
-        log_error "Failed to format ${USB}1 as exFAT"
+    mkexfatfs -n "SONIC" -s $cluster_sectors "$SONIC_PART" || {
+        log_error "Failed to format $SONIC_PART as exFAT"
         exit 1
     }
-    log_info "✓ Formatted ${USB}1 as exFAT (label: SONIC)"
+    log_info "✓ Formatted $SONIC_PART as exFAT (label: SONIC)"
     sync; sleep 2
+elif ! blkid "$SONIC_PART" | grep -q "LABEL=\"SONIC\""; then
+    # Partition exists but wrong label, relabel it
+    log_info "Relabeling partition to SONIC..."
+    exfatlabel "$SONIC_PART" "SONIC" || log_warn "Could not relabel partition"
+    sync; sleep 1
 fi
 
 # Step 3: Mount and copy ISOs
@@ -339,13 +366,13 @@ echo -e "${BLUE}[3/7] Mounting Ventoy partition and copying ISOs...${NC}"
 mkdir -p /mnt/sonic
 sleep 2
 
-# Mount first partition (Ventoy data)
-mount "${USB}1" /mnt/sonic || {
-    echo -e "${RED}Failed to mount ${USB}1${NC}"
+# Mount SONIC partition (Ventoy data)
+mount "$SONIC_PART" /mnt/sonic || {
+    echo -e "${RED}Failed to mount $SONIC_PART${NC}"
     exit 1
 }
 
-echo -e "${GREEN}✓ Mounted ${USB}1${NC}"
+echo -e "${GREEN}✓ Mounted $SONIC_PART${NC}"
 
 # Create directory structure
 mkdir -p /mnt/sonic/ISOS/{Ubuntu,Minimal,Rescue}
@@ -461,10 +488,10 @@ echo -e "${GREEN}✓ ISOs and config installed${NC}"
 echo ""
 echo -e "${BLUE}[5/7] Relabeling partition to SONIC...${NC}"
 if command -v exfatlabel &>/dev/null; then
-    exfatlabel "${USB}1" "SONIC" && echo -e "${GREEN}✓ Partition relabeled to SONIC${NC}" || echo -e "${YELLOW}⚠ Could not relabel (exfatlabel not found)${NC}"
+    exfatlabel "$SONIC_PART" "SONIC" && echo -e "${GREEN}✓ Partition relabeled to SONIC${NC}" || echo -e "${YELLOW}⚠ Could not relabel (exfatlabel not found)${NC}"
 elif command -v fatlabel &>/dev/null; then
     # Try with fatlabel as fallback (may not work on exFAT)
-    fatlabel "${USB}1" "SONIC" 2>/dev/null && echo -e "${GREEN}✓ Partition relabeled to SONIC${NC}" || echo -e "${YELLOW}⚠ Could not relabel partition${NC}"
+    fatlabel "$SONIC_PART" "SONIC" 2>/dev/null && echo -e "${GREEN}✓ Partition relabeled to SONIC${NC}" || echo -e "${YELLOW}⚠ Could not relabel partition${NC}"
 else
     echo -e "${YELLOW}⚠ exfatlabel not found, partition will remain labeled as Ventoy${NC}"
     echo -e "${YELLOW}  Install exfatprogs: sudo apt install exfatprogs${NC}"
@@ -475,8 +502,15 @@ echo ""
 echo -e "${BLUE}[6/7] Creating FLASH data partition...${NC}"
 echo -e "${YELLOW}This will backup data, repartition, and restore${NC}"
 
-# Get current size of partition 1 in MB
-CURRENT_SIZE=$(parted -s "$USB" unit MB print | grep "^ 1" | awk '{print $4}' | sed 's/MB//')
+# Get the partition number of the SONIC partition
+SONIC_PART_NUM=$(get_partition_number "$SONIC_PART")
+if [ -z "$SONIC_PART_NUM" ]; then
+    log_error "Could not determine SONIC partition number from $SONIC_PART"
+    exit 1
+fi
+
+# Get current size of SONIC partition in MB
+CURRENT_SIZE=$(parted -s "$USB" unit MB print | grep "^ ${SONIC_PART_NUM}" | awk '{print $4}' | sed 's/MB//')
 DATA_SIZE=4096  # 4GB for data partition
 NEW_SIZE=$((CURRENT_SIZE - DATA_SIZE))
 
@@ -489,7 +523,7 @@ echo ""
 BACKUP_DIR="/tmp/sonic-backup-$$"
 mkdir -p "$BACKUP_DIR"
 
-echo "  Backing up data from ${USB}1..."
+echo "  Backing up data from $SONIC_PART..."
 cp -a /mnt/sonic/* "$BACKUP_DIR/" || {
     echo -e "${YELLOW}  ⚠ Backup failed, skipping FLASH partition${NC}"
     rm -rf "$BACKUP_DIR"
@@ -500,9 +534,9 @@ if [ "$NEW_SIZE" -gt 0 ]; then
     # Unmount
     umount /mnt/sonic 2>/dev/null || true
     
-    # Delete partition 1 and recreate it smaller
+    # Delete SONIC partition and recreate it smaller
     echo "  Repartitioning..."
-    parted -s "$USB" rm 1 || {
+    parted -s "$USB" rm $SONIC_PART_NUM || {
         echo -e "${YELLOW}  ⚠ Failed to remove partition${NC}"
         NEW_SIZE=0
     }
@@ -517,11 +551,21 @@ fi
 
 if [ "$NEW_SIZE" -gt 0 ]; then
     # Format the new smaller partition
-    echo "  Formatting ${USB}1..."
+    echo "  Formatting $SONIC_PART..."
     sleep 2
     partprobe "$USB" 2>/dev/null || true
     sleep 2
-    mkfs.exfat -L "SONIC" "${USB}1" || {
+    # Rediscover partition after repartitioning
+    SONIC_PART=$(detect_sonic_partition "$USB")
+    if [ -z "$SONIC_PART" ]; then
+        # Fallback: assume same partition number
+        if [[ "$USB" =~ nvme ]]; then
+            SONIC_PART="${USB}p${SONIC_PART_NUM}"
+        else
+            SONIC_PART="${USB}${SONIC_PART_NUM}"
+        fi
+    fi
+    mkfs.exfat -L "SONIC" "$SONIC_PART" || {
         echo -e "${YELLOW}  ⚠ Failed to format partition${NC}"
         NEW_SIZE=0
     }
@@ -530,7 +574,7 @@ fi
 if [ "$NEW_SIZE" -gt 0 ]; then
     # Restore data
     echo "  Restoring data..."
-    mount "${USB}1" /mnt/sonic
+    mount "$SONIC_PART" /mnt/sonic
     cp -a "$BACKUP_DIR"/* /mnt/sonic/ || {
         echo -e "${YELLOW}  ⚠ Failed to restore data${NC}"
         NEW_SIZE=0
@@ -556,16 +600,27 @@ if [ "$NEW_SIZE" -gt 0 ]; then
     partprobe "$USB" 2>/dev/null || true
     sleep 2
     
-    # Format partition 3
-    if [ -b "${USB}3" ]; then
-        echo "  Formatting ${USB}3 as ext4 with label FLASH..."
-        mkfs.ext4 -F -L "FLASH" "${USB}3"
+    # Detect the new FLASH partition (should be the last partition)
+    FLASH_PART=$(detect_flash_partition "$USB")
+    if [ -z "$FLASH_PART" ]; then
+        # Find the last partition number and assume it's the FLASH partition
+        for part in ${USB}*[0-9] ${USB}p*[0-9]; do
+            if [ -b "$part" ]; then
+                FLASH_PART="$part"
+            fi
+        done
+    fi
+    
+    # Format FLASH partition
+    if [ -n "$FLASH_PART" ] && [ -b "$FLASH_PART" ]; then
+        echo "  Formatting $FLASH_PART as ext4 with label FLASH..."
+        mkfs.ext4 -F -L "FLASH" "$FLASH_PART"
         
         # Step 7: Initialize data partition
         echo ""
         echo -e "${BLUE}[7/7] Initializing FLASH partition...${NC}"
         mkdir -p /mnt/sonic-data
-        mount "${USB}3" /mnt/sonic-data
+        mount "$FLASH_PART" /mnt/sonic-data
         
         # Create directory structure
         mkdir -p /mnt/sonic-data/{logs,sessions,library,devices,config}
@@ -618,7 +673,7 @@ EOF
         FLASH_DONE=1
         echo -e "${GREEN}✓ FLASH data partition initialized${NC}"
     else
-        echo -e "${YELLOW}⚠ Partition ${USB}3 not found${NC}"
+        echo -e "${YELLOW}⚠ Could not find FLASH partition after creation${NC}"
     fi
 else
     echo ""

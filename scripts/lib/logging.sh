@@ -119,3 +119,99 @@ log_env_snapshot() {
   if command -v lsblk >/dev/null 2>&1; then log_info "lsblk: $(lsblk -o NAME,SIZE,FSTYPE,LABEL | tr '\n' '; ')"; fi
   if command -v df >/dev/null 2>&1; then log_info "df: $(df -h --output=source,size,used,avail,target | tr '\n' '; ')"; fi
 }
+
+# Partition detection helpers for Ventoy sticks
+# These functions dynamically detect partitions by label/type instead of assuming partition numbers
+
+detect_ventoy_partition() {
+  # Find the VTOYEFI boot partition (fat32 with VTOYEFI label)
+  local device="$1"
+  local part
+  for part in "${device}"*[0-9]; do
+    if [ -b "$part" ]; then
+      local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
+      if [ "$label" = "VTOYEFI" ]; then
+        echo "$part"
+        return 0
+      fi
+    fi
+  done
+  # Check for nvme partition naming
+  for part in "${device}p"*[0-9]; do
+    if [ -b "$part" ]; then
+      local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
+      if [ "$label" = "VTOYEFI" ]; then
+        echo "$part"
+        return 0
+      fi
+    fi
+  done
+  return 1
+}
+
+detect_sonic_partition() {
+  # Find the SONIC data partition (exfat with SONIC label)
+  local device="$1"
+  local part
+  for part in "${device}"*[0-9]; do
+    if [ -b "$part" ]; then
+      local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
+      if [ "$label" = "SONIC" ]; then
+        echo "$part"
+        return 0
+      fi
+    fi
+  done
+  # Check for nvme partition naming
+  for part in "${device}p"*[0-9]; do
+    if [ -b "$part" ]; then
+      local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
+      if [ "$label" = "SONIC" ]; then
+        echo "$part"
+        return 0
+      fi
+    fi
+  done
+  return 1
+}
+
+detect_flash_partition() {
+  # Find the FLASH data partition (ext4 with FLASH label)
+  local device="$1"
+  local part
+  for part in "${device}"*[0-9]; do
+    if [ -b "$part" ]; then
+      local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
+      if [ "$label" = "FLASH" ]; then
+        echo "$part"
+        return 0
+      fi
+    fi
+  done
+  # Check for nvme partition naming
+  for part in "${device}p"*[0-9]; do
+    if [ -b "$part" ]; then
+      local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
+      if [ "$label" = "FLASH" ]; then
+        echo "$part"
+        return 0
+      fi
+    fi
+  done
+  return 1
+}
+
+get_partition_number() {
+  # Extract partition number from a partition path
+  # Works with both /dev/sdb1 and /dev/nvme0n1p1 formats
+  local part="$1"
+  if [[ "$part" =~ p([0-9]+)$ ]]; then
+    # nvme style: /dev/nvme0n1p1
+    echo "${BASH_REMATCH[1]}"
+  elif [[ "$part" =~ ([0-9]+)$ ]]; then
+    # sd style: /dev/sdb1
+    echo "${BASH_REMATCH[1]}"
+  else
+    return 1
+  fi
+}

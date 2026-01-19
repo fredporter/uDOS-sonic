@@ -1,0 +1,114 @@
+[2026-01-19T17:42:42+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T17:42:42+10:00.log
+[2026-01-19T17:42:42+10:00] [INFO] ============================================
+[2026-01-19T17:42:42+10:00] [INFO] ============================================
+[2026-01-19T17:42:42+10:00] [INFO] Sonic Stick Launcher v1.0.0.5
+[2026-01-19T17:42:42+10:00] [INFO] Sonic Stick Launcher v1.0.0.5
+[2026-01-19T17:42:42+10:00] [INFO] ============================================
+[2026-01-19T17:42:42+10:00] [INFO] ============================================
+[2026-01-19T17:42:42+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T17:42:42+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T17:42:42+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T17:42:42+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T17:42:42+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+[2026-01-19T17:42:42+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+
+Select an action:
+  1) Download payloads (ISOs, Ventoy, Pi images)
+  2) Install/Upgrade Ventoy only
+  3) Rebuild from scratch (wipe, copy ISOs, create FLASH)
+  4) Verify stick (check structure, config, offer fixes)
+  5) Quit
+
+Choice [1-5]: [2026-01-19T17:42:47+10:00] [INFO] ============================================
+[2026-01-19T17:42:47+10:00] [INFO] ============================================
+[2026-01-19T17:42:47+10:00] [INFO] USB Stick Verification
+[2026-01-19T17:42:47+10:00] [INFO] USB Stick Verification
+[2026-01-19T17:42:47+10:00] [INFO] ============================================
+[2026-01-19T17:42:47+10:00] [INFO] ============================================
+
+[2026-01-19T17:42:47+10:00] [INFO] Checking USB structure...
+[2026-01-19T17:42:47+10:00] [INFO] Checking USB structure...
+
+NAME     SIZE FSTYPE LABEL
+sdb    114.6G        
+├─sdb1 110.8G exfat  SONIC
+├─sdb2    32M vfat   VTOYEFI
+└─sdb3   3.8G ext4   FLASH
+
+[2026-01-19T17:42:47+10:00] [OK] ✓ Ventoy bootloader (VTOYEFI) detected
+[2026-01-19T17:42:47+10:00] [OK] ✓ Ventoy bootloader (VTOYEFI) detected
+
+[2026-01-19T17:42:47+10:00] [OK] ✓ SONIC main partition found (/dev/sdb1)
+[2026-01-19T17:42:47+10:00] [OK] ✓ SONIC main partition found (/dev/sdb1)
+
+[2026-01-19T17:42:47+10:00] [OK] ✓ FLASH data partition found (/dev/sdb3)
+[2026-01-19T17:42:47+10:00] [OK] ✓ FLASH data partition found (/dev/sdb3)
+
+[2026-01-19T17:42:47+10:00] [INFO] Checking configuration and ISOs...
+[2026-01-19T17:42:47+10:00] [INFO] Checking configuration and ISOs...
+[2026-01-19T17:42:47+10:00] [OK] ✓ ventoy.json is valid
+[2026-01-19T17:42:47+10:00] [OK] ✓ ventoy.json is valid
+[2026-01-19T17:42:47+10:00] [WARN] ⚠ ISOS directory not found
+[2026-01-19T17:42:47+10:00] [WARN] ⚠ ISOS directory not found
+
+[2026-01-19T17:42:48+10:00] [INFO] ============================================
+[2026-01-19T17:42:48+10:00] [INFO] ============================================
+[2026-01-19T17:42:48+10:00] [INFO] Verification Summary
+[2026-01-19T17:42:48+10:00] [INFO] Verification Summary
+[2026-01-19T17:42:48+10:00] [INFO] ============================================
+[2026-01-19T17:42:48+10:00] [INFO] ============================================
+[1;33m
+╔════════════════════════════════════════════════════════════╗
+║                  ⚠ ISSUES DETECTED                        ║
+╚════════════════════════════════════════════════════════════╝
+[0m
+⚠ No ISOs found
+
+Recommended actions:
+  → Recommended: Copy ISOs to stick (quick repair)
+  → Alternative: Rebuild from scratch (menu option 3)
+
+Copy ISOs now (faster)? [Y/n]: [2026-01-19T17:42:56+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T17:42:42+10:00.log
+[2026-01-19T17:42:56+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T17:42:42+10:00.log
+[2026-01-19T17:42:56+10:00] [INFO] Starting ISO repair on /dev/sdb
+[2026-01-19T17:42:56+10:00] [INFO] Starting ISO repair on /dev/sdb
+[H[2J[3J[0;35m╔════════════════════════════════════════════════════════════╗[0m
+[0;35m║         SONIC STICK - QUICK ISO REPAIR                    ║[0m
+[0;35m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;35mThis will:[0m
+  1. Mount the SONIC partition
+  2. Copy all ISOs from repo to USB stick
+  3. Copy Ventoy config (if needed)
+  4. Update library catalog
+
+[0;34mThis is much faster than a full rebuild![0m
+
+Target USB device: /dev/sdb
+NAME     SIZE TYPE FSTYPE LABEL   MOUNTPOINT
+sdb    114.6G disk                
+├─sdb1 110.8G part exfat  SONIC   /media/wizard/SONIC
+├─sdb2    32M part vfat   VTOYEFI /media/wizard/VTOYEFI
+└─sdb3   3.8G part ext4   FLASH   /media/wizard/FLASH
+
+Continue with ISO repair? [y/N]: Unmounting /dev/sdb1...
+
+[0;34mMounting /dev/sdb1...[0m
+[0;32m✓ Mounted[0m
+
+[0;34mEnsuring directory structure...[0m
+[0;32m✓ Directories ready[0m
+
+[0;34mCopying ISOs...[0m
+
+Copying Ubuntu ISOs...
+  → ubuntu-22.04.5-desktop-amd64.iso
+sending incremental file list
+ubuntu-22.04.5-desktop-amd64.iso
+         32.77K   0%    0.00kB/s    0:00:00          418.74M   8%  399.31MB/s    0:00:10          724.34M  15%  345.55MB/s    0:00:11          968.98M  20%  308.12MB/s    0:00:12            1.07G  22%  254.20MB/s    0:00:14            1.18G  24%  181.95MB/s    0:00:19            1.29G  27%  133.95MB/s    0:00:25            1.39G  29%   99.58MB/s    0:00:33            1.49G  31%   99.89MB/s    0:00:32            1.58G  33%   94.89MB/s    0:00:32            1.67G  35%   91.29MB/s    0:00:33            1.76G  36%   88.00MB/s    0:00:33            1.84G  38%   84.00MB/s    0:00:33            1.92G  40%   80.15MB/s    0:00:34            1.99G  41%   76.89MB/s    0:00:35            2.07G  43%   73.78MB/s    0:00:35            2.14G  44%   70.56MB/s    0:00:36            2.21G  46%   68.26MB/s    0:00:36            2.28G  47%   66.95MB/s    0:00:36            2.35G  49%   65.97MB/s    0:00:35            2.42G  50%   66.44MB/s    0:00:34            2.49G  52%   66.86MB/s    0:00:33            2.56G  53%   66.97MB/s    0:00:32            2.63G  55%   67.91MB/s    0:00:30            2.70G  56%   68.66MB/s    0:00:29            2.78G  58%   69.63MB/s    0:00:27            2.85G  59%   70.33MB/s    0:00:26            2.92G  61%   67.74MB/s    0:00:26            2.96G  62%   61.17MB/s    0:00:28            3.00G  63%   52.53MB/s    0:00:32            3.04G  63%   44.95MB/s    0:00:37            3.09G  64%   40.18MB/s    0:00:40            3.12G  65%   38.27MB/s    0:00:41            3.16G  66%   37.00MB/s    0:00:42            3.19G  67%   35.12MB/s    0:00:43            3.22G  67%   32.48MB/s    0:00:46            3.26G  68%   31.31MB/s    0:00:46            3.29G  69%   31.08MB/s    0:00:46            3.32G  69%   30.33MB/s    0:00:46            3.35G  70%   30.58MB/s    0:00:45            3.39G  71%   30.50MB/s    0:00:44            3.42G  71%   30.55MB/s    0:00:42            3.45G  72%   31.12MB/s    0:00:41            3.48G  73%   31.21MB/s    0:00:40            3.52G  73%   31.28MB/s    0:00:38            3.55G  74%   31.47MB/s    0:00:37            3.58G  75%   31.55MB/s    0:00:36            3.62G  75%   31.89MB/s    0:00:35            3.65G  76%   31.99MB/s    0:00:33            3.69G  77%   32.10MB/s    0:00:32            3.72G  78%   32.10MB/s    0:00:31            3.75G  78%   31.79MB/s    0:00:31            3.79G  79%   32.19MB/s    0:00:29            3.82G  80%   32.02MB/s    0:00:28            3.85G  80%   32.22MB/s    0:00:27            3.89G  81%   32.36MB/s    0:00:26            3.92G  82%   31.69MB/s    0:00:25            3.95G  83%   31.65MB/s    0:00:24            3.98G  83%   30.94MB/s    0:00:24            4.02G  84%   30.33MB/s    0:00:24            4.05G  84%   29.86MB/s    0:00:23            4.08G  85%   29.85MB/s    0:00:22            4.11G  86%   30.12MB/s    0:00:21            4.14G  87%   30.34MB/s    0:00:19            4.18G  87%   30.97MB/s    0:00:18            4.21G  88%   30.86MB/s    0:00:17            4.24G  89%   30.97MB/s    0:00:16            4.28G  89%   31.46MB/s    0:00:15            4.31G  90%   31.60MB/s    0:00:13            4.34G  91%   32.08MB/s    0:00:12            4.38G  91%   32.25MB/s    0:00:11            4.41G  92%   32.14MB/s    0:00:10            4.45G  93%   32.18MB/s    0:00:09            4.48G  94%   31.87MB/s    0:00:08            4.51G  94%   31.74MB/s    0:00:07            4.54G  95%   31.23MB/s    0:00:06            4.58G  96%   31.50MB/s    0:00:05            4.61G  96%   31.68MB/s    0:00:04            4.65G  97%   32.06MB/s    0:00:03            4.68G  98%   32.68MB/s    0:00:02            4.71G  98%   32.47MB/s    0:00:01            4.75G  99%   32.63MB/s    0:00:00            4.76G 100%   55.59MB/s    0:01:21 (xfr#1, to-chk=0/1)
+rsync: [receiver] chown "/mnt/sonic/ISOS/Ubuntu/.ubuntu-22.04.5-desktop-amd64.iso.t5tJ5p" failed: Operation not permitted (1)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1338) [sender=3.2.7]
+[2026-01-19T17:44:25+10:00] [ERROR] Command failed (exit 23) at line 104: rsync -ah --progress "$iso" /mnt/sonic/ISOS/Ubuntu/
+[2026-01-19T17:44:25+10:00] [ERROR] Command failed (exit 23) at line 104: rsync -ah --progress "$iso" /mnt/sonic/ISOS/Ubuntu/
+[2026-01-19T17:44:25+10:00] [ERROR] Command failed (exit 23) at line 191: bash "$SCRIPT_DIR/repair-isos.sh"
+[2026-01-19T17:44:25+10:00] [ERROR] Command failed (exit 23) at line 191: bash "$SCRIPT_DIR/repair-isos.sh"

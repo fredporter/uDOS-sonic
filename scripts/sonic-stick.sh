@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-VERSION="1.0.0.5"
+VERSION="1.0.0.6"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 USB="${USB:-/dev/sdb}"
@@ -59,24 +59,41 @@ verify_stick() {
     ISSUES+=("no_ventoy")
   fi
   
-  # Check for SONIC label on partition 1
+  # Check for SONIC label - detect dynamically
   echo ""
-  PART1_LABEL=$(blkid -s LABEL -o value "${USB}1" 2>/dev/null || echo "")
-  if [[ "$PART1_LABEL" == "SONIC" ]]; then
-    log_ok "✓ SONIC main partition found (${USB}1)"
-    HAS_SONIC=1
-  elif [[ "$PART1_LABEL" == "Ventoy" ]]; then
-    log_warn "⚠ Main partition labeled 'Ventoy' (should be 'SONIC')"
-    ISSUES+=("wrong_label")
+  SONIC_PART=$(detect_sonic_partition "$USB")
+  if [ -z "$SONIC_PART" ]; then
+    # Fallback: check first partition
+    if [ -b "${USB}1" ]; then
+      SONIC_PART="${USB}1"
+    elif [ -b "${USB}p1" ]; then
+      SONIC_PART="${USB}p1"
+    fi
+  fi
+  
+  if [ -n "$SONIC_PART" ]; then
+    PART_LABEL=$(blkid -s LABEL -o value "$SONIC_PART" 2>/dev/null || echo "")
+    if [[ "$PART_LABEL" == "SONIC" ]]; then
+      log_ok "✓ SONIC main partition found ($SONIC_PART)"
+      HAS_SONIC=1
+    elif [[ "$PART_LABEL" == "Ventoy" ]]; then
+      log_warn "⚠ Main partition labeled 'Ventoy' (should be 'SONIC')"
+      log_warn "  Partition: $SONIC_PART"
+      ISSUES+=("wrong_label")
+    else
+      log_warn "⚠ Main partition has unexpected label: '$PART_LABEL'"
+      log_warn "  Partition: $SONIC_PART"
+      ISSUES+=("wrong_label")
+    fi
   else
-    log_warn "⚠ Main partition has unexpected label: '$PART1_LABEL'"
-    ISSUES+=("wrong_label")
+    log_error "✗ Could not find SONIC partition"
+    ISSUES+=("no_sonic")
   fi
   
   # Check for FLASH partition
   echo ""
-  if blkid "$USB"* 2>/dev/null | grep -i "FLASH" >/dev/null; then
-    FLASH_PART=$(blkid -L FLASH 2>/dev/null)
+  FLASH_PART=$(detect_flash_partition "$USB")
+  if [ -n "$FLASH_PART" ]; then
     log_ok "✓ FLASH data partition found ($FLASH_PART)"
     HAS_FLASH=1
   else
@@ -88,7 +105,7 @@ verify_stick() {
   echo ""
   log_info "Checking configuration and ISOs..."
   TEMP_MNT=$(mktemp -d)
-  if mount "${USB}1" "$TEMP_MNT" 2>/dev/null; then
+  if [ -n "$SONIC_PART" ] && mount "$SONIC_PART" "$TEMP_MNT" 2>/dev/null; then
     # Check ventoy.json
     if [[ -f "$TEMP_MNT/ventoy/ventoy.json" ]]; then
       if python3 -m json.tool "$TEMP_MNT/ventoy/ventoy.json" >/dev/null 2>&1; then
@@ -119,7 +136,7 @@ verify_stick() {
     
     umount "$TEMP_MNT" 2>/dev/null || true
   else
-    log_error "✗ Could not mount ${USB}1 for verification"
+    log_error "✗ Could not mount $SONIC_PART for verification"
     ISSUES+=("cant_mount")
   fi
   rm -rf "$TEMP_MNT"

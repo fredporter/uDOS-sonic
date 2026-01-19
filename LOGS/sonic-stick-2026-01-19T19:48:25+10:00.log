@@ -1,0 +1,73 @@
+[2026-01-19T19:48:25+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T19:48:25+10:00.log
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] Sonic Stick Launcher v1.0.0.5
+[2026-01-19T19:48:25+10:00] [INFO] Sonic Stick Launcher v1.0.0.5
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T19:48:25+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T19:48:25+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T19:48:25+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T19:48:25+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+[2026-01-19T19:48:25+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+
+Select an action:
+  1) Download payloads (ISOs, Ventoy, Pi images)
+  2) Install/Upgrade Ventoy only
+  3) Rebuild from scratch (wipe, copy ISOs, create FLASH)
+  4) Verify stick (check structure, config, offer fixes)
+  5) Quit
+
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] USB Stick Verification
+[2026-01-19T19:48:25+10:00] [INFO] USB Stick Verification
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+
+[2026-01-19T19:48:25+10:00] [INFO] Checking USB structure...
+[2026-01-19T19:48:25+10:00] [INFO] Checking USB structure...
+
+NAME     SIZE FSTYPE LABEL
+sdb    114.6G        
+├─sdb1 110.8G exfat  SONIC
+├─sdb2    32M vfat   VTOYEFI
+└─sdb3   3.8G ext4   FLASH
+
+[2026-01-19T19:48:25+10:00] [OK] ✓ Ventoy bootloader (VTOYEFI) detected
+[2026-01-19T19:48:25+10:00] [OK] ✓ Ventoy bootloader (VTOYEFI) detected
+
+[2026-01-19T19:48:25+10:00] [OK] ✓ SONIC main partition found (/dev/sdb1)
+[2026-01-19T19:48:25+10:00] [OK] ✓ SONIC main partition found (/dev/sdb1)
+
+[2026-01-19T19:48:25+10:00] [OK] ✓ FLASH data partition found (/dev/sdb3)
+[2026-01-19T19:48:25+10:00] [OK] ✓ FLASH data partition found (/dev/sdb3)
+
+[2026-01-19T19:48:25+10:00] [INFO] Checking configuration and ISOs...
+[2026-01-19T19:48:25+10:00] [INFO] Checking configuration and ISOs...
+[2026-01-19T19:48:25+10:00] [OK] ✓ ventoy.json is valid
+[2026-01-19T19:48:25+10:00] [OK] ✓ ventoy.json is valid
+[2026-01-19T19:48:25+10:00] [OK] ✓ Found 1 ISO(s) ready to boot
+[2026-01-19T19:48:25+10:00] [OK] ✓ Found 1 ISO(s) ready to boot
+
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] Verification Summary
+[2026-01-19T19:48:25+10:00] [INFO] Verification Summary
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[2026-01-19T19:48:25+10:00] [INFO] ============================================
+[0;32m
+╔════════════════════════════════════════════════════════════╗
+║              ✓ STICK IS PERFECTLY CONFIGURED!             ║
+╚════════════════════════════════════════════════════════════╝
+[0m
+✓ Ventoy bootloader installed
+✓ SONIC partition labeled correctly
+✓ FLASH data partition present
+✓ ventoy.json configured
+✓ 1 ISO(s) ready to boot
+
+Your stick is ready to use!
+[2026-01-19T19:48:25+10:00] [ERROR] Command failed (exit 1) at line 26: read -rp "Press Enter to continue..."
+[2026-01-19T19:48:25+10:00] [ERROR] Command failed (exit 1) at line 26: read -rp "Press Enter to continue..."

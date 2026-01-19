@@ -4,6 +4,10 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+source "${SCRIPT_DIR}/lib/logging.sh"
+
 USB_DEVICE="${1:-${USB:-/dev/sdb}}"
 MNT_DIR="/mnt/sonic-verify"
 
@@ -16,13 +20,35 @@ fi
 echo "[Info] Partition table:"
 lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT "${USB_DEVICE}" | sed '1!s/^/  /'
 
-# Ventoy creates: 1=data (exFAT/NTFS), 2=VTOYEFI (FAT16)
-DATA_PART="${USB_DEVICE}1"
-EFI_PART="${USB_DEVICE}2"
+# Detect partitions dynamically instead of assuming partition numbers
+DATA_PART=$(detect_sonic_partition "${USB_DEVICE}")
+if [ -z "$DATA_PART" ]; then
+  # Fallback to first partition
+  if [ -b "${USB_DEVICE}1" ]; then
+    DATA_PART="${USB_DEVICE}1"
+  elif [ -b "${USB_DEVICE}p1" ]; then
+    DATA_PART="${USB_DEVICE}p1"
+  fi
+fi
 
-if [[ ! -b "${DATA_PART}" ]]; then
-  echo "[Error] Data partition not found: ${DATA_PART}" >&2
+EFI_PART=$(detect_ventoy_partition "${USB_DEVICE}")
+if [ -z "$EFI_PART" ]; then
+  # Fallback to second partition
+  if [ -b "${USB_DEVICE}2" ]; then
+    EFI_PART="${USB_DEVICE}2"
+  elif [ -b "${USB_DEVICE}p2" ]; then
+    EFI_PART="${USB_DEVICE}p2"
+  fi
+fi
+
+if [[ -z "$DATA_PART" || ! -b "${DATA_PART}" ]]; then
+  echo "[Error] Data partition not found" >&2
   exit 2
+fi
+
+echo "[Info] Using DATA partition: ${DATA_PART}"
+if [ -n "$EFI_PART" ]; then
+  echo "[Info] Using EFI partition: ${EFI_PART}"
 fi
 
 mkdir -p "${MNT_DIR}"
@@ -66,12 +92,16 @@ echo "[List] Top-level ISOs present:"
 find "${MNT_DIR}/ISOS" -maxdepth 2 -type f -name '*.iso' -printf '  • %p\n' | sort || true
 
 echo "[Check] EFI partition label"
-EFI_INFO=$(lsblk -no LABEL,FSTYPE "${EFI_PART}" 2>/dev/null || true)
-if echo "${EFI_INFO}" | grep -qi 'VTOYEFI'; then
-  echo "  ✓ EFI partition labeled VTOYEFI"
+if [ -n "$EFI_PART" ] && [ -b "$EFI_PART" ]; then
+  EFI_INFO=$(lsblk -no LABEL,FSTYPE "${EFI_PART}" 2>/dev/null || true)
+  if echo "${EFI_INFO}" | grep -qi 'VTOYEFI'; then
+    echo "  ✓ EFI partition labeled VTOYEFI"
+  else
+    echo "  ✗ EFI partition label not detected (got: ${EFI_INFO:-none})"
+    # Not fatal
+  fi
 else
-  echo "  ✗ EFI partition label not detected (got: ${EFI_INFO:-none})"
-  # Not fatal
+  echo "  ⚠ EFI partition not detected"
 fi
 
 if [[ "${MNT_OWNED}" -eq 1 ]]; then
