@@ -25,6 +25,22 @@ BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 NC='\033[0m'
 
+# Helpers
+wait_for_ventoy_parts() {
+    local dev="$1" retries="${2:-60}"
+    local p1="${dev}1" p2="${dev}2"
+    for i in $(seq 1 "$retries"); do
+        if [ -b "$p1" ] && [ -b "$p2" ]; then
+            return 0
+        fi
+        blockdev --rereadpt "$dev" 2>/dev/null || true
+        partprobe "$dev" 2>/dev/null || true
+        udevadm settle 2>/dev/null || true
+        sleep 1
+    done
+    return 1
+}
+
 # Dependencies
 NEED_EXFAT=0
 if ! command -v exfatresize &>/dev/null; then
@@ -97,6 +113,15 @@ echo ""
 echo -e "${BLUE}[2/7] Wiping disk and installing fresh Ventoy...${NC}"
 echo -e "${YELLOW}This will take 30-60 seconds...${NC}"
 
+# Pre-wipe to avoid stale partition tables
+echo ""; echo "  Pre-wiping existing signatures..."
+wipefs -a "$USB" || true
+if command -v sgdisk &>/dev/null; then
+    sgdisk --zap-all "$USB" || true
+fi
+dd if=/dev/zero of="$USB" bs=1M count=4 conv=fsync 2>/dev/null || true
+sync
+
 # Prepare Ventoy (download/extract if needed)
 VENTOY_DIR="$BASE_DIR/TOOLS/ventoy-${VENTOY_VERSION}"
 VENTOY_TAR="$BASE_DIR/TOOLS/ventoy-${VENTOY_VERSION}-linux.tar.gz"
@@ -135,28 +160,22 @@ sleep 3
 # Wait for partitions to appear
 echo "Waiting for partitions to settle..."
 sync
-partprobe "$USB" 2>/dev/null || true
-udevadm settle 2>/dev/null || true
-sleep 2
-
-# Ensure Ventoy partitions are present before proceeding (robust retry)
-PART1="${USB}1"
-PART2="${USB}2"
-for i in $(seq 1 60); do
-    if [ -b "$PART1" ] && [ -b "$PART2" ]; then
-        break
-    fi
-    partprobe "$USB" 2>/dev/null || true
-    udevadm settle 2>/dev/null || true
-    sleep 1
-done
-
-if [ ! -b "$PART1" ] || [ ! -b "$PART2" ]; then
-    log_error "Ventoy partitions not detected after install (missing ${PART1} or ${PART2})"
-    log_info "lsblk output:" && lsblk "$USB" -o NAME,SIZE,TYPE,FSTYPE,LABEL || true
-    log_info "fdisk -l output:" && fdisk -l "$USB" 2>/dev/null || true
-    exit 1
-fi
+wait_for_ventoy_parts "$USB" 60 || {
+    log_warn "Partitions missing after first Ventoy run; retrying install..."
+    cd "$VENTOY_DIR"
+    echo "yes" | ./Ventoy2Disk.sh -I -g "$USB" || {
+        log_error "Ventoy installation failed on retry"
+        exit 1
+    }
+    cd "$BASE_DIR"
+    sync
+    wait_for_ventoy_parts "$USB" 30 || {
+        log_error "Ventoy partitions not detected after install (missing ${USB}1 or ${USB}2)"
+        log_info "lsblk output:" && lsblk "$USB" -o NAME,SIZE,TYPE,FSTYPE,LABEL || true
+        log_info "fdisk -l output:" && fdisk -l "$USB" 2>/dev/null || true
+        exit 1
+    }
+}
 
 # Step 3: Mount and copy ISOs
 echo ""
