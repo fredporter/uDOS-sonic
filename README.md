@@ -35,6 +35,15 @@ Sonic Stick (SONIC label)
 - Click-to-run: `gnome-terminal -- bash -lc "cd ~/Code/sonic-stick && ./scripts/sonic-stick.sh"`
 - CLI: `sudo ./scripts/sonic-stick.sh` (menu to download payloads, install/upgrade Ventoy, reflash, rebuild, scan, collect logs)
 
+### Troubleshooting: "Not a Standard Ventoy" Error?
+
+If you see this error when booting, run the fix script:
+```bash
+sudo bash scripts/fix-ventoy-stick.sh
+```
+
+Or select **option 7** from the main menu. See [docs/fix-ventoy-error.md](docs/fix-ventoy-error.md) for detailed troubleshooting.
+
 ### 1. Download payloads (30–60 min)
 ```bash
 bash scripts/download-payloads.sh
@@ -90,7 +99,7 @@ sonic-stick/
 │   ├── sonic-stick.sh           # Unified launcher/menu (Ubuntu-friendly)
 │   ├── reflash-complete.sh      # Full reflash + partitioning workflow
 │   ├── rebuild-from-scratch.sh  # Full wipe + rebuild with data partition
-│   ├── create-data-partition.sh # Add SONIC_DATA partition
+│   ├── create-data-partition.sh # Add FLASH partition
 │   ├── setup-data-partition-guided.sh # GParted-guided data partition
 │   ├── scan-library.sh          # Generate ISO catalog
 │   ├── tinycore-bootlog.sh      # Boot logging hook for TinyCore
@@ -108,7 +117,7 @@ sonic-stick/
 - All major scripts now tee output to `LOGS/<script>-<timestamp>.log`. If the stick is mounted, logs are written to `/media/$USER/SONIC/LOGS`; otherwise they land in the repo `LOGS/` folder.
 - Turn on shell tracing with `DEBUG=1` (for example `DEBUG=1 sudo bash scripts/reflash-complete.sh`).
 - Collect a support bundle after a failing boot: `sudo bash scripts/collect-logs.sh /dev/sdX` (replace `/dev/sdX` with your stick). The bundle includes `lsblk`, `blkid`, `dmesg` tail, Ventoy config/version, and data-partition logs without copying ISOs.
-- TinyCore boots can append hardware/dmesg info to the stick via `scripts/tinycore-bootlog.sh`, writing `LOGS/boot.log` (prefers `SONIC_DATA` when mounted).
+- TinyCore boots can append hardware/dmesg info to the stick via `scripts/tinycore-bootlog.sh`, writing `LOGS/boot.log` (prefers `FLASH` when mounted).
 - Details and what to attach when filing issues are in [docs/logging-and-debugging.md](docs/logging-and-debugging.md).
 
 ## Requirements

@@ -34,7 +34,7 @@ echo -e "${BLUE}═════════════════════�
 # Check if data partition is mounted
 if [ ! -d "$DATA_MOUNT/library" ]; then
     echo -e "${YELLOW}Data partition not found at $DATA_MOUNT${NC}"
-    echo "Please mount the SONIC_DATA partition first:"
+    echo "Please mount the FLASH partition first:"
     echo "  sudo mount /dev/sdX3 $DATA_MOUNT"
     exit 1
 fi

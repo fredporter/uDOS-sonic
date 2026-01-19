@@ -1,0 +1,238 @@
+[2026-01-19T11:07:00+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T11:07:00+10:00.log
+[2026-01-19T11:07:00+10:00] [INFO] ============================================
+[2026-01-19T11:07:00+10:00] [INFO] ============================================
+[2026-01-19T11:07:00+10:00] [INFO] Sonic Stick Launcher
+[2026-01-19T11:07:00+10:00] [INFO] Sonic Stick Launcher
+[2026-01-19T11:07:00+10:00] [INFO] ============================================
+[2026-01-19T11:07:00+10:00] [INFO] ============================================
+[2026-01-19T11:07:00+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T11:07:00+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T11:07:00+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T11:07:00+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T11:07:00+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+[2026-01-19T11:07:00+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+
+Select an action:
+  1) Download payloads (ISOs, Ventoy, Pi images)
+  2) Install/Upgrade Ventoy only
+  3) Reflash stick (install Ventoy + copy ISOs + data partition)
+  4) Rebuild from scratch (wipe and rebuild)
+  5) Create data partition only
+  6) Scan library (refresh iso-catalog)
+  7) Collect support logs
+  8) Quit
+
+Choice [1-8]: [2026-01-19T11:07:03+10:00] [INFO] ============================================
+[2026-01-19T11:07:03+10:00] [INFO] ============================================
+[2026-01-19T11:07:03+10:00] [INFO] Download payloads
+[2026-01-19T11:07:03+10:00] [INFO] Download payloads
+[2026-01-19T11:07:03+10:00] [INFO] ============================================
+[2026-01-19T11:07:03+10:00] [INFO] ============================================
+Sonic Stick download starting
+Base directory: /home/wizard/Code/sonic-stick
+
+Planned downloads (9):
+  [01] /home/wizard/Code/sonic-stick/TOOLS/ventoy-1.1.10-linux.tar.gz
+       https://github.com/ventoy/Ventoy/releases/download/v1.1.10/ventoy-1.1.10-linux.tar.gz
+  [02] /home/wizard/Code/sonic-stick/ISOS/Rescue/CorePure64-15.0.iso
+       http://tinycorelinux.net/15.x/x86_64/release/CorePure64-15.0.iso
+  [03] /home/wizard/Code/sonic-stick/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso
+       https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-standard-3.19.1-x86_64.iso
+  [04] /home/wizard/Code/sonic-stick/RaspberryPi/raspios-bookworm-arm64-lite.img.xz
+       https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lite_arm64-2024-03-15/2024-03-15-raspios-bookworm-arm64-lite.img.xz
+  [05] /home/wizard/Code/sonic-stick/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz
+       https://cdimage.ubuntu.com/releases/22.04/release/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz
+  [06] /home/wizard/Code/sonic-stick/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz
+       https://dietpi.com/downloads/images/DietPi_RPi234-ARMv8-Bookworm.img.xz
+  [07] /home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso
+       https://releases.ubuntu.com/jammy/ubuntu-22.04.5-desktop-amd64.iso
+  [08] /home/wizard/Code/sonic-stick/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso
+       https://cdimage.ubuntu.com/lubuntu/releases/jammy/release/lubuntu-22.04.5-desktop-amd64.iso
+  [09] /home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso
+       https://cdimage.ubuntu.com/ubuntu-mate/releases/jammy/release/ubuntu-mate-22.04.5-desktop-amd64.iso
+
+[1/9] Downloading: ventoy-1.1.10-linux.tar.gz
+    URL: https://github.com/ventoy/Ventoy/releases/download/v1.1.10/ventoy-1.1.10-linux.tar.gz
+ 19800K .......... .......... .......... .......... .......... 99% 4.16M 0s
+ 19850K .......... .......... .......... .......... ...       100% 2.76M=16s
+
+2026-01-19 11:07:20 (1.20 MB/s) - ‘/home/wizard/Code/sonic-stick/TOOLS/ventoy-1.1.10-linux.tar.gz’ saved [20370890/20370890]
+
+    ✓ Complete
+
+[2/9] Downloading: CorePure64-15.0.iso
+    URL: http://tinycorelinux.net/15.x/x86_64/release/CorePure64-15.0.iso
+Connecting to tinycorelinux.net (tinycorelinux.net)|128.127.66.77|:80... connected.
+HTTP request sent, awaiting response... 416 Requested Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+[3/9] Downloading: alpine-standard-3.19.1-x86_64.iso
+    URL: https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-standard-3.19.1-x86_64.iso
+Connecting to dl-cdn.alpinelinux.org (dl-cdn.alpinelinux.org)|199.232.50.132|:443... connected.
+HTTP request sent, awaiting response... 416 Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+[4/9] Downloading: raspios-bookworm-arm64-lite.img.xz
+    URL: https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lite_arm64-2024-03-15/2024-03-15-raspios-bookworm-arm64-lite.img.xz
+Connecting to downloads.raspberrypi.com (downloads.raspberrypi.com)|46.235.231.111|:443... connected.
+HTTP request sent, awaiting response... 416 Requested Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+[5/9] Downloading: ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz
+    URL: https://cdimage.ubuntu.com/releases/22.04/release/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz
+Connecting to cdimage.ubuntu.com (cdimage.ubuntu.com)|185.125.190.37|:443... connected.
+HTTP request sent, awaiting response... 416 Requested Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+[6/9] Downloading: DietPi_RPi234-ARMv8-Bookworm.img.xz
+    URL: https://dietpi.com/downloads/images/DietPi_RPi234-ARMv8-Bookworm.img.xz
+Connecting to dietpi.com (dietpi.com)|104.26.9.98|:443... connected.
+HTTP request sent, awaiting response... 416 Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+[7/9] Downloading: ubuntu-22.04.5-desktop-amd64.iso
+    URL: https://releases.ubuntu.com/jammy/ubuntu-22.04.5-desktop-amd64.iso
+Connecting to releases.ubuntu.com (releases.ubuntu.com)|91.189.91.107|:443... connected.
+HTTP request sent, awaiting response... 416 Requested Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+[8/9] Downloading: lubuntu-22.04.5-desktop-amd64.iso
+    URL: https://cdimage.ubuntu.com/lubuntu/releases/jammy/release/lubuntu-22.04.5-desktop-amd64.iso
+Connecting to cdimage.ubuntu.com (cdimage.ubuntu.com)|91.189.91.124|:443... connected.
+HTTP request sent, awaiting response... 416 Requested Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+[9/9] Downloading: ubuntu-mate-22.04.5-desktop-amd64.iso
+    URL: https://cdimage.ubuntu.com/ubuntu-mate/releases/jammy/release/ubuntu-mate-22.04.5-desktop-amd64.iso
+Connecting to cdimage.ubuntu.com (cdimage.ubuntu.com)|185.125.190.37|:443... connected.
+HTTP request sent, awaiting response... 416 Requested Range Not Satisfiable
+
+    The file is already fully retrieved; nothing to do.
+
+    ✓ Complete
+
+===================================
+All downloads complete!
+===================================
+
+Next steps:
+  1. Plug in your USB stick (label it SONIC)
+  2. Run: sudo bash scripts/reflash-complete.sh
+  3. Follow prompts to install Ventoy and partition the stick
+
+Press Enter to continue...
+Select an action:
+  1) Download payloads (ISOs, Ventoy, Pi images)
+  2) Install/Upgrade Ventoy only
+  3) Reflash stick (install Ventoy + copy ISOs + data partition)
+  4) Rebuild from scratch (wipe and rebuild)
+  5) Create data partition only
+  6) Scan library (refresh iso-catalog)
+  7) Collect support logs
+  8) Quit
+
+Choice [1-8]: [2026-01-19T11:07:54+10:00] [INFO] ============================================
+[2026-01-19T11:07:54+10:00] [INFO] ============================================
+[2026-01-19T11:07:54+10:00] [INFO] Rebuild from scratch
+[2026-01-19T11:07:54+10:00] [INFO] Rebuild from scratch
+[2026-01-19T11:07:54+10:00] [INFO] ============================================
+[2026-01-19T11:07:54+10:00] [INFO] ============================================
+[2026-01-19T11:07:54+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T11:07:00+10:00.log
+[2026-01-19T11:07:54+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T11:07:00+10:00.log
+[2026-01-19T11:07:54+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T11:07:54+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T11:07:54+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T11:07:54+10:00] [INFO] Environment snapshot:
+[2026-01-19T11:07:54+10:00] [INFO] Environment snapshot:
+[2026-01-19T11:07:54+10:00] [INFO] Environment snapshot:
+[2026-01-19T11:07:54+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T11:07:54+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T11:07:54+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T11:07:54+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   38.8M squashfs ;loop10  48.1M squashfs ;loop11   500K squashfs ;loop12   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 114.6G exfat    SONIC;└─sdb2    32M vfat     VTOYEFI;sr0     1024M          ;
+[2026-01-19T11:07:54+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   38.8M squashfs ;loop10  48.1M squashfs ;loop11   500K squashfs ;loop12   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 114.6G exfat    SONIC;└─sdb2    32M vfat     VTOYEFI;sr0     1024M          ;
+[2026-01-19T11:07:54+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   38.8M squashfs ;loop10  48.1M squashfs ;loop11   500K squashfs ;loop12   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 114.6G exfat    SONIC;└─sdb2    32M vfat     VTOYEFI;sr0     1024M          ;
+[2026-01-19T11:07:54+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   19M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K   85K  167K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  112K  764M /run/user/1000;/dev/sdb1       115G   14G  102G /media/wizard/SONIC;
+[2026-01-19T11:07:54+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   19M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K   85K  167K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  112K  764M /run/user/1000;/dev/sdb1       115G   14G  102G /media/wizard/SONIC;
+[2026-01-19T11:07:54+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   19M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K   85K  167K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  112K  764M /run/user/1000;/dev/sdb1       115G   14G  102G /media/wizard/SONIC;
+[H[2J[3J[H[2J[3J[0;35m╔════════════════════════════════════════════════════════════╗[0m
+[0;35m║         SONIC STICK - COMPLETE REBUILD FROM SCRATCH       ║[0m
+[0;35m╔════════════════════════════════════════════════════════════╗[0m
+[0;35m║         SONIC STICK - COMPLETE REBUILD FROM SCRATCH       ║[0m
+[0;35m╚════════════════════════════════════════════════════════════╝[0m
+
+[1;33mThis will:[0m
+[0;35m╚════════════════════════════════════════════════════════════╝[0m
+
+[1;33mThis will:[0m
+  1. WIPE all data on /dev/sdb
+  2. Install fresh Ventoy bootloader
+  1. WIPE all data on /dev/sdb
+  2. Install fresh Ventoy bootloader
+  3. Copy all ISOs with organized structure
+  4. Install custom Ventoy menu with organized categories
+  5. Create SONIC_DATA partition for logs/tracking
+  6. Initialize library catalog system
+
+  3. Copy all ISOs with organized structure
+  4. Install custom Ventoy menu with organized categories
+  5. Create SONIC_DATA partition for logs/tracking
+  6. Initialize library catalog system
+
+[0;31m═══════════════════════════════════════════════════════════[0m
+[0;31m═══════════════════════════════════════════════════════════[0m
+[0;31mWARNING: ALL DATA ON /dev/sdb WILL BE PERMANENTLY ERASED![0m
+[0;31mWARNING: ALL DATA ON /dev/sdb WILL BE PERMANENTLY ERASED![0m
+[0;31m═══════════════════════════════════════════════════════════[0m
+
+[0;31m═══════════════════════════════════════════════════════════[0m
+
+NAME     SIZE TYPE FSTYPE LABEL   MOUNTPOINT
+sdb    114.6G disk                
+├─sdb1 114.6G part exfat  SONIC   /media/wizard/SONIC
+└─sdb2    32M part vfat   VTOYEFI 
+NAME     SIZE TYPE FSTYPE LABEL   MOUNTPOINT
+sdb    114.6G disk                
+├─sdb1 114.6G part exfat  SONIC   /media/wizard/SONIC
+└─sdb2    32M part vfat   VTOYEFI 
+
+
+Type 'REBUILD' in capitals to continue: Type 'REBUILD' in capitals to continue: 
+[0;34m[1/7] Unmounting all partitions on /dev/sdb...[0m
+
+[0;34m[1/7] Unmounting all partitions on /dev/sdb...[0m
+  Unmounting /dev/sdb1
+  Unmounting /dev/sdb1
+
+[0;34m[2/7] Wiping disk and installing fresh Ventoy...[0m
+[1;33mThis will take 30-60 seconds...[0m
+
+[0;34m[2/7] Wiping disk and installing fresh Ventoy...[0m
+[1;33mThis will take 30-60 seconds...[0m
+/home/wizard/Code/sonic-stick/scripts/rebuild-from-scratch.sh: line 87: ./Ventoy2Disk.sh: No such file or directory
+/home/wizard/Code/sonic-stick/scripts/rebuild-from-scratch.sh: line 87: ./Ventoy2Disk.sh: No such file or directory
+[0;31mVentoy installation failed[0m
+[0;31mVentoy installation failed[0m
+[2026-01-19T11:08:01+10:00] [WARN] Rebuild failed or cancelled
+[2026-01-19T11:08:01+10:00] [WARN] Rebuild failed or cancelled
+Press Enter to continue...

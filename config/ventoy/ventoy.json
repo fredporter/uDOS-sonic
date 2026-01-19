@@ -11,11 +11,13 @@
     },
     {
       "VTOY_FILT_DOT_UNDERSCORE_FILE": "1"
+    },
+    {
+      "VTOY_MENU_SORT": "1"
     }
   ],
-  
+
   "theme": {
-    "file": "/ventoy/theme/theme.txt",
     "display_mode": "GUI",
     "ventoy_left": "5%",
     "ventoy_top": "95%",
@@ -24,33 +26,24 @@
 
   "menu_alias": [
     {
-      "image": "/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso",
-      "alias": "Ubuntu 22.04.5 LTS Desktop (Installer)"
+      "image": "/ISOS/Ubuntu/*.iso",
+      "alias": "Ubuntu Installers (Desktop Versions)"
     },
     {
-      "image": "/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso",
-      "alias": "Lubuntu 22.04.5 LTS (Lightweight Installer)"
+      "image": "/ISOS/Minimal/*.iso",
+      "alias": "Minimal/Rescue ISOs (Alpine, TinyCore)"
     },
     {
-      "image": "/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso",
-      "alias": "Ubuntu MATE 22.04.5 LTS (Installer)"
-    },
-    {
-      "image": "/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso",
-      "alias": "Alpine Linux 3.19.1 (Live + Installer)"
-    },
-    {
-      "image": "/ISOS/Rescue/CorePure64-15.0.iso",
-      "alias": "TinyCore Pure64 15.0 (Recovery Tool)"
+      "image": "/RaspberryPi/*.img.xz",
+      "alias": "Raspberry Pi Images (write to SD card)"
     }
   ],
 
   "menu_tip": {
-    "/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso": "Full-featured Ubuntu desktop. Try live or install to disk. Requires 4GB RAM minimum.",
-    "/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso": "Lightweight Ubuntu with LXDE. Good for older hardware. 2GB RAM minimum.",
-    "/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso": "Traditional desktop with MATE. Balanced performance. 4GB RAM recommended.",
-    "/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso": "Minimal Linux. Boot live, then run 'setup-alpine' to install. 512MB RAM minimum.",
-    "/ISOS/Rescue/CorePure64-15.0.iso": "Ultra-minimal rescue system. Boot from RAM. Perfect for troubleshooting."
+    "/ISOS/Ubuntu": "Ubuntu desktop installers - install to system disk. Requires 4GB+ RAM.",
+    "/ISOS/Minimal": "Lightweight rescue environments - TinyCore and Alpine. 512MB-2GB RAM needed.",
+    "/RaspberryPi": "Pre-built Raspberry Pi images - use Balena Etcher or dd to write to SD card.",
+    "/ISOS/Rescue": "Emergency rescue tools and system recovery ISOs."
   },
 
   "menu_class": [
@@ -60,7 +53,7 @@
     },
     {
       "key": "lubuntu",
-      "class": "lubuntu"
+      "class": "ubuntu"
     },
     {
       "key": "mate",
@@ -71,8 +64,12 @@
       "class": "alpine"
     },
     {
-      "key": "Core",
+      "key": "tinycore",
       "class": "tinycore"
+    },
+    {
+      "key": "raspios",
+      "class": "rpi"
     }
   ]
 }

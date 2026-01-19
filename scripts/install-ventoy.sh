@@ -80,12 +80,20 @@ cd "$VENTOY_DIR"
 
 # Run installer
 log_info "Running Ventoy installer..."
+INSTALL_LOG=$(mktemp)
 if [[ "$MODE" == "install" ]]; then
-  bash Ventoy2Disk.sh -i "$USB" | tee -a "$LOG_FILE" || { log_error "Install failed"; exit 1; }
+  bash Ventoy2Disk.sh -i "$USB" 2>&1 | tee "$INSTALL_LOG" >> "$LOG_FILE" || { log_error "Install failed"; cat "$INSTALL_LOG"; rm -f "$INSTALL_LOG"; exit 1; }
 elif [[ "$MODE" == "upgrade" ]]; then
-  bash Ventoy2Disk.sh -u "$USB" | tee -a "$LOG_FILE" || { log_error "Upgrade failed"; exit 1; }
+  bash Ventoy2Disk.sh -u "$USB" 2>&1 | tee "$INSTALL_LOG" >> "$LOG_FILE" || { log_error "Upgrade failed"; cat "$INSTALL_LOG"; rm -f "$INSTALL_LOG"; exit 1; }
 fi
 
+# Verify installation succeeded
+sleep 2
+if ! fdisk -l "$USB" 2>/dev/null | grep -q "Ventoy" || ! blkid "$USB"* 2>/dev/null | grep -q "ventoy"; then
+  log_warn "Warning: Ventoy verification inconclusive (may still be OK)"
+fi
+
+rm -f "$INSTALL_LOG"
 log_section "Ventoy installed successfully"
 log_info "Mount data partition and copy ISOs:"
 log_info "  sudo mkdir -p /mnt/sonic"

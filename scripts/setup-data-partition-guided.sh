@@ -35,7 +35,7 @@ lsblk "$USB" -o NAME,SIZE,FSTYPE,LABEL
 echo ""
 echo -e "${YELLOW}What we'll do:${NC}"
 echo "1. Shrink ${USB}1 (Ventoy exFAT) to ~110GB"
-echo "2. Create ${USB}3 (SONIC_DATA ext4) with remaining space (~4GB)"
+echo "2. Create ${USB}3 (FLASH ext4) with remaining space (~4GB)"
 echo ""
 echo -e "${BLUE}This requires GParted (graphical tool)${NC}"
 echo ""
@@ -55,7 +55,7 @@ echo "   • Click Resize/Move"
 echo ""
 echo -e "${GREEN}2. Right-click unallocated space → New${NC}"
 echo "   • File system: ext4"
-echo "   • Label: SONIC_DATA"
+echo "   • Label: FLASH"
 echo "   • Click Add"
 echo ""
 echo -e "${GREEN}3. Click the green checkmark (Apply All Operations)${NC}"
@@ -82,7 +82,7 @@ if [[ "$launch" == "y" ]]; then
     if [ -b "${USB}3" ]; then
         echo -e "${GREEN}✓ ${USB}3 found!${NC}"
         echo ""
-        echo "Initializing SONIC_DATA..."
+        echo "Initializing FLASH..."
         
         sudo mkdir -p /mnt/sonic-data
         sudo mount "${USB}3" /mnt/sonic-data
@@ -119,14 +119,14 @@ This partition stores:
   • devices/    - Hardware detection logs
   • config/     - Sonic Stick configuration
 
-Label: SONIC_DATA
+Label: FLASH
 Filesystem: ext4
 Created: $(date)
 EOF
         
         sudo chmod -R 755 /mnt/sonic-data
         
-        echo -e "${GREEN}✓ SONIC_DATA initialized${NC}"
+        echo -e "${GREEN}✓ FLASH initialized${NC}"
         echo ""
         echo "Contents:"
         ls -la /mnt/sonic-data/

@@ -1,0 +1,24 @@
+[2026-01-19T12:17:14+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/create-data-partition-2026-01-19T12:17:14+10:00.log
+[2026-01-19T12:17:14+10:00] [INFO] Starting data partition creation
+[2026-01-19T12:17:14+10:00] [INFO] Starting data partition creation
+[1;33m═══════════════════════════════════════[0m
+[1;33mCurrent partitions on /dev/sdb:[0m
+[1;33m═══════════════════════════════════════[0m
+NAME     SIZE FSTYPE LABEL   MOUNTPOINT
+sdb    114.6G                
+├─sdb1 111.8G exfat  SONIC   
+└─sdb2    32M vfat   VTOYEFI 
+
+[0;31mWARNING: This will create a new partition on /dev/sdb[0m
+[1;33mExisting data partitions will NOT be affected[0m
+
+[0;34mUnmounting partitions...[0m
+[0;34mLast partition: 2[0m
+[0;34mCreating partition 3 at /dev/sdb3...[0m
+  Last partition ends at: 123048MB
+[0;34mCreating 2048MB ext4 partition...[0m
+Error: The location 125096MB is outside of the device /dev/sdb.
+[1;33mTrying with remaining space...[0m
+Error: Can't have overlapping partitions.
+[2026-01-19T12:17:15+10:00] [ERROR] Command failed (exit 1) at line 104: parted -s "$DEVICE" mkpart primary ext4 ${START_NEW}MB 100%
+[2026-01-19T12:17:15+10:00] [ERROR] Command failed (exit 1) at line 104: parted -s "$DEVICE" mkpart primary ext4 ${START_NEW}MB 100%

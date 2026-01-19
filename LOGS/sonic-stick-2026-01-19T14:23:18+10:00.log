@@ -1,0 +1,331 @@
+[2026-01-19T14:23:18+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T14:23:18+10:00.log
+[2026-01-19T14:23:18+10:00] [INFO] ============================================
+[2026-01-19T14:23:18+10:00] [INFO] ============================================
+[2026-01-19T14:23:18+10:00] [INFO] Sonic Stick Launcher
+[2026-01-19T14:23:18+10:00] [INFO] Sonic Stick Launcher
+[2026-01-19T14:23:18+10:00] [INFO] ============================================
+[2026-01-19T14:23:18+10:00] [INFO] ============================================
+[2026-01-19T14:23:18+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T14:23:18+10:00] [INFO] Target USB device: /dev/sdb (override with USB=/dev/sdX)
+[2026-01-19T14:23:18+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T14:23:18+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T14:23:18+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+[2026-01-19T14:23:18+10:00] [INFO] Repo: /home/wizard/Code/sonic-stick
+
+Select an action:
+  1) Download payloads (ISOs, Ventoy, Pi images)
+  2) Install/Upgrade Ventoy only
+  3) Reflash stick (install Ventoy + copy ISOs + data partition)
+  4) Rebuild from scratch (wipe and rebuild)
+  5) Create data partition only
+  6) Scan library (refresh iso-catalog)
+  7) Fix 'not a standard ventoy' error
+  8) Collect support logs
+  9) Quit
+
+Choice [1-9]: [2026-01-19T14:23:22+10:00] [INFO] ============================================
+[2026-01-19T14:23:22+10:00] [INFO] ============================================
+[2026-01-19T14:23:22+10:00] [INFO] Rebuild from scratch
+[2026-01-19T14:23:22+10:00] [INFO] Rebuild from scratch
+[2026-01-19T14:23:22+10:00] [INFO] ============================================
+[2026-01-19T14:23:22+10:00] [INFO] ============================================
+[2026-01-19T14:23:22+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T14:23:18+10:00.log
+[2026-01-19T14:23:22+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/sonic-stick-2026-01-19T14:23:18+10:00.log
+[2026-01-19T14:23:22+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T14:23:22+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T14:23:22+10:00] [INFO] Starting complete rebuild on /dev/sdb
+[2026-01-19T14:23:22+10:00] [INFO] Environment snapshot:
+[2026-01-19T14:23:22+10:00] [INFO] Environment snapshot:
+[2026-01-19T14:23:22+10:00] [INFO] Environment snapshot:
+[2026-01-19T14:23:22+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T14:23:22+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T14:23:22+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T14:23:22+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   12.2M squashfs ;loop10  38.8M squashfs ;loop11  48.1M squashfs ;loop12   500K squashfs ;loop13   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 111.8G exfat    SONIC;├─sdb2    32M vfat     VTOYEFI;└─sdb3   2.3G ext4     SONIC_DATA;sr0     1024M          ;
+[2026-01-19T14:23:22+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   12.2M squashfs ;loop10  38.8M squashfs ;loop11  48.1M squashfs ;loop12   500K squashfs ;loop13   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 111.8G exfat    SONIC;├─sdb2    32M vfat     VTOYEFI;└─sdb3   2.3G ext4     SONIC_DATA;sr0     1024M          ;
+[2026-01-19T14:23:22+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   12.2M squashfs ;loop10  38.8M squashfs ;loop11  48.1M squashfs ;loop12   500K squashfs ;loop13   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 111.8G exfat    SONIC;├─sdb2    32M vfat     VTOYEFI;└─sdb3   2.3G ext4     SONIC_DATA;sr0     1024M          ;
+[2026-01-19T14:23:22+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   17M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K  172K   80K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  104K  764M /run/user/1000;/dev/sdb3       2.3G   60K  2.1G /media/wizard/SONIC_DATA;/dev/sdb1       112G   14G   99G /media/wizard/SONIC;
+[2026-01-19T14:23:22+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   17M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K  172K   80K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  104K  764M /run/user/1000;/dev/sdb3       2.3G   60K  2.1G /media/wizard/SONIC_DATA;/dev/sdb1       112G   14G   99G /media/wizard/SONIC;
+[2026-01-19T14:23:22+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   17M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K  172K   80K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  104K  764M /run/user/1000;/dev/sdb3       2.3G   60K  2.1G /media/wizard/SONIC_DATA;/dev/sdb1       112G   14G   99G /media/wizard/SONIC;
+[H[2J[3J[H[2J[3J[0;35m╔════════════════════════════════════════════════════════════╗[0m
+[0;35m║         SONIC STICK - COMPLETE REBUILD FROM SCRATCH       ║[0m
+[0;35m╔════════════════════════════════════════════════════════════╗[0m
+[0;35m║         SONIC STICK - COMPLETE REBUILD FROM SCRATCH       ║[0m
+[0;35m╚════════════════════════════════════════════════════════════╝[0m
+
+[1;33mThis will:[0m
+  1. WIPE all data on /dev/sdb
+  2. Install fresh Ventoy bootloader
+  3. Copy all ISOs with organized structure
+  4. Install custom Ventoy menu with organized categories
+  5. Create FLASH partition for logs/tracking
+  6. Initialize library catalog system
+
+[0;31m═══════════════════════════════════════════════════════════[0m
+[0;31mWARNING: ALL DATA ON /dev/sdb WILL BE PERMANENTLY ERASED![0m
+[0;31m═══════════════════════════════════════════════════════════[0m
+
+[0;35m╚════════════════════════════════════════════════════════════╝[0m
+
+[1;33mThis will:[0m
+  1. WIPE all data on /dev/sdb
+  2. Install fresh Ventoy bootloader
+  3. Copy all ISOs with organized structure
+  4. Install custom Ventoy menu with organized categories
+  5. Create FLASH partition for logs/tracking
+  6. Initialize library catalog system
+
+[0;31m═══════════════════════════════════════════════════════════[0m
+[0;31mWARNING: ALL DATA ON /dev/sdb WILL BE PERMANENTLY ERASED![0m
+[0;31m═══════════════════════════════════════════════════════════[0m
+
+NAME     SIZE TYPE FSTYPE LABEL      MOUNTPOINT
+sdb    114.6G disk                   
+├─sdb1 111.8G part exfat  SONIC      /media/wizard/SONIC
+├─sdb2    32M part vfat   VTOYEFI    
+└─sdb3   2.3G part ext4   SONIC_DATA /media/wizard/SONIC_DATA
+NAME     SIZE TYPE FSTYPE LABEL      MOUNTPOINT
+sdb    114.6G disk                   
+├─sdb1 111.8G part exfat  SONIC      /media/wizard/SONIC
+├─sdb2    32M part vfat   VTOYEFI    
+└─sdb3   2.3G part ext4   SONIC_DATA /media/wizard/SONIC_DATA
+
+
+Type 'REBUILD' in capitals to continue: Type 'REBUILD' in capitals to continue: 
+[0;34m[1/7] Unmounting all partitions on /dev/sdb...[0m
+
+[0;34m[1/7] Unmounting all partitions on /dev/sdb...[0m
+  Unmounting /dev/sdb1
+  Unmounting /dev/sdb1
+  Unmounting /dev/sdb3
+  Unmounting /dev/sdb3
+
+[0;34m[2/7] Wiping disk and installing fresh Ventoy...[0m
+
+[0;34m[2/7] Wiping disk and installing fresh Ventoy...[0m
+[1;33mThis will take 30-60 seconds...[0m
+[1;33mThis will take 30-60 seconds...[0m
+
+**********************************************
+      Ventoy: 1.1.10  x86_64
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+**********************************************
+
+
+**********************************************
+      Ventoy: 1.1.10  x86_64
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+**********************************************
+
+Disk : /dev/sdb
+Disk : /dev/sdb
+Model:  USB  SanDisk 3.2Gen1 (scsi)
+Model:  USB  SanDisk 3.2Gen1 (scsi)
+Size : 114 GiB
+Size : 114 GiB
+Style: GPT
+
+
+[33mAttention:[0m
+[33mYou will install Ventoy to /dev/sdb.[0m
+[33mAll the data on the disk /dev/sdb will be lost!!![0m
+
+Style: GPT
+
+
+[33mAttention:[0m
+[33mYou will install Ventoy to /dev/sdb.[0m
+[33mAll the data on the disk /dev/sdb will be lost!!![0m
+
+Waiting for partitions to settle...
+Waiting for partitions to settle...
+
+
+[0;34m[3/7] Mounting Ventoy partition and copying ISOs...[0m
+[0;34m[3/7] Mounting Ventoy partition and copying ISOs...[0m
+[0;32m✓ Mounted /dev/sdb1[0m
+[0;32m✓ Mounted /dev/sdb1[0m
+
+Copying Ubuntu ISOs...
+
+Copying Ubuntu ISOs...
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/lubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-22.04.5-desktop-amd64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso' -> '/mnt/sonic/ISOS/Ubuntu/ubuntu-mate-22.04.5-desktop-amd64.iso'
+[0;32m  ✓ Ubuntu ISOs copied[0m
+[0;32m  ✓ Ubuntu ISOs copied[0m
+Copying Minimal ISOs...
+Copying Minimal ISOs...
+'/home/wizard/Code/sonic-stick/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso' -> '/mnt/sonic/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso' -> '/mnt/sonic/ISOS/Minimal/alpine-standard-3.19.1-x86_64.iso'
+[0;32m  ✓ Minimal ISOs copied[0m
+[0;32m  ✓ Minimal ISOs copied[0m
+Copying Rescue ISOs...
+Copying Rescue ISOs...
+'/home/wizard/Code/sonic-stick/ISOS/Rescue/CorePure64-15.0.iso' -> '/mnt/sonic/ISOS/Rescue/CorePure64-15.0.iso'
+'/home/wizard/Code/sonic-stick/ISOS/Rescue/CorePure64-15.0.iso' -> '/mnt/sonic/ISOS/Rescue/CorePure64-15.0.iso'
+[0;32m  ✓ Rescue ISOs copied[0m
+[0;32m  ✓ Rescue ISOs copied[0m
+Copying Raspberry Pi images...
+Copying Raspberry Pi images...
+'/home/wizard/Code/sonic-stick/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz' -> '/mnt/sonic/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/raspios-bookworm-arm64-lite.img.xz' -> '/mnt/sonic/RaspberryPi/raspios-bookworm-arm64-lite.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz' -> '/mnt/sonic/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz' -> '/mnt/sonic/RaspberryPi/DietPi_RPi234-ARMv8-Bookworm.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/raspios-bookworm-arm64-lite.img.xz' -> '/mnt/sonic/RaspberryPi/raspios-bookworm-arm64-lite.img.xz'
+'/home/wizard/Code/sonic-stick/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz' -> '/mnt/sonic/RaspberryPi/ubuntu-22.04.5-preinstalled-server-arm64+raspi.img.xz'
+[0;32m  ✓ RPi images copied[0m
+[0;32m  ✓ RPi images copied[0m
+
+[0;34m[4/7] Installing custom Ventoy menu configuration...[0m
+
+[0;34m[4/7] Installing custom Ventoy menu configuration...[0m
+'/home/wizard/Code/sonic-stick/config/ventoy/ventoy.json' -> '/mnt/sonic/ventoy/ventoy.json'
+'/home/wizard/Code/sonic-stick/config/ventoy/ventoy.json' -> '/mnt/sonic/ventoy/ventoy.json'
+[0;32m  ✓ Custom menu installed[0m
+
+[0;32m  ✓ Custom menu installed[0m
+
+  Menu includes:
+    • Ubuntu 22.04.5 LTS Desktop
+    • Lubuntu 22.04.5 LTS (Lightweight)
+    • Ubuntu MATE 22.04.5 LTS
+  Menu includes:
+    • Ubuntu 22.04.5 LTS Desktop
+    • Alpine Linux 3.19.1 (Minimal)
+    • Lubuntu 22.04.5 LTS (Lightweight)
+    • Ubuntu MATE 22.04.5 LTS
+    • Alpine Linux 3.19.1 (Minimal)
+    • TinyCore Pure64 15.0 (Rescue)
+    • TinyCore Pure64 15.0 (Rescue)
+
+Verifying ISOs on stick:
+
+Verifying ISOs on stick:
+[0;32m  Found: 5 ISOs[0m
+[0;32m  Found: 5 ISOs[0m
+alpine-standard-3.19.1-x86_64.iso
+CorePure64-15.0.iso
+lubuntu-22.04.5-desktop-amd64.iso
+ubuntu-22.04.5-desktop-amd64.iso
+ubuntu-mate-22.04.5-desktop-amd64.iso
+alpine-standard-3.19.1-x86_64.iso
+CorePure64-15.0.iso
+lubuntu-22.04.5-desktop-amd64.iso
+ubuntu-22.04.5-desktop-amd64.iso
+ubuntu-mate-22.04.5-desktop-amd64.iso
+[0;32m✓ ISOs and config installed[0m
+
+[0;34m[5/7] Creating FLASH partition...[0m
+[1;33mShrinking Ventoy partition to make room for data partition[0m
+[0;32m✓ ISOs and config installed[0m
+
+[0;34m[5/7] Creating FLASH partition...[0m
+[1;33mShrinking Ventoy partition to make room for data partition[0m
+  Current size: 119999MB
+  New size: 115903MB
+  Data partition: ~4GB
+  Resizing partition 1...
+  Current size: 119999MB
+  New size: 115903MB
+  Data partition: ~4GB
+  Resizing partition 1...
+Warning: Shrinking a partition can cause data loss, are you sure you want to continue?
+Warning: Shrinking a partition can cause data loss, are you sure you want to continue?
+[1;33m  ⚠ Resize failed, continuing without data partition[0m
+[1;33m  ⚠ Resize failed, continuing without data partition[0m
+
+[0;34m[7/7] Final verification...[0m
+
+[0;34m[7/7] Final verification...[0m
+
+
+[0;32m╔════════════════════════════════════════════════════════════╗[0m
+[0;32m╔════════════════════════════════════════════════════════════╗[0m
+[0;32m║              REBUILD COMPLETE - READY TO BOOT!             ║[0m
+[0;32m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;34mFinal USB stick layout:[0m
+[0;32m║              REBUILD COMPLETE - READY TO BOOT!             ║[0m
+[0;32m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;34mFinal USB stick layout:[0m
+NAME     SIZE FSTYPE LABEL      MOUNTPOINT
+sdb    114.6G                   
+├─sdb1 111.8G exfat  SONIC      
+├─sdb2    32M vfat   VTOYEFI    
+└─sdb3   2.3G ext4   SONIC_DATA 
+NAME     SIZE FSTYPE LABEL      MOUNTPOINT
+sdb    114.6G                   
+├─sdb1 111.8G exfat  SONIC      
+├─sdb2    32M vfat   VTOYEFI    
+└─sdb3   2.3G ext4   SONIC_DATA 
+
+[0;32m✓ 5 ISOs ready to boot[0m
+[0;32m✓ Custom Ventoy menu installed[0m
+
+[0;32m✓ 5 ISOs ready to boot[0m
+[0;32m✓ Custom Ventoy menu installed[0m
+[0;32m✓ Data partition ready[0m
+
+[0;32m✓ Data partition ready[0m
+
+[1;33m═══════════════════════════════════════════════════════════[0m
+[1;33m                     NEXT STEPS:[0m
+[1;33m═══════════════════════════════════════════════════════════[0m
+[1;33m═══════════════════════════════════════════════════════════[0m
+[1;33m                     NEXT STEPS:[0m
+[1;33m═══════════════════════════════════════════════════════════[0m
+
+1. REBOOT your computer
+2. Press F12 or ESC during boot
+3. Select 'USB' or 'UEFI: SONIC' from boot menu
+4. You should see the custom Ventoy menu with:
+
+
+1. REBOOT your computer
+2. Press F12 or ESC during boot
+3. Select 'USB' or 'UEFI: SONIC' from boot menu
+4. You should see the custom Ventoy menu with:
+
+   • Ubuntu 22.04.5 LTS Desktop (Installer)
+   • Lubuntu 22.04.5 LTS (Lightweight Installer)
+   • Ubuntu MATE 22.04.5 LTS (Installer)
+   • Alpine Linux 3.19.1 (Live + Installer)
+   • TinyCore Pure64 15.0 (Recovery Tool)
+
+   • Ubuntu 22.04.5 LTS Desktop (Installer)
+   • Lubuntu 22.04.5 LTS (Lightweight Installer)
+   • Ubuntu MATE 22.04.5 LTS (Installer)
+   • Alpine Linux 3.19.1 (Live + Installer)
+   • TinyCore Pure64 15.0 (Recovery Tool)
+
+[0;34mNavigation:[0m
+   • Use arrow keys to select
+   • Press Enter to boot
+   • ESC to go back/exit
+[0;34mNavigation:[0m
+   • Use arrow keys to select
+   • Press Enter to boot
+   • ESC to go back/exit
+
+
+[0;34mModes:[0m
+   • 'Installer' = Will install to your system disk
+   • 'Live' = Runs from USB without installing
+   • 'Recovery' = Emergency tools
+[0;34mModes:[0m
+   • 'Installer' = Will install to your system disk
+   • 'Live' = Runs from USB without installing
+
+   • 'Recovery' = Emergency tools
+
+[0;32mEnjoy your Sonic Stick! 🚀[0m
+
+[0;32mEnjoy your Sonic Stick! 🚀[0m
+
+Press Enter to continue...

@@ -1,0 +1,69 @@
+[2026-01-19T11:34:20+10:00] [INFO] Logging to /home/wizard/Code/sonic-stick/LOGS/install-ventoy-2026-01-19T11:34:20+10:00.log
+[2026-01-19T11:34:20+10:00] [INFO] Environment snapshot:
+[2026-01-19T11:34:20+10:00] [INFO] Environment snapshot:
+[2026-01-19T11:34:20+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T11:34:20+10:00] [INFO] uname: Linux wizard-dell-server 6.8.0-90-generic #91~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov 20 15:20:45 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+[2026-01-19T11:34:20+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   38.8M squashfs ;loop10  48.1M squashfs ;loop11   500K squashfs ;loop12   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 114.6G exfat    SONIC;└─sdb2    32M vfat     VTOYEFI;sr0     1024M          ;
+[2026-01-19T11:34:20+10:00] [INFO] lsblk: NAME     SIZE FSTYPE   LABEL;loop0      4K squashfs ;loop1   74.3M squashfs ;loop2   73.9M squashfs ;loop3  271.2M squashfs ;loop4  251.6M squashfs ;loop5  505.1M squashfs ;loop6  531.4M squashfs ;loop7   91.7M squashfs ;loop8   12.9M squashfs ;loop9   38.8M squashfs ;loop10  48.1M squashfs ;loop11   500K squashfs ;loop12   576K squashfs ;sda    238.5G          ;├─sda1   512M vfat     ;└─sda2   238G ext4     ;sdb    114.6G          ;├─sdb1 114.6G exfat    SONIC;└─sdb2    32M vfat     VTOYEFI;sr0     1024M          ;
+[2026-01-19T11:34:20+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   15M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K   85K  167K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  112K  764M /run/user/1000;
+[2026-01-19T11:34:20+10:00] [INFO] df: Filesystem      Size  Used Avail Mounted on;tmpfs           764M  2.1M  762M /run;/dev/sda2       234G   33G  189G /;tmpfs           3.8G   15M  3.8G /dev/shm;tmpfs           5.0M  4.0K  5.0M /run/lock;efivarfs        256K   85K  167K /sys/firmware/efi/efivars;/dev/sda1       511M  6.1M  505M /boot/efi;tmpfs           764M  112K  764M /run/user/1000;
+[2026-01-19T11:34:20+10:00] [INFO] ============================================
+[2026-01-19T11:34:20+10:00] [INFO] ============================================
+[2026-01-19T11:34:20+10:00] [INFO] Ventoy Installer - install mode
+[2026-01-19T11:34:20+10:00] [INFO] Ventoy Installer - install mode
+[2026-01-19T11:34:20+10:00] [INFO] ============================================
+[2026-01-19T11:34:20+10:00] [INFO] ============================================
+[2026-01-19T11:34:20+10:00] [INFO] Target USB: /dev/sdb
+[2026-01-19T11:34:20+10:00] [INFO] Target USB: /dev/sdb
+[2026-01-19T11:34:20+10:00] [INFO] Ventoy version: 1.1.10
+[2026-01-19T11:34:20+10:00] [INFO] Ventoy version: 1.1.10
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sdb      8:16   1 114.6G  0 disk 
+├─sdb1   8:17   1 114.6G  0 part 
+└─sdb2   8:18   1    32M  0 part 
+Type 'ERASE' to proceed with install: [2026-01-19T11:34:22+10:00] [INFO] Unmounting partitions...
+[2026-01-19T11:34:22+10:00] [INFO] Unmounting partitions...
+[2026-01-19T11:34:22+10:00] [INFO] Running Ventoy installer...
+[2026-01-19T11:34:22+10:00] [INFO] Running Ventoy installer...
+
+**********************************************
+      Ventoy: 1.1.10  x86_64
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+**********************************************
+
+
+**********************************************
+      Ventoy: 1.1.10  x86_64
+      longpanda admin@ventoy.net
+      https://www.ventoy.net
+**********************************************
+
+[33m/dev/sdb already contains a Ventoy with version 1.0.98[0m
+[33m/dev/sdb already contains a Ventoy with version 1.0.98[0m
+[33mUse -u option to do a safe upgrade operation.[0m
+[33mOR if you really want to reinstall Ventoy to /dev/sdb, please use -I option.[0m
+[33mUse -u option to do a safe upgrade operation.[0m
+[33mOR if you really want to reinstall Ventoy to /dev/sdb, please use -I option.[0m
+[33m[0m
+[33m[0m
+[2026-01-19T11:34:22+10:00] [INFO] ============================================
+[2026-01-19T11:34:22+10:00] [INFO] ============================================
+[2026-01-19T11:34:22+10:00] [INFO] Ventoy installed successfully
+[2026-01-19T11:34:22+10:00] [INFO] Ventoy installed successfully
+[2026-01-19T11:34:22+10:00] [INFO] ============================================
+[2026-01-19T11:34:22+10:00] [INFO] ============================================
+[2026-01-19T11:34:22+10:00] [INFO] Mount data partition and copy ISOs:
+[2026-01-19T11:34:22+10:00] [INFO] Mount data partition and copy ISOs:
+[2026-01-19T11:34:22+10:00] [INFO]   sudo mkdir -p /mnt/sonic
+[2026-01-19T11:34:22+10:00] [INFO]   sudo mkdir -p /mnt/sonic
+[2026-01-19T11:34:22+10:00] [INFO]   sudo mount /dev/sdb2 /mnt/sonic
+[2026-01-19T11:34:22+10:00] [INFO]   sudo mount /dev/sdb2 /mnt/sonic
+[2026-01-19T11:34:22+10:00] [INFO]   sudo cp -r ../ISOS/* /mnt/sonic/ISOS/
+[2026-01-19T11:34:22+10:00] [INFO]   sudo cp -r ../ISOS/* /mnt/sonic/ISOS/
+[2026-01-19T11:34:22+10:00] [INFO]   sudo cp -r ../RaspberryPi/* /mnt/sonic/RaspberryPi/
+[2026-01-19T11:34:22+10:00] [INFO]   sudo cp -r ../RaspberryPi/* /mnt/sonic/RaspberryPi/
+[2026-01-19T11:34:22+10:00] [INFO]   sudo umount /mnt/sonic
+[2026-01-19T11:34:22+10:00] [INFO]   sudo umount /mnt/sonic
+[2026-01-19T11:34:22+10:00] [OK] install-ventoy finished
+[2026-01-19T11:34:22+10:00] [OK] install-ventoy finished

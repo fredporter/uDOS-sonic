@@ -111,7 +111,7 @@ sleep 2
 
 # Format partition
 echo -e "${BLUE}Formatting ${NEW_PART_PATH} as ext4...${NC}"
-mkfs.ext4 -L "SONIC_DATA" "$NEW_PART_PATH"
+mkfs.ext4 -L "FLASH" "$NEW_PART_PATH"
 
 # Create mount point and mount
 MOUNT_POINT="/mnt/sonic-data"
@@ -166,7 +166,7 @@ This partition is automatically mounted when you boot any ISO
 from the Sonic Stick and can be used to persist data across
 live sessions.
 
-Label: SONIC_DATA
+Label: FLASH
 Filesystem: ext4
 Created: $(date)
 EOF
@@ -177,7 +177,7 @@ echo -e "${GREEN}✓ Data partition created successfully!${NC}"
 echo -e "${GREEN}═══════════════════════════════════════${NC}"
 echo ""
 echo "Partition: $NEW_PART_PATH"
-echo "Label: SONIC_DATA"
+echo "Label: FLASH"
 echo "Mounted at: $MOUNT_POINT"
 echo ""
 echo "Directory structure:"

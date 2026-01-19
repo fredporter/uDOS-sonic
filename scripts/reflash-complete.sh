@@ -83,8 +83,20 @@ if sudo mount "${USB}1" /mnt/sonic; then
   # Copy custom Ventoy configuration
   if [[ -f "$BASE_DIR/config/ventoy/ventoy.json" ]]; then
     echo -e "${GREEN}Installing custom Ventoy menu...${NC}"
-    sudo mkdir -p /mnt/sonic/ventoy
-    sudo cp -v "$BASE_DIR/config/ventoy/ventoy.json" /mnt/sonic/ventoy/
+    mkdir -p /mnt/sonic/ventoy
+    
+    # Validate JSON syntax before copying
+    if python3 -m json.tool "$BASE_DIR/config/ventoy/ventoy.json" >/dev/null 2>&1; then
+      cp -v "$BASE_DIR/config/ventoy/ventoy.json" /mnt/sonic/ventoy/
+      echo -e "${GREEN}✓ ventoy.json is valid${NC}"
+    else
+      echo -e "${YELLOW}⚠ ventoy.json has syntax errors, using example instead${NC}"
+      cp -v "$BASE_DIR/config/ventoy/ventoy.json.example" /mnt/sonic/ventoy/ventoy.json
+    fi
+  else
+    echo -e "${YELLOW}ventoy.json not found, using example${NC}"
+    mkdir -p /mnt/sonic/ventoy
+    cp -v "$BASE_DIR/config/ventoy/ventoy.json.example" /mnt/sonic/ventoy/ventoy.json
   fi
   
   sudo umount /mnt/sonic
@@ -97,7 +109,7 @@ fi
 
 # Step 3: Create data partition
 echo ""
-echo -e "${BLUE}[Step 3/5] Creating SONIC_DATA partition...${NC}"
+echo -e "${BLUE}[Step 3/5] Creating FLASH partition...${NC}"
 echo "This partition will store logs, session data, and library tracking"
 sleep 1
 
@@ -124,11 +136,27 @@ fi
 
 # Step 5: Boot test
 echo ""
-echo -e "${BLUE}[Step 5/5] Ready for boot test${NC}"
+echo -e "${BLUE}[Step 5/5] Verifying USB configuration...${NC}"
 
-# Step 5: Boot test
+mkdir -p /mnt/sonic-verify
+if mount "${USB}1" /mnt/sonic-verify 2>/dev/null; then
+  echo "Checking ventoy.json..."
+  if [[ -f /mnt/sonic-verify/ventoy/ventoy.json ]]; then
+    if python3 -m json.tool /mnt/sonic-verify/ventoy/ventoy.json >/dev/null 2>&1; then
+      echo -e "${GREEN}✓ ventoy.json is valid${NC}"
+    else
+      echo -e "${RED}✗ ventoy.json has syntax errors!${NC}"
+      echo "  Run: sudo bash scripts/fix-ventoy-stick.sh"
+    fi
+  else
+    echo -e "${YELLOW}⚠ ventoy.json not found on USB${NC}"
+  fi
+  umount /mnt/sonic-verify 2>/dev/null || true
+fi
+
+# Step 6: Boot test (was step 5)
 echo ""
-echo -e "${BLUE}[Step 5/5] Ready for boot test${NC}"
+echo -e "${BLUE}[Step 6/6] Ready for boot test${NC}"
 read -p "Reboot to test Ventoy menu? (y/n): " boottest
 if [[ "$boottest" == "y" ]]; then
   echo ""
@@ -161,7 +189,7 @@ echo ""
 echo -e "${BLUE}What you can do now:${NC}"
 echo "  1. Boot from USB - Custom menu with all ISOs"
 echo "  2. View library - bash scripts/scan-library.sh"
-echo "  3. Check logs - mount SONIC_DATA partition"
+echo "  3. Check logs - mount FLASH partition"
 echo ""
 echo -e "${YELLOW}Troubleshooting:${NC}"
 echo "  • No menu items? - Remount USB and check /mnt/sonic/ISOS/"

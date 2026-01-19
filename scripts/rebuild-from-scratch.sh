@@ -44,7 +44,7 @@ echo "  1. WIPE all data on $USB"
 echo "  2. Install fresh Ventoy bootloader"
 echo "  3. Copy all ISOs with organized structure"
 echo "  4. Install custom Ventoy menu with organized categories"
-echo "  5. Create SONIC_DATA partition for logs/tracking"
+echo "  5. Create FLASH partition for logs/tracking"
 echo "  6. Initialize library catalog system"
 echo ""
 echo -e "${RED}═══════════════════════════════════════════════════════════${NC}"
@@ -191,7 +191,7 @@ echo -e "${GREEN}✓ ISOs and config installed${NC}"
 
 # Step 5: Shrink partition 1 and create data partition
 echo ""
-echo -e "${BLUE}[5/7] Creating SONIC_DATA partition...${NC}"
+echo -e "${BLUE}[5/7] Creating FLASH partition...${NC}"
 echo -e "${YELLOW}Shrinking Ventoy partition to make room for data partition${NC}"
 
 # Get current size of partition 1
@@ -223,11 +223,11 @@ if [ "$NEW_SIZE" -gt 0 ]; then
     # Format partition 3
     if [ -b "${USB}3" ]; then
         echo "  Formatting ${USB}3 as ext4..."
-        mkfs.ext4 -F -L "SONIC_DATA" "${USB}3"
+        mkfs.ext4 -F -L "FLASH" "${USB}3"
         
         # Step 6: Initialize data partition
         echo ""
-        echo -e "${BLUE}[6/7] Initializing SONIC_DATA partition...${NC}"
+        echo -e "${BLUE}[6/7] Initializing FLASH partition...${NC}"
         mkdir -p /mnt/sonic-data
         mount "${USB}3" /mnt/sonic-data
         
@@ -267,7 +267,7 @@ This partition stores persistent data across boots:
   • devices/    - Hardware detection logs
   • config/     - Sonic Stick configuration
 
-Label: SONIC_DATA
+Label: FLASH
 Filesystem: ext4
 Created: $(date)
 ISO Count: $ISO_COUNT

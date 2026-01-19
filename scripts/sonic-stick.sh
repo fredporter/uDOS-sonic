@@ -33,10 +33,11 @@ menu() {
   echo "  4) Rebuild from scratch (wipe and rebuild)"
   echo "  5) Create data partition only"
   echo "  6) Scan library (refresh iso-catalog)"
-  echo "  7) Collect support logs"
-  echo "  8) Quit"
+  echo "  7) Fix 'not a standard ventoy' error"
+  echo "  8) Collect support logs"
+  echo "  9) Quit"
   echo ""
-  read -rp "Choice [1-8]: " choice
+  read -rp "Choice [1-9]: " choice
   case "$choice" in
     1)
       log_section "Download payloads"
@@ -66,10 +67,14 @@ menu() {
       bash "$SCRIPT_DIR/scan-library.sh" "$DATA_MNT" "$VTOY_MNT" || log_warn "Scan failed (partition not mounted?)"
       ;;
     7)
+      log_section "Fix Ventoy error"
+      USB="$USB" bash "$SCRIPT_DIR/fix-ventoy-stick.sh" || log_warn "Fix failed"
+      ;;
+    8)
       log_section "Collect support logs"
       USB="$USB" bash "$SCRIPT_DIR/collect-logs.sh" "$USB" || log_warn "Log collection failed"
       ;;
-    8)
+    9)
       log_ok "Done"
       exit 0
       ;;
