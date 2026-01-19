@@ -29,8 +29,20 @@ NC='\033[0m'
 NEED_EXFAT=0
 if ! command -v exfatresize &>/dev/null; then
     NEED_EXFAT=1
-    log_warn "exfatresize (exfatprogs) not found; FLASH partition creation will be skipped"
-    log_info "Install with: sudo apt install exfatprogs"
+    log_warn "exfatresize (exfatprogs) is required to create FLASH partition"
+    read -rp "Install exfatprogs now? [Y/n]: " exfat_ans
+    if [[ ! "$exfat_ans" =~ ^[Nn]$ ]]; then
+        log_info "Installing exfatprogs..."
+        apt-get update -y && apt-get install -y exfatprogs || {
+            log_error "Failed to install exfatprogs; please install manually and rerun"
+            exit 1
+        }
+        NEED_EXFAT=0
+    else
+        log_error "exfatprogs missing; cannot proceed with full rebuild (FLASH needed)"
+        log_info "Install with: sudo apt install exfatprogs"
+        exit 1
+    fi
 fi
 FLASH_DONE=0
 
@@ -353,7 +365,8 @@ echo -e "${GREEN}✓ Custom Ventoy menu installed${NC}"
 if [ "$FLASH_DONE" -eq 1 ]; then
     echo -e "${GREEN}✓ FLASH data partition ready${NC}"
 else
-    echo -e "${YELLOW}⚠ FLASH data partition not created (install exfatprogs and rerun)${NC}"
+    echo -e "${RED}✗ FLASH data partition missing (this build is incomplete)${NC}"
+    exit 1
 fi
 echo ""
 echo -e "${YELLOW}═══════════════════════════════════════════════════════════${NC}"
