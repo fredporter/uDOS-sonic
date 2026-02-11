@@ -50,7 +50,7 @@ sonic/
 
 - docs/specs/sonic-screwdriver-v1.0.1.md
 - docs/specs/sonic-screwdriver-v1.1.0.md
-- docs/roadmap.md
+- ../docs/ROADMAP.md
 - docs/howto/build-usb.md
 - docs/howto/dry-run.md
 - docs/devlog/2026-01-24-sonic-v1.0.1.md
