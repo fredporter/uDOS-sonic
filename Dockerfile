@@ -1,8 +1,8 @@
 # Sonic Screwdriver - ISO/USB builder container
 # Build: docker build -t udos-sonic ./sonic
-# Run:   docker run -v ./sonic/datasets:/datasets -v ./output:/output udos-sonic
+# Run:   docker run --rm udos-sonic --help
 
-FROM alpine:3.19 AS builder
+FROM alpine:3.19
 
 RUN apk add --no-cache \
     python3 py3-pip \
@@ -15,11 +15,10 @@ RUN apk add --no-cache \
     parted
 
 WORKDIR /sonic
-
-COPY . .
+COPY . /sonic
 
 RUN pip3 install --no-cache-dir --break-system-packages \
     pyyaml jsonschema
 
-ENTRYPOINT ["python3", "-m", "core.builder"]
+ENTRYPOINT ["python3", "core/sonic_cli.py"]
 CMD ["--help"]
