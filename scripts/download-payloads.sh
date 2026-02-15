@@ -1,8 +1,7 @@
 #!/bin/bash
 #
-# Sonic Stick Download Payloads Script
-# Downloads all ISO and Raspberry Pi images for the Sonic Stick project
-# Uses wget with resume capability (wget -c)
+# Sonic Stick Download Payloads Script (Ventoy-free)
+# Downloads ISO and Raspberry Pi images for Sonic payload assembly.
 #
 # Usage: bash scripts/download-payloads.sh
 #
@@ -10,23 +9,18 @@
 set -euo pipefail
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-TOOLS_DIR="$BASE_DIR/TOOLS"
 ISOS_DIR="$BASE_DIR/ISOS"
 RASPI_DIR="$BASE_DIR/RaspberryPi"
 
-VENTOY_VERSION="1.1.10"
-
 # Create directories
-mkdir -p "$TOOLS_DIR" "$ISOS_DIR/Minimal" "$ISOS_DIR/Rescue" "$ISOS_DIR/Ubuntu" "$RASPI_DIR"
+mkdir -p "$ISOS_DIR/Minimal" "$ISOS_DIR/Rescue" "$ISOS_DIR/Ubuntu" "$RASPI_DIR"
 
-echo "Sonic Stick download starting"
+echo "Sonic Stick payload download starting"
 echo "Base directory: $BASE_DIR"
 echo ""
 
-# Define all downloads as an associative array
 # Format: "destination|url"
 declare -a DOWNLOADS=(
-  "$TOOLS_DIR/ventoy-${VENTOY_VERSION}-linux.tar.gz|https://github.com/ventoy/Ventoy/releases/download/v${VENTOY_VERSION}/ventoy-${VENTOY_VERSION}-linux.tar.gz"
   "$ISOS_DIR/Rescue/CorePure64-15.0.iso|http://tinycorelinux.net/15.x/x86_64/release/CorePure64-15.0.iso"
   "$ISOS_DIR/Minimal/alpine-standard-3.19.1-x86_64.iso|https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-standard-3.19.1-x86_64.iso"
   "$RASPI_DIR/raspios-bookworm-arm64-lite.img.xz|https://downloads.raspberrypi.com/raspios_lite_arm64/images/raspios_lite_arm64-2024-03-15/2024-03-15-raspios-bookworm-arm64-lite.img.xz"
@@ -43,17 +37,15 @@ for i in "${!DOWNLOADS[@]}"; do
 done
 echo ""
 
-# Download each file
 total=${#DOWNLOADS[@]}
 for i in "${!DOWNLOADS[@]}"; do
   IFS='|' read -r dest url <<< "${DOWNLOADS[$i]}"
   current=$((i+1))
-  
+
   filename=$(basename "$dest")
   echo "[$current/$total] Downloading: $filename"
   echo "    URL: $url"
-  
-  # Use wget with resume (-c) capability and progress bar
+
   if wget -c --show-progress --progress=bar:force "$url" -O "$dest"; then
     echo "    ✓ Complete"
   else
@@ -68,7 +60,7 @@ echo "All downloads complete!"
 echo "==================================="
 echo ""
 echo "Next steps:"
-echo "  1. Plug in your USB stick (label it SONIC)"
-echo "  2. Run: sudo bash scripts/reflash-complete.sh"
-echo "  3. Follow prompts to install Ventoy and partition the stick"
+echo "  1. Generate manifest: python3 core/sonic_cli.py plan --usb-device /dev/sdX"
+echo "  2. Run: sudo bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json"
+echo "  3. Use --dry-run first for safety"
 echo ""

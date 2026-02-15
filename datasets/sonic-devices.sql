@@ -15,7 +15,7 @@ CREATE TABLE devices (
   secure_boot TEXT NOT NULL,
   tpm TEXT NOT NULL,
   usb_boot TEXT NOT NULL,
-  ventoy TEXT NOT NULL,
+  uefi_native TEXT NOT NULL,
   reflash_potential TEXT NOT NULL,
   methods TEXT NOT NULL,
   notes TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE devices (
 
 INSERT INTO devices (
   id, vendor, model, variant, year, cpu, gpu, ram_gb, storage_gb,
-  bios, secure_boot, tpm, usb_boot, ventoy, reflash_potential,
+  bios, secure_boot, tpm, usb_boot, uefi_native, reflash_potential,
   methods, notes, sources, last_seen, windows10_boot, media_mode, udos_launcher
 ) VALUES (
   'example-device', 'Example', 'Prototype', 'Rev A', 2026, 'unknown', 'unknown', 0, 0,

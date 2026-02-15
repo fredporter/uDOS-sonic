@@ -13,7 +13,7 @@ between planning (core) and execution (bash).
   - Produces dry-run plans.
 
 - Bash (Linux-only):
-  - Performs disk operations (Ventoy install, partitioning, copy).
+  - Performs disk operations (native UEFI partitioning, payload copy).
   - Consumes manifest inputs.
 
 ## Manifest
@@ -22,8 +22,8 @@ Default location: `config/sonic-manifest.json`
 
 Fields:
 - usb_device: target device (e.g., /dev/sdb)
-- ventoy_version: ventoy version
-- labels: SONIC, VTOYEFI, FLASH
+- boot_mode: uefi-native
+- labels: SONIC, ESP, FLASH
 - dry_run: boolean
 
 ## OS Limitations

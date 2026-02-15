@@ -15,8 +15,6 @@
     },
     "search.exclude": {
       "**/LOGS/**": true,
-      "**/TOOLS/ventoy-*/ventoy/**": true,
-      "**/TOOLS/ventoy-*/WebUI/**": true,
       "**/ISOS/**": true
     },
     "[shellscript]": {

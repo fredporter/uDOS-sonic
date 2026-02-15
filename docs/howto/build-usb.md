@@ -2,7 +2,7 @@
 
 1) Generate manifest (adjust layout via config/sonic-layout.json):
 ```bash
-python3 core/sonic_cli.py plan --usb-device /dev/sdb --ventoy-version 1.1.10 --layout-file config/sonic-layout.json
+python3 core/sonic_cli.py plan --usb-device /dev/sdb --layout-file config/sonic-layout.json
 ```
 
 2) Run launcher:
@@ -10,29 +10,29 @@ python3 core/sonic_cli.py plan --usb-device /dev/sdb --ventoy-version 1.1.10 --l
 bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json
 ```
 
-V2 partitioning (Ventoy-free):
+Native UEFI partitioning:
 ```bash
-bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --v2
+bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json
 ```
 
 Payload-only (skip partitioning):
 ```bash
-bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --v2 --payloads-only
+bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --payloads-only
 ```
 
 Skip payloads (partition only):
 ```bash
-bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --v2 --skip-payloads
+bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --skip-payloads
 ```
 
 Override payloads directory:
 ```bash
-bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --v2 --payloads-dir /path/to/payloads
+bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --payloads-dir /path/to/payloads
 ```
 
 Disable payload validation (escape hatch):
 ```bash
-bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --v2 --no-validate-payloads
+bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --no-validate-payloads
 ```
 
 3) Add payloads (optional):

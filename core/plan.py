@@ -17,7 +17,6 @@ def build_plan(args: argparse.Namespace) -> Dict:
     manifest = default_manifest(
         repo_root=repo_root,
         usb_device=args.usb_device,
-        ventoy_version=args.ventoy_version,
         dry_run=args.dry_run,
         layout_path=Path(args.layout_file) if args.layout_file else None,
         format_mode=args.format_mode,
@@ -28,7 +27,6 @@ def build_plan(args: argparse.Namespace) -> Dict:
 def write_plan(
     repo_root: Path,
     usb_device: str,
-    ventoy_version: str,
     dry_run: bool,
     layout_path: Optional[Path],
     format_mode: Optional[str],
@@ -38,7 +36,6 @@ def write_plan(
     manifest = default_manifest(
         repo_root,
         usb_device,
-        ventoy_version,
         dry_run,
         layout_path=layout_path,
         format_mode=format_mode,
@@ -52,7 +49,6 @@ def parse_args(argv: Optional[list] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Sonic Screwdriver planner")
     parser.add_argument("--repo-root", default=str(Path(__file__).resolve().parents[1]))
     parser.add_argument("--usb-device", default="/dev/sdb")
-    parser.add_argument("--ventoy-version", default="1.1.10")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--out", default="config/sonic-manifest.json")
     parser.add_argument("--layout-file", default="config/sonic-layout.json")
@@ -83,7 +79,6 @@ def main() -> int:
         plan = write_plan(
             repo_root=Path(args.repo_root),
             usb_device=args.usb_device,
-            ventoy_version=args.ventoy_version,
             dry_run=args.dry_run,
             layout_path=Path(args.layout_file) if args.layout_file else None,
             format_mode=args.format_mode,

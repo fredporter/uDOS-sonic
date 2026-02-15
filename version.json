@@ -10,11 +10,11 @@
   "display": "v1.3.1",
   "channel": "alpha",
   "released": "2026-02-05",
-  "description": "Modular plugin system complete - wizard routes migrated, legacy compatibility removed",
+  "description": "Ventoy-free Sonic pipeline with native partition/payload flow",
   "changelog": "CHANGELOG.md",
   "metadata": {
     "requires_root": true,
     "supported_os": ["ubuntu", "debian", "alpine"],
-    "usb_target": "ventoy"
+    "usb_target": "native_uefi"
   }
 }

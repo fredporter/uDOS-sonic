@@ -19,7 +19,7 @@ Sonic Screwdriver publishes its curated device catalog via `wizard.routes.sonic_
 | `vendor`, `model`, `variant` | Human identifiers |
 | `year`, `cpu`, `gpu`, `ram_gb`, `storage_gb` | Performance profile |
 | `bios`, `secure_boot`, `tpm` | Firmware/security capabilities |
-| `usb_boot`, `ventoy`, `reflash_potential` | Sonic/boot readiness |
+| `usb_boot`, `uefi_native`, `reflash_potential` | Sonic/boot readiness |
 | `methods` | JSON array, e.g. `["sonic_usb","wizard_netboot"]` |
 | `notes`, `sources` | Freeform guidance |
 | `last_seen` | Last update timestamp |
@@ -28,9 +28,9 @@ Sonic Screwdriver publishes its curated device catalog via `wizard.routes.sonic_
 - `GET /api/sonic/health` – quick availability summary & rebuild hints.
 - `GET /api/sonic/schema` – JSON schema for validation.
 - `GET /api/sonic/table` – Markdown table for dashboards/docs.
-- `GET /api/sonic/devices` – paginated catalog with filters: `vendor`, `reflash_potential`, `usb_boot`, `ventoy`.
+- `GET /api/sonic/devices` – paginated catalog with filters: `vendor`, `reflash_potential`, `usb_boot`, `uefi_native`.
 
-Consumers should respect the `methods` array to know whether a device supports `windows10_boot`, `media_mode`, `sonic_usb`, or `ventoy`. The `wizard.routes.sonic_routes` router can also return `manifest_verified` and `dependencies` fields so installers can enforce manifest validation and dependency wiring before calling the library manager.
+Consumers should respect the `methods` array to know whether a device supports `windows10_boot`, `media_mode`, `sonic_usb`, or native UEFI boot. The `wizard.routes.sonic_routes` router can also return `manifest_verified` and `dependencies` fields so installers can enforce manifest validation and dependency wiring before calling the library manager.
 
 ### Syncing Plan
 1. Build tool (`wizard.routes.sonic_routes`) exports `devices` so dashboards show current catalog.

@@ -12,7 +12,7 @@
     "secure_boot",
     "tpm",
     "usb_boot",
-    "ventoy",
+    "uefi_native",
     "reflash_potential",
     "methods",
     "last_seen",
@@ -34,7 +34,7 @@
     "secure_boot": { "type": "string", "enum": ["yes", "no", "unknown"] },
     "tpm": { "type": "string", "enum": ["yes", "no", "unknown"] },
     "usb_boot": { "type": "string", "enum": ["yes", "no", "unknown"] },
-    "ventoy": { "type": "string", "enum": ["works", "issues", "unknown"] },
+    "uefi_native": { "type": "string", "enum": ["works", "issues", "unknown"] },
     "reflash_potential": { "type": "string", "enum": ["high", "medium", "low", "unknown"] },
     "methods": {
       "type": "array",

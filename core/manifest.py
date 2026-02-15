@@ -27,13 +27,13 @@ class PartitionSpec:
 @dataclass
 class SonicManifest:
     usb_device: str
-    ventoy_version: str
+    boot_mode: str
     repo_root: str
     payload_dir: str
     iso_dir: str
     flash_label: str = "FLASH"
     sonic_label: str = "SONIC"
-    vtoyefi_label: str = "VTOYEFI"
+    esp_label: str = "ESP"
     dry_run: bool = False
     format_mode: str = "full"
     auto_scale: bool = False
@@ -140,7 +140,6 @@ def _load_auto_scale(layout_path: Optional[Path]) -> Optional[bool]:
 def default_manifest(
     repo_root: Path,
     usb_device: str,
-    ventoy_version: str,
     dry_run: bool,
     layout_path: Optional[Path] = None,
     format_mode: Optional[str] = None,
@@ -154,7 +153,7 @@ def default_manifest(
     validate_partitions(partitions)
     return SonicManifest(
         usb_device=usb_device,
-        ventoy_version=ventoy_version,
+        boot_mode="uefi-native",
         repo_root=str(repo_root),
         payload_dir=str(resolved_payload_dir),
         iso_dir=str(iso_dir),

@@ -9,13 +9,13 @@ reviewable, and OS-aware.
 - Core plans, validates, and writes a manifest.
 - Bash executes disk operations only on Linux.
 - Dry-run is supported for inspection before changes.
-- v1.1.0+ targets a custom multi-partition layout (Ventoy-free).
+- v1.3.17+ is Ventoy-free only (legacy Ventoy scripts removed).
 
 ## Quick Start (Linux)
 
 1) Generate a manifest:
 ```bash
-python3 core/sonic_cli.py plan --usb-device /dev/sdb --ventoy-version 1.1.10
+python3 core/sonic_cli.py plan --usb-device /dev/sdb
 ```
 
 2) Run the launcher (reads the manifest):
@@ -40,7 +40,7 @@ bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --dry-run
 sonic/
 ├── core/                   # Planning and validation (Python)
 ├── scripts/                # Execution layer (Bash, Linux-only)
-├── config/                 # Ventoy + manifest configuration
+├── config/                 # Native layout + manifest configuration
 ├── docs/                   # Specs, howto, devlog
 ├── LOGS/                   # Local logs
 └── version.json            # Sonic version metadata
@@ -59,4 +59,5 @@ sonic/
 ## Safety Notes
 
 - All destructive operations require sudo and explicit confirmation.
-- Always verify target device before running rebuild scripts.
+- Always verify target device before running `scripts/sonic-stick.sh`.
+- Legacy Ventoy scripts and config assets were removed in v1.3.17.

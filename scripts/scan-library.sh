@@ -3,8 +3,8 @@
 # Sonic Stick - Library Scanner
 # Scans USB stick for ISOs and updates the library catalog
 #
-# Usage: bash scripts/scan-library.sh [data-mount-point]
-# Example: bash scripts/scan-library.sh /mnt/sonic-data
+# Usage: bash scripts/scan-library.sh [data-mount-point] [iso-mount-point]
+# Example: bash scripts/scan-library.sh /mnt/sonic-data /mnt/media
 #
 
 set -euo pipefail
@@ -17,7 +17,7 @@ init_logging "scan-library"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 DATA_MOUNT="${1:-/mnt/sonic-data}"
-VENTOY_MOUNT="${2:-/media/$USER/Ventoy}"
+ISO_MOUNT="${2:-/mnt/media}"
 
 # Colors
 GREEN='\033[0;32m'
@@ -39,18 +39,18 @@ if [ ! -d "$DATA_MOUNT/library" ]; then
     exit 1
 fi
 
-# Check if Ventoy partition is mounted
-if [ ! -d "$VENTOY_MOUNT/ISOS" ]; then
-    echo -e "${YELLOW}Ventoy partition not found at $VENTOY_MOUNT${NC}"
-    echo "Please mount the Ventoy partition first or specify path:"
-    echo "  $0 $DATA_MOUNT /path/to/ventoy"
+# Check if ISO source partition is mounted
+if [ ! -d "$ISO_MOUNT/ISOS" ]; then
+    echo -e "${YELLOW}ISO source partition not found at $ISO_MOUNT${NC}"
+    echo "Please mount the MEDIA partition first or specify path:"
+    echo "  $0 $DATA_MOUNT /path/to/media"
     exit 1
 fi
 
 CATALOG="$DATA_MOUNT/library/iso-catalog.json"
 TIMESTAMP=$(date -Iseconds)
 
-echo "Scanning: $VENTOY_MOUNT/ISOS"
+echo "Scanning: $ISO_MOUNT/ISOS"
 echo "Catalog: $CATALOG"
 echo ""
 
@@ -61,7 +61,7 @@ echo -e "${BLUE}Scanning for ISO files...${NC}"
 cat > /tmp/sonic-catalog.json << EOF
 {
   "last_updated": "$TIMESTAMP",
-  "scan_location": "$VENTOY_MOUNT/ISOS",
+  "scan_location": "$ISO_MOUNT/ISOS",
   "categories": {
     "ubuntu": {
       "name": "Ubuntu & Variants",
@@ -88,7 +88,7 @@ cat > /tmp/sonic-catalog.json << EOF
 EOF
 
 # Scan Ubuntu ISOs
-if [ -d "$VENTOY_MOUNT/ISOS/Ubuntu" ]; then
+if [ -d "$ISO_MOUNT/ISOS/Ubuntu" ]; then
     echo "  Scanning Ubuntu directory..."
     COUNT=0
     while IFS= read -r iso; do
@@ -108,12 +108,12 @@ if [ -d "$VENTOY_MOUNT/ISOS/Ubuntu" ]; then
             echo "    ✓ $BASENAME ($SIZE)"
             COUNT=$((COUNT + 1))
         fi
-    done < <(find "$VENTOY_MOUNT/ISOS/Ubuntu" -type f -name "*.iso")
+    done < <(find "$ISO_MOUNT/ISOS/Ubuntu" -type f -name "*.iso")
     echo "    Found: $COUNT ISOs"
 fi
 
 # Scan Minimal ISOs
-if [ -d "$VENTOY_MOUNT/ISOS/Minimal" ]; then
+if [ -d "$ISO_MOUNT/ISOS/Minimal" ]; then
     echo "  Scanning Minimal directory..."
     COUNT=0
     while IFS= read -r iso; do
@@ -123,12 +123,12 @@ if [ -d "$VENTOY_MOUNT/ISOS/Minimal" ]; then
             echo "    ✓ $BASENAME ($SIZE)"
             COUNT=$((COUNT + 1))
         fi
-    done < <(find "$VENTOY_MOUNT/ISOS/Minimal" -type f -name "*.iso")
+    done < <(find "$ISO_MOUNT/ISOS/Minimal" -type f -name "*.iso")
     echo "    Found: $COUNT ISOs"
 fi
 
 # Scan Rescue ISOs
-if [ -d "$VENTOY_MOUNT/ISOS/Rescue" ]; then
+if [ -d "$ISO_MOUNT/ISOS/Rescue" ]; then
     echo "  Scanning Rescue directory..."
     COUNT=0
     while IFS= read -r iso; do
@@ -138,12 +138,12 @@ if [ -d "$VENTOY_MOUNT/ISOS/Rescue" ]; then
             echo "    ✓ $BASENAME ($SIZE)"
             COUNT=$((COUNT + 1))
         fi
-    done < <(find "$VENTOY_MOUNT/ISOS/Rescue" -type f -name "*.iso")
+    done < <(find "$ISO_MOUNT/ISOS/Rescue" -type f -name "*.iso")
     echo "    Found: $COUNT ISOs"
 fi
 
 # Count total
-TOTAL_ISOS=$(find "$VENTOY_MOUNT/ISOS" -type f -name "*.iso" | wc -l)
+TOTAL_ISOS=$(find "$ISO_MOUNT/ISOS" -type f -name "*.iso" | wc -l)
 
 echo ""
 echo -e "${GREEN}Scan complete: $TOTAL_ISOS ISOs found${NC}"
@@ -152,14 +152,14 @@ echo -e "${GREEN}Scan complete: $TOTAL_ISOS ISOs found${NC}"
 cat > "$CATALOG" << EOF
 {
   "last_updated": "$TIMESTAMP",
-  "scan_location": "$VENTOY_MOUNT/ISOS",
+  "scan_location": "$ISO_MOUNT/ISOS",
   "total_isos": $TOTAL_ISOS,
   "categories": [
     {
       "name": "Ubuntu Desktop",
       "path": "Ubuntu",
       "isos": [
-$(find "$VENTOY_MOUNT/ISOS/Ubuntu" -type f -name "*.iso" 2>/dev/null | while read iso; do
+$(find "$ISO_MOUNT/ISOS/Ubuntu" -type f -name "*.iso" 2>/dev/null | while read iso; do
     NAME=$(basename "$iso")
     SIZE=$(stat -f%z "$iso" 2>/dev/null || stat -c%s "$iso" 2>/dev/null || echo 0)
     SIZE_MB=$((SIZE / 1024 / 1024))
@@ -171,7 +171,7 @@ done | sed '$ s/,$//')
       "name": "Minimal Systems",
       "path": "Minimal",
       "isos": [
-$(find "$VENTOY_MOUNT/ISOS/Minimal" -type f -name "*.iso" 2>/dev/null | while read iso; do
+$(find "$ISO_MOUNT/ISOS/Minimal" -type f -name "*.iso" 2>/dev/null | while read iso; do
     NAME=$(basename "$iso")
     SIZE=$(stat -f%z "$iso" 2>/dev/null || stat -c%s "$iso" 2>/dev/null || echo 0)
     SIZE_MB=$((SIZE / 1024 / 1024))
@@ -183,7 +183,7 @@ done | sed '$ s/,$//')
       "name": "Rescue Tools",
       "path": "Rescue",
       "isos": [
-$(find "$VENTOY_MOUNT/ISOS/Rescue" -type f -name "*.iso" 2>/dev/null | while read iso; do
+$(find "$ISO_MOUNT/ISOS/Rescue" -type f -name "*.iso" 2>/dev/null | while read iso; do
     NAME=$(basename "$iso")
     SIZE=$(stat -f%z "$iso" 2>/dev/null || stat -c%s "$iso" 2>/dev/null || echo 0)
     SIZE_MB=$((SIZE / 1024 / 1024))

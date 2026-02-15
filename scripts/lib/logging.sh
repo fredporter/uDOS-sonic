@@ -120,18 +120,18 @@ log_env_snapshot() {
   if command -v df >/dev/null 2>&1; then log_info "df: $(df -h --output=source,size,used,avail,target | tr '\n' '; ')"; fi
 }
 
-# Partition detection helpers for Ventoy sticks
+# Partition detection helpers for native UEFI Sonic sticks
 # These functions dynamically detect partitions by label/type instead of assuming partition numbers
 
-detect_ventoy_partition() {
-  # Find the VTOYEFI boot partition (fat32 with VTOYEFI label)
+detect_esp_partition() {
+  # Find the ESP boot partition (fat32 with ESP label)
   # Returns empty string if not found (not an error - caller handles it)
   local device="$1"
   local part
   for part in "${device}"*[0-9]; do
     if [ -b "$part" ]; then
       local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
-      if [ "$label" = "VTOYEFI" ]; then
+      if [ "$label" = "ESP" ]; then
         echo "$part"
         return 0
       fi
@@ -141,7 +141,7 @@ detect_ventoy_partition() {
   for part in "${device}p"*[0-9]; do
     if [ -b "$part" ]; then
       local label=$(blkid -s LABEL -o value "$part" 2>/dev/null || echo "")
-      if [ "$label" = "VTOYEFI" ]; then
+      if [ "$label" = "ESP" ]; then
         echo "$part"
         return 0
       fi

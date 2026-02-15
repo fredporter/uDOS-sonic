@@ -44,14 +44,14 @@ log_section "Collecting logs to $COLLECT_DIR"
 
 cleanup() {
   set +e
-  umount "$WORKDIR/ventoy" 2>/dev/null || true
+  umount "$WORKDIR/media" 2>/dev/null || true
   umount "$WORKDIR/data" 2>/dev/null || true
   umount "$WORKDIR/efi" 2>/dev/null || true
   rm -rf "$WORKDIR"
 }
 trap cleanup EXIT
 
-mkdir -p "$WORKDIR"/{ventoy,data,efi}
+mkdir -p "$WORKDIR"/{media,data,efi}
 
 log_env_snapshot
 
@@ -59,21 +59,30 @@ lsblk -f > "$COLLECT_DIR/lsblk.txt"
 blkid > "$COLLECT_DIR/blkid.txt" 2>/dev/null || true
 dmesg | tail -200 > "$COLLECT_DIR/dmesg-tail.txt" 2>/dev/null || true
 
-VENTOY_PART=$(part_path "$DEVICE" 1)
-EFI_PART=$(part_path "$DEVICE" 2)
-DATA_PART=$(part_path "$DEVICE" 3)
+ESP_PART=$(detect_partition_by_label "ESP" || true)
+MEDIA_PART=$(detect_partition_by_label "MEDIA" || true)
+DATA_PART=$(detect_partition_by_label "UDOS_RW" || true)
 
-if [ -b "$VENTOY_PART" ]; then
-  log_info "Mounting Ventoy data partition $VENTOY_PART"
-  mount -o ro "$VENTOY_PART" "$WORKDIR/ventoy" || log_warn "Could not mount $VENTOY_PART"
-  find "$WORKDIR/ventoy" -maxdepth 2 -type f -name "*.iso" -printf '%P\n' | sort > "$COLLECT_DIR/iso-list.txt" || true
-  [ -f "$WORKDIR/ventoy/ventoy/ventoy.json" ] && cp "$WORKDIR/ventoy/ventoy/ventoy.json" "$COLLECT_DIR/ventoy.json"
+if [[ -z "$ESP_PART" ]]; then
+  ESP_PART=$(part_path "$DEVICE" 1)
+fi
+if [[ -z "$MEDIA_PART" ]]; then
+  MEDIA_PART=$(part_path "$DEVICE" 7)
+fi
+if [[ -z "$DATA_PART" ]]; then
+  DATA_PART=$(part_path "$DEVICE" 3)
 fi
 
-if [ -b "$EFI_PART" ]; then
-  log_info "Mounting EFI partition $EFI_PART"
-  mount -o ro "$EFI_PART" "$WORKDIR/efi" || true
-  [ -f "$WORKDIR/efi/ventoy/version" ] && cp "$WORKDIR/efi/ventoy/version" "$COLLECT_DIR/ventoy-version.txt"
+if [ -b "$MEDIA_PART" ]; then
+  log_info "Mounting MEDIA partition $MEDIA_PART"
+  mount -o ro "$MEDIA_PART" "$WORKDIR/media" || log_warn "Could not mount $MEDIA_PART"
+  find "$WORKDIR/media" -maxdepth 3 -type f -name "*.iso" -printf '%P\n' | sort > "$COLLECT_DIR/iso-list.txt" || true
+fi
+
+if [ -b "$ESP_PART" ]; then
+  log_info "Mounting ESP partition $ESP_PART"
+  mount -o ro "$ESP_PART" "$WORKDIR/efi" || true
+  [ -f "$WORKDIR/efi/EFI/BOOT/BOOTX64.EFI" ] && cp "$WORKDIR/efi/EFI/BOOT/BOOTX64.EFI" "$COLLECT_DIR/BOOTX64.EFI" || true
 fi
 
 if [ -b "$DATA_PART" ]; then

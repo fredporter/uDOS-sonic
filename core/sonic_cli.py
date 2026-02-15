@@ -1,7 +1,7 @@
 """Sonic Screwdriver CLI wrapper.
 
 Usage:
-  python3 core/sonic_cli.py plan --usb-device /dev/sdb --ventoy-version 1.1.10
+  python3 core/sonic_cli.py plan --usb-device /dev/sdb
 """
 
 import argparse
@@ -23,7 +23,6 @@ def main() -> int:
     plan_cmd = sub.add_parser("plan", help="Generate ops manifest")
     plan_cmd.add_argument("--repo-root", default=str(Path(__file__).resolve().parents[1]))
     plan_cmd.add_argument("--usb-device", default="/dev/sdb")
-    plan_cmd.add_argument("--ventoy-version", default="1.1.10")
     plan_cmd.add_argument("--dry-run", action="store_true")
     plan_cmd.add_argument("--out", default="config/sonic-manifest.json")
     plan_cmd.add_argument("--layout-file", default="config/sonic-layout.json")
@@ -58,14 +57,13 @@ def main() -> int:
         try:
             write_plan(
                 repo_root=Path(args.repo_root),
-            usb_device=args.usb_device,
-            ventoy_version=args.ventoy_version,
-            dry_run=args.dry_run,
-            layout_path=Path(args.layout_file) if args.layout_file else None,
-            format_mode=args.format_mode,
-            payload_dir=Path(args.payloads_dir) if args.payloads_dir else None,
-            out_path=Path(args.out),
-        )
+                usb_device=args.usb_device,
+                dry_run=args.dry_run,
+                layout_path=Path(args.layout_file) if args.layout_file else None,
+                format_mode=args.format_mode,
+                payload_dir=Path(args.payloads_dir) if args.payloads_dir else None,
+                out_path=Path(args.out),
+            )
         except ValueError as exc:
             print(f"ERROR {exc}")
             return 1
@@ -84,7 +82,8 @@ def main() -> int:
     if args.dry_run:
         cmd.append("--dry-run")
     if args.v2:
-        cmd.append("--v2")
+        # v2 is now always on; accept flag for compatibility.
+        pass
     if args.skip_payloads:
         cmd.append("--skip-payloads")
     if args.payloads_only:

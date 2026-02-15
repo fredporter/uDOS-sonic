@@ -1,6 +1,5 @@
 sonic/ --part local only
 ├── config/
-│   ├── ventoy/
 │   ├── sonic-layout.json
 │   └── sonic-manifest.json.example
 ├── core/
@@ -43,15 +42,8 @@ sonic/ --part local only
 │   ├── collect-logs.sh
 │   ├── create-data-partition.sh
 │   ├── download-payloads.sh
-│   ├── fix-ventoy-stick.sh
-│   ├── install-ventoy.sh
 │   ├── partition-layout.sh
-│   ├── rebuild-from-scratch.sh
-│   ├── reflash-complete.sh
-│   ├── relabel-sonic.sh
-│   ├── repair-isos.sh
 │   ├── scan-library.sh
-│   ├── setup-data-partition-guided.sh
 │   ├── sonic-stick.sh
 │   ├── tinycore-bootlog.sh
 │   └── verify-usb-layout.sh

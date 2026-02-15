@@ -1,15 +1,15 @@
 #!/bin/bash
-# Verify Sonic Stick USB layout: checks Ventoy partitions, ISO locations, and ventoy.json presence
+# Verify Sonic Stick USB layout (Ventoy-free)
 # Usage: sudo bash scripts/verify-usb-layout.sh /dev/sdX
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASE_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 source "${SCRIPT_DIR}/lib/logging.sh"
 
 USB_DEVICE="${1:-${USB:-/dev/sdb}}"
 MNT_DIR="/mnt/sonic-verify"
+PASS=1
 
 echo "[Verify] Target USB: ${USB_DEVICE}"
 if [[ ! -b "${USB_DEVICE}" ]]; then
@@ -20,102 +20,79 @@ fi
 echo "[Info] Partition table:"
 lsblk -o NAME,SIZE,FSTYPE,LABEL,MOUNTPOINT "${USB_DEVICE}" | sed '1!s/^/  /'
 
-# Detect partitions dynamically instead of assuming partition numbers
-DATA_PART=$(detect_sonic_partition "${USB_DEVICE}")
-if [ -z "$DATA_PART" ]; then
-  # Fallback to first partition
-  if [ -b "${USB_DEVICE}1" ]; then
-    DATA_PART="${USB_DEVICE}1"
-  elif [ -b "${USB_DEVICE}p1" ]; then
-    DATA_PART="${USB_DEVICE}p1"
-  fi
-fi
+ESP_PART="$(detect_partition_by_label "ESP" || true)"
+UDOS_RW_PART="$(detect_partition_by_label "UDOS_RW" || true)"
+WIZARD_PART="$(detect_partition_by_label "WIZARD" || true)"
+MEDIA_PART="$(detect_partition_by_label "MEDIA" || true)"
 
-EFI_PART=$(detect_ventoy_partition "${USB_DEVICE}")
-if [ -z "$EFI_PART" ]; then
-  # Fallback to second partition
-  if [ -b "${USB_DEVICE}2" ]; then
-    EFI_PART="${USB_DEVICE}2"
-  elif [ -b "${USB_DEVICE}p2" ]; then
-    EFI_PART="${USB_DEVICE}p2"
-  fi
-fi
-
-if [[ -z "$DATA_PART" || ! -b "${DATA_PART}" ]]; then
-  echo "[Error] Data partition not found" >&2
-  exit 2
-fi
-
-echo "[Info] Using DATA partition: ${DATA_PART}"
-if [ -n "$EFI_PART" ]; then
-  echo "[Info] Using EFI partition: ${EFI_PART}"
-fi
-
-mkdir -p "${MNT_DIR}"
-echo "[Info] Mounting data partition read-only: ${DATA_PART} -> ${MNT_DIR}"
-MNT_OWNED=0
-if mount -o ro "${DATA_PART}" "${MNT_DIR}" 2>/dev/null; then
-  MNT_OWNED=1
-else
-  # Already mounted elsewhere? Use existing mountpoint.
-  EXISTING_MNT=$(findmnt -n -o TARGET "${DATA_PART}" 2>/dev/null || true)
-  if [[ -n "${EXISTING_MNT}" && -d "${EXISTING_MNT}" ]]; then
-    echo "[Info] Data partition already mounted at: ${EXISTING_MNT}"
-    MNT_DIR="${EXISTING_MNT}"
-  else
-    echo "[Error] Failed to mount ${DATA_PART}. Is it already mounted?" >&2
-    exit 3
-  fi
-fi
-
-PASS=1
-
-echo "[Check] Ventoy config: ${MNT_DIR}/ventoy/ventoy.json"
-if [[ -f "${MNT_DIR}/ventoy/ventoy.json" ]]; then
-  echo "  ✓ Found ventoy.json"
-else
-  echo "  ✗ Missing ventoy.json (expected at /ventoy/ventoy.json)"
+if [[ -z "$ESP_PART" ]]; then
+  echo "  ✗ Missing ESP partition label"
   PASS=0
+else
+  echo "  ✓ ESP partition found: $ESP_PART"
 fi
 
-echo "[Check] ISO directories: ${MNT_DIR}/ISOS/{Ubuntu,Minimal,Rescue}"
-for d in Ubuntu Minimal Rescue; do
-  if [[ -d "${MNT_DIR}/ISOS/${d}" ]]; then
-    echo "  ✓ ${d} exists"
+if [[ -z "$UDOS_RW_PART" ]]; then
+  echo "  ✗ Missing UDOS_RW partition label"
+  PASS=0
+else
+  echo "  ✓ UDOS_RW partition found: $UDOS_RW_PART"
+fi
+
+if [[ -z "$WIZARD_PART" ]]; then
+  echo "  ⚠ Missing WIZARD partition label"
+else
+  echo "  ✓ WIZARD partition found: $WIZARD_PART"
+fi
+
+if [[ -z "$MEDIA_PART" ]]; then
+  echo "  ⚠ Missing MEDIA partition label"
+else
+  echo "  ✓ MEDIA partition found: $MEDIA_PART"
+fi
+
+if [[ -n "$ESP_PART" ]]; then
+  mkdir -p "${MNT_DIR}/esp"
+  if mount -o ro "$ESP_PART" "${MNT_DIR}/esp" 2>/dev/null; then
+    echo "[Check] ESP boot payload"
+    if [[ -f "${MNT_DIR}/esp/EFI/BOOT/BOOTX64.EFI" ]]; then
+      echo "  ✓ EFI/BOOT/BOOTX64.EFI present"
+    else
+      echo "  ⚠ EFI bootloader not found at EFI/BOOT/BOOTX64.EFI"
+      PASS=0
+    fi
+    umount "${MNT_DIR}/esp" || true
   else
-    echo "  ✗ ${d} missing"
+    echo "  ✗ Could not mount ESP partition"
     PASS=0
   fi
-done
+fi
 
-echo "[List] Top-level ISOs present:"
-find "${MNT_DIR}/ISOS" -maxdepth 2 -type f -name '*.iso' -printf '  • %p\n' | sort || true
-
-echo "[Check] EFI partition label"
-if [ -n "$EFI_PART" ] && [ -b "$EFI_PART" ]; then
-  EFI_INFO=$(lsblk -no LABEL,FSTYPE "${EFI_PART}" 2>/dev/null || true)
-  if echo "${EFI_INFO}" | grep -qi 'VTOYEFI'; then
-    echo "  ✓ EFI partition labeled VTOYEFI"
+if [[ -n "$UDOS_RW_PART" ]]; then
+  mkdir -p "${MNT_DIR}/udos_rw"
+  if mount -o ro "$UDOS_RW_PART" "${MNT_DIR}/udos_rw" 2>/dev/null; then
+    echo "[Check] UDOS_RW payload structure"
+    # Non-fatal informative checks only.
+    for d in memory config logs; do
+      if [[ -d "${MNT_DIR}/udos_rw/$d" ]]; then
+        echo "  ✓ $d/ present"
+      else
+        echo "  ⚠ $d/ missing"
+      fi
+    done
+    umount "${MNT_DIR}/udos_rw" || true
   else
-    echo "  ✗ EFI partition label not detected (got: ${EFI_INFO:-none})"
-    # Not fatal
+    echo "  ✗ Could not mount UDOS_RW partition"
+    PASS=0
   fi
-else
-  echo "  ⚠ EFI partition not detected"
 fi
 
-if [[ "${MNT_OWNED}" -eq 1 ]]; then
-  echo "[Info] Unmounting ${MNT_DIR}"
-  umount "${MNT_DIR}" || true
-  rmdir "${MNT_DIR}" 2>/dev/null || true
-else
-  echo "[Info] Left existing mount intact: ${MNT_DIR}"
-fi
+rm -rf "$MNT_DIR" 2>/dev/null || true
 
-if [[ "${PASS}" -eq 1 ]]; then
+if [[ "$PASS" -eq 1 ]]; then
   echo "[Result] USB layout looks correct ✅"
   exit 0
-else
-  echo "[Result] Issues detected with USB layout ⚠"
-  exit 4
 fi
+
+echo "[Result] Issues detected with USB layout ⚠"
+exit 4
