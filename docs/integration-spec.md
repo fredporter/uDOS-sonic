@@ -2,7 +2,7 @@
 
 ## 1. Device Database Contract
 
-Sonic Screwdriver publishes its curated device catalog via `wizard.routes.sonic_routes`. Any Wizard/Sonic bolt-on can consume the same SQLite + Schema artifacts described here and bundle them for CLI/GUI consumers. The Wizard API routes keep the catalog discoverable both from the TUI (`PLUGIN list`) and from remote automation by exposing the same contract documented here.
+Sonic Screwdriver publishes its curated device catalog via `wizard.routes.sonic_plugin_routes`. Any Wizard/Sonic bolt-on can consume the same SQLite + Schema artifacts described here and bundle them for CLI/GUI consumers. The Wizard API routes keep the catalog discoverable both from the TUI (`PLUGIN list`) and from remote automation by exposing the same contract documented here.
 
 ### Storage
 - Database: `memory/sonic/sonic-devices.db`
@@ -27,13 +27,15 @@ Sonic Screwdriver publishes its curated device catalog via `wizard.routes.sonic_
 ### Wizard API Endpoints
 - `GET /api/sonic/health` – quick availability summary & rebuild hints.
 - `GET /api/sonic/schema` – JSON schema for validation.
-- `GET /api/sonic/table` – Markdown table for dashboards/docs.
 - `GET /api/sonic/devices` – paginated catalog with filters: `vendor`, `reflash_potential`, `usb_boot`, `uefi_native`.
+- `GET /api/sonic/db/status` – DB sync status alias.
+- `POST /api/sonic/db/rebuild` – DB rebuild alias.
+- `GET /api/sonic/db/export` – DB export alias.
 
-Consumers should respect the `methods` array to know whether a device supports `windows10_boot`, `media_mode`, `sonic_usb`, or native UEFI boot. The `wizard.routes.sonic_routes` router can also return `manifest_verified` and `dependencies` fields so installers can enforce manifest validation and dependency wiring before calling the library manager.
+Consumers should respect the `methods` array to know whether a device supports `windows10_boot`, `media_mode`, `sonic_usb`, or native UEFI boot.
 
 ### Syncing Plan
-1. Build tool (`wizard.routes.sonic_routes`) exports `devices` so dashboards show current catalog.
+1. Build tool (`wizard.routes.sonic_plugin_routes`) exports `devices` so dashboards show current catalog.
 2. Any `devices.db` refresh should overwrite `memory/sonic/sonic-devices.db` and trigger `sqlite3 ... < sonic/datasets/sonic-devices.sql`.
 3. UI/automation can poll `/api/sonic/health` and show quick instructions when the DB is stale.
 
