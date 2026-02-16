@@ -53,8 +53,20 @@ sonic/
 - ../docs/roadmap.md
 - docs/howto/build-usb.md
 - docs/howto/dry-run.md
+- docs/howto/standalone-release-and-install.md
 - docs/devlog/2026-01-24-sonic-v1.0.1.md
 - docs/.archive/ (legacy Sonic Stick docs)
+
+## Wizard Integration (Current)
+
+Sonic exposes Wizard platform APIs for GUI workflows:
+- `/api/platform/sonic/gui/summary`
+- `/api/platform/sonic/builds/*` (artifact + release readiness)
+- `/api/platform/sonic/boot/*` (boot profile route selection)
+- `/api/platform/sonic/windows/launcher*` (mode selector)
+- `/api/platform/sonic/windows/gaming/profiles*`
+- `/api/platform/sonic/media/*` (Kodi/WantMyMTV workflow)
+- `/api/platform/sonic/device/recommendations`
 
 ## Safety Notes
 

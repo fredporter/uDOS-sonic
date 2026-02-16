@@ -8,6 +8,7 @@
 - specs/v1-3 GAMEPLAY.md
 - howto/build-usb.md
 - howto/dry-run.md
+- howto/standalone-release-and-install.md
 - devlog/2026-01-24-sonic-v1.0.1.md
 - roadmap.md
 
