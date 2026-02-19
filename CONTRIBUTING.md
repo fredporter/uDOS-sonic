@@ -8,5 +8,5 @@ Please follow the main uDOS contribution process:
 If you are viewing this repo standalone, open an issue or PR against the main uDOS repository.
 
 ## Notes
-- Keep changes aligned with the v1.3 release manifest.
+- Keep changes aligned with the current uDOS release manifest (`releases/v1.4.3.yml`).
 - Document any breaking behavior in `/sonic/README.md`.

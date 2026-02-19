@@ -48,6 +48,7 @@ sonic/
 
 ## Docs
 
+- Canonical monorepo v1.4.3 release notes: ../docs/releases/v1.4.3-release-notes.md
 - docs/specs/sonic-screwdriver-v1.0.1.md
 - docs/specs/sonic-screwdriver-v1.1.0.md
 - ../docs/roadmap.md

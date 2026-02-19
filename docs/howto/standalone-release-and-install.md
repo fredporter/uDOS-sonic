@@ -79,4 +79,4 @@ bash scripts/sonic-stick.sh --manifest config/sonic-manifest.json --dry-run
 
 - Publish release checksums and detached signatures alongside artifacts.
 - Include minimum hardware and OS support notes in release notes.
-- Keep release notes aligned with the canonical monorepo roadmap.
+- Keep release notes aligned with the canonical monorepo roadmap and consolidated v1.4.3 notes (`docs/releases/v1.4.3-release-notes.md`).
