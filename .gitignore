@@ -27,3 +27,7 @@ LOGS/
 ISOS/.archive/
 
 config/sonic-manifest.json
+
+# Python caches
+__pycache__/
+*.py[cod]

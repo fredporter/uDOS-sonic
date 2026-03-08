@@ -1,5 +1,8 @@
 # Sonic Stick – Overview
 
+Status: migration source
+Primary learning destination: `courses/01-deployment-fundamentals/lessons/01-sonic-pathway.md`
+
 **Project:** uDOS Beta Dev  
 **Codename:** Sonic Stick  
 

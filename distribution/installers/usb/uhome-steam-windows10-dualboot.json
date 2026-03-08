@@ -3,7 +3,7 @@
   "name": "uHOME Steam + Windows 10 Dual Boot",
   "type": "usb-dual-boot",
   "layout": "config/sonic-layout.json",
-  "cli_entrypoint": "installers/usb/cli.py",
+  "cli_entrypoint": "apps/sonic-cli/cli.py",
   "default_manifest": "memory/sonic/sonic-manifest.json",
   "boot_selector": "config/boot-selector.json",
   "launchers": [

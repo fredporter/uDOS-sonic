@@ -1,5 +1,8 @@
 # Boot & Reboot Model
 
+Status: migration source
+Primary learning destination: `courses/01-deployment-fundamentals/lessons/03-boot-and-reboot.md`
+
 ## Boot Priority
 1. uDOS Alpine (default)
 2. Windows Gaming

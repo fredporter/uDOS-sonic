@@ -65,7 +65,7 @@ fi
 
 if [[ ! -f "$MANIFEST" ]]; then
   echo "ERROR Manifest not found: $MANIFEST"
-  echo "Run: python3 installers/usb/cli.py plan --out memory/sonic/sonic-manifest.json"
+  echo "Run: python3 apps/sonic-cli/cli.py plan --out memory/sonic/sonic-manifest.json"
   exit 1
 fi
 

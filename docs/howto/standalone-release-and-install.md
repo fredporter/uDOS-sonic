@@ -2,6 +2,9 @@
 
 This repository is the standalone Sonic guide.
 
+For `uHOME` contract details, treat `uHOME-server` as the canonical owner.
+This guide is about Sonic-owned release, staging, and deployment surfaces.
+
 Use it for:
 
 - release artifacts

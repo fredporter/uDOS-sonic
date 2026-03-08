@@ -1,5 +1,8 @@
 # Sonic Stick – USB Setup
 
+Status: migration source
+Primary learning destination: `courses/01-deployment-fundamentals/lessons/02-usb-layout.md`
+
 ## Capacity
 - 128 GB USB 3.x (UEFI boot required)
 

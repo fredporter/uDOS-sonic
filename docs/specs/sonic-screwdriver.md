@@ -1,11 +1,11 @@
-# Sonic Screwdriver Contract
+# Sonic Provisioning Contract
 
 Status: Active
-Updated: 2026-03-07
+Updated: 2026-03-08
 
 ## Purpose
 
-Define Sonic Screwdriver as the current standalone provisioning layer for
+Define `uDOS-sonic` as the current standalone provisioning layer for
 profile-aware installs, with explicit alignment to the canonical `uHOME`
 runtime and Wizard-managed networking.
 
@@ -33,10 +33,11 @@ Sonic Screwdriver should run in isolation from uDOS:
 
 Sonic provides two active install lanes:
 
-- standalone bundle install
+- standalone bundle handoff
 - USB or image install
 
-The standalone bundle install is the canonical `uHOME Server` lane.
+The standalone bundle handoff is the canonical `uHOME Server` lane from the
+Sonic side.
 The USB or image lane remains valid for profile-aware node rollout, including
 `uHOME TV Node`.
 
@@ -54,7 +55,8 @@ The USB or image lane uses:
 - `config/sonic-manifest.json.example`
 - `memory/sonic/`
 - `distribution/`
-- `installers/usb/cli.py`
+- `apps/sonic-cli/cli.py`
+- `services/`
 - `scripts/partition-layout.sh`
 - `scripts/apply-payloads-v2.sh`
 - `scripts/sonic-stick.sh`
@@ -71,13 +73,19 @@ Rules:
   may not define a separate Sonic runtime protocol
 - layouts may package thin GUI, Steam-console UX, or both for the target node
 
-## Standalone bundle contract
+## `uHOME` bundle contract ownership
 
-The bundle lane is backed by:
+The canonical `uHOME` bundle lane is owned by `uHOME-server`, not by
+`uDOS-sonic`.
 
-- `installers/bundles/uhome/bundle.py`
-- `installers/bundles/uhome/installer.py`
-- `installers/bundles/uhome/preflight.py`
+Canonical sources live in the sibling `uHOME-server` repo under:
+
+- `src/uhome_server/sonic/uhome_bundle.py`
+- `src/uhome_server/sonic/uhome_installer.py`
+- `src/uhome_server/sonic/uhome_preflight.py`
+
+Sonic should consume those artifacts and contracts as external dependencies
+rather than keeping a local compatibility copy.
 
 Bundle responsibilities:
 
@@ -137,5 +145,5 @@ contracts.
 ## Related documents
 
 - `docs/integration-spec.md`
-- external current `uHOME` runtime spec
+- external current `uHOME` runtime spec in `uHOME-server`
 - Wizard beacon implementation docs in their owning repo

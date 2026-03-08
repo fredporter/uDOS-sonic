@@ -1,1 +1,1 @@
-"""Bundle-oriented installer domains."""
+"""Bundle installers are external to Sonic; uHOME-server owns its own bundle contracts."""

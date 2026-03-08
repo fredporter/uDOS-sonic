@@ -1,14 +1,14 @@
 # Sonic Integration Spec
 
 Status: Active
-Updated: 2026-03-07
+Updated: 2026-03-08
 
 This document aligns Sonic's public integration story to the active
 `uHOME` scope maintained outside this repository.
 
 Sonic's canonical `uHOME` alignment is:
 
-- a tested standalone bundle installer for `uHOME Server`
+- a tested standalone bundle handoff for `uHOME Server`
 - a bounded USB or image lane that can materialize either `uHOME Server`,
   `uHOME TV Node`, or the current dual-boot `uHOME Steam Server + Windows 10 Gaming` disk
 - node bootstrap that can hand off to Wizard-managed home-node and beacon
@@ -94,21 +94,23 @@ Template fields should be treated as open-box Markdown references, not embedded 
 
 ## 2. USB Builder API (Plan + Run)
 
-Sonic exposes two CLI verbs via `installers/usb/cli.py` plus helper scripts for partitioning/payloads. Wizard bolt-ons can wrap or invoke these commands over SSH/CLI.
+Sonic exposes two CLI verbs via `apps/sonic-cli/cli.py`, backed by the
+shared `services/` runtime and helper scripts for partitioning and payload
+application. Wizard bolt-ons can wrap or invoke these commands over SSH/CLI.
 
 ### Commands
 ```bash
-python3 installers/usb/cli.py plan \
+python3 apps/sonic-cli/cli.py plan \
   --usb-device /dev/sdX \
   --layout-file config/sonic-layout.json \
   --out memory/sonic/sonic-manifest.json
 
-python3 installers/usb/cli.py run \
+python3 apps/sonic-cli/cli.py run \
   --manifest memory/sonic/sonic-manifest.json \
   [--dry-run]
 ```
 
-### Manifest expectations (`installers/usb/plan.py`)
+### Manifest expectations (`services/planner.py` and `services/manifest.py`)
 - `usb_device` – raw block device.
 - `layout` – `config/sonic-layout.json` describing partition labels/payloads.
 - `payload_dir` – local payload library root, defaulting to `memory/sonic/artifacts/payloads/`.
@@ -169,16 +171,24 @@ For `uHOME` this includes:
 - no requirement for the full `uDOS/core` runtime in standalone Sonic or
   standalone `uHOME` distributions
 
-## 3. Standalone uHOME bundle installer
+## 3. `uHOME` bundle contract ownership
 
-The standalone bundle installer is the strongest current `uHOME` install
-surface and is the canonical Sonic lane for `uHOME Server`.
+The standalone `uHOME` bundle contract is owned by `uHOME-server`.
 
-Authoritative code:
+Sonic may consume, stage, or hand off that contract during deployment, but it
+is not the canonical owner of the bundle schema, preflight rules, or staged
+install-plan semantics.
 
-- `installers/bundles/uhome/bundle.py`
-- `installers/bundles/uhome/installer.py`
-- `installers/bundles/uhome/preflight.py`
+Authoritative code lives in `uHOME-server`:
+
+- `src/uhome_server/sonic/uhome_bundle.py`
+- `src/uhome_server/sonic/uhome_installer.py`
+- `src/uhome_server/sonic/uhome_preflight.py`
+
+Transition note:
+
+- new contract changes should be made in `uHOME-server`
+- Sonic should reference released examples and external contracts rather than redefining them locally
 
 Install contract summary:
 
@@ -261,7 +271,7 @@ To keep the active scope stable:
   a replacement for the `uHOME` runtime spec
 - keep older hybrid-console, launcher-heavy, or dual-boot product exploration
   docs non-canonical unless promoted by active implementation
-- prefer the tested standalone bundle contract when documenting `uHOME Server`
+- prefer the `uHOME-server` bundle contract when documenting `uHOME Server`
 - keep the USB or image lane profile-aware and bounded when documenting
   `uHOME TV Node`
 - align node networking and beacon behavior to Wizard's active route and service
@@ -269,5 +279,5 @@ To keep the active scope stable:
 
 ## 8. Related documents
 
-- external current `uHOME` runtime spec
+- external current `uHOME` runtime spec in `uHOME-server`
 - Wizard beacon and Home Assistant implementation docs in their owning repo

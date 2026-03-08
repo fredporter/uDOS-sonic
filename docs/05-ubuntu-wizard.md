@@ -1,5 +1,8 @@
 # Ubuntu Wizard Server
 
+Status: migration source
+Primary learning destination: `courses/02-system-provisioning/lessons/01-runtime-roles.md`
+
 ## Purpose
 Ubuntu exists only to run a local Wizard Server.
 

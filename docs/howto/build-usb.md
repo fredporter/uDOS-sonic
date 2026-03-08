@@ -1,15 +1,21 @@
 # Build USB (Linux)
 
+Status: active how-to
+
+For `uHOME`-specific bundle, preflight, or staged install contracts, use the
+canonical sources in the sibling `uHOME-server` repository. This guide covers
+the Sonic-owned USB planning and execution lane.
+
 1) Generate manifest (adjust layout via config/sonic-layout.json):
 ```bash
-python3 installers/usb/cli.py plan \
+python3 apps/sonic-cli/cli.py plan \
   --usb-device /dev/sdb \
   --layout-file config/sonic-layout.json \
   --out memory/sonic/sonic-manifest.json
 ```
 
 Default profile:
-- `uHOME Steam Server` on the Linux side
+- Linux-side `uHOME` deployment surface with later handoff to `uHOME-server`
 - `Windows 10 Gaming` on the Windows side
 - controller-first modular navigation metadata for both surfaces
 
