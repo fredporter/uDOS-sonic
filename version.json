@@ -4,12 +4,12 @@
   "version": {
     "major": 1,
     "minor": 5,
-    "patch": 2
+    "patch": 5
   },
-  "display": "v1.5.2",
+  "display": "v1.5.5",
   "channel": "alpha",
-  "released": "2026-03-07",
-  "description": "Standalone Sonic installer domains with native USB and uHOME bundle flows",
+  "released": "2026-03-09",
+  "description": "Standalone Sonic deployment toolkit with separated runtime boundaries, editable install entrypoints, and a simplified learner surface",
   "changelog": "CHANGELOG.md",
   "metadata": {
     "requires_root": true,

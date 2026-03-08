@@ -1,5 +1,13 @@
 # Sonic Screwdriver Changelog
 
+## v1.5.5 (2026-03-09)
+
+- Complete the runtime refactor and repo-family separation of Sonic from local `uHOME` contract ownership.
+- Finish the active `apps/`, `services/`, `modules/`, `vault/`, and editable-install structure for the public repo surface.
+- Add Linux smoke workflow, packaging/setup entrypoints, and governance docs for release readiness.
+- Simplify the learner-facing surface to one canonical Sonic Screwdriver course and move superseded docs and course scaffolds into `docs/.compost/`.
+- Keep broader platform education in the sibling `uDOS` course ladder instead of duplicating it in Sonic.
+
 ## v1.5.4 (2026-03-08)
 
 - Move the active Sonic runtime into `apps/sonic-cli/`, `apps/sonic-ui/`, and `services/`.

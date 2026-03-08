@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "udos-sonic"
-version = "1.5.4"
+version = "1.5.5"
 description = "uDOS-sonic deployment and hardware bootstrap toolkit"
 readme = "README.md"
 requires-python = ">=3.9"

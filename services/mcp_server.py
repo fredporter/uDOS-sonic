@@ -17,7 +17,7 @@ except ImportError:  # pragma: no cover - direct execution fallback
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from services.runtime_service import SonicService
 
-SERVER_INFO = {"name": "sonic-mcp", "version": "1.5.4"}
+SERVER_INFO = {"name": "sonic-mcp", "version": "1.5.5"}
 PROTOCOL_VERSION = "2025-06-18"
 
 
