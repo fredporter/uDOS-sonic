@@ -31,3 +31,7 @@ config/sonic-manifest.json
 # Python caches
 __pycache__/
 *.py[cod]
+
+# Frontend build state
+apps/sonic-ui/node_modules/
+apps/sonic-ui/dist/

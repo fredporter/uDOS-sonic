@@ -5,6 +5,8 @@
 - Move the active Sonic runtime into `apps/sonic-cli/`, `apps/sonic-ui/`, and `services/`.
 - Update repo docs, course material, and operator scripts to the new runtime roots and entrypoints.
 - Keep `uHOME-server` as the external canonical owner of `uHOME` install contracts while Sonic owns deployment surfaces only.
+- Enforce Linux-only build gating consistently across the CLI, HTTP API, and shared runtime service.
+- Fix the moved Sonic UI dependency set so `npm install` and `npm run build` succeed under the new app root.
 
 ## v1.5.3 (2026-03-08)
 
