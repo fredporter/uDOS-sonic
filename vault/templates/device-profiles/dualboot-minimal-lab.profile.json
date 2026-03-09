@@ -1,0 +1,34 @@
+{
+  "profile_id": "dualboot-minimal-lab",
+  "source": "config/sonic-layout.json",
+  "profile_mode": "dual-boot",
+  "format_mode": "full",
+  "auto_scale": true,
+  "boot_targets": [
+    "uhome-steam-console",
+    "windows10-gaming-console"
+  ],
+  "surfaces": [
+    {
+      "id": "uhome-steam-server",
+      "os": "linux",
+      "kind": "uhome-server"
+    },
+    {
+      "id": "windows10-gaming",
+      "os": "windows",
+      "kind": "gaming-console"
+    }
+  ],
+  "partition_plan": [
+    {"name": "esp", "fs": "fat32", "size_gb": 0.5, "role": "efi"},
+    {"name": "udos_ro", "fs": "squashfs", "size_gb": 6, "role": "udos"},
+    {"name": "udos_rw", "fs": "ext4", "size_gb": 6, "role": "udos"},
+    {"name": "swap", "fs": "swap", "size_gb": 4, "role": "swap"},
+    {"name": "uhome", "fs": "ext4", "size_gb": 14, "role": "uhome"},
+    {"name": "win10", "fs": "ntfs", "size_gb": 48, "role": "windows"},
+    {"name": "media", "fs": "exfat", "size_gb": 16, "role": "media"},
+    {"name": "cache", "fs": "ext4", "remainder": true, "role": "cache"}
+  ],
+  "notes": "Compact dual-boot lab profile intended for low-capacity practice devices."
+}

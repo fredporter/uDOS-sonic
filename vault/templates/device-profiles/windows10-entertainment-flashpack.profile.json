@@ -1,0 +1,24 @@
+{
+  "profile_id": "windows10-entertainment-flashpack",
+  "source": "config/flash-packs/windows10-entertainment.json",
+  "profile_mode": "windows-entertainment",
+  "format_mode": "gpt",
+  "auto_scale": false,
+  "boot_targets": [
+    "windows10-gaming-console"
+  ],
+  "surfaces": [
+    {
+      "id": "windows10-gaming",
+      "os": "windows",
+      "kind": "gaming-console"
+    }
+  ],
+  "partition_plan": [
+    {"name": "uDOS_BOOT", "fs": "fat32", "size_gb": 1, "role": "boot"},
+    {"name": "uDOS_CORE", "fs": "ext4", "size_gb": 16, "role": "udos"},
+    {"name": "WINDOWS_MEDIA", "fs": "ntfs", "size_gb": 80, "role": "media"},
+    {"name": "WINDOWS_GAMES", "fs": "ntfs", "remainder": true, "role": "games"}
+  ],
+  "notes": "Reference profile for the Windows entertainment flash-pack baseline."
+}

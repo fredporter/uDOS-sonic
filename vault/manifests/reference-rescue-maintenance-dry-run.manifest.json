@@ -1,0 +1,27 @@
+{
+  "manifest_id": "reference-rescue-maintenance-dry-run",
+  "example_only": true,
+  "generated_from": "vault/templates/device-profiles/rescue-maintenance-stick.profile.json",
+  "usb_device": "/dev/sdd",
+  "dry_run": true,
+  "install_profile": "rescue-maintenance-stick",
+  "profile_mode": "maintenance",
+  "boot_targets": [
+    "uhome-steam-console"
+  ],
+  "verification": {
+    "payload_dir_exists": true,
+    "required_images": [
+      "memory/sonic/artifacts/payloads/udos/udos.squashfs"
+    ],
+    "destructive_steps_present": true
+  },
+  "steps": [
+    {"id": 1, "name": "verify rescue profile inputs", "destructive": false},
+    {"id": 2, "name": "validate evidence/log partition sizing", "destructive": false},
+    {"id": 3, "name": "write partition layout", "destructive": true},
+    {"id": 4, "name": "format rescue partitions", "destructive": true},
+    {"id": 5, "name": "stage rescue tooling", "destructive": false},
+    {"id": 6, "name": "prepare log capture hooks", "destructive": false}
+  ]
+}

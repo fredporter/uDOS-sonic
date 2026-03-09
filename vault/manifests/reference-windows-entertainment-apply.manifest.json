@@ -1,0 +1,27 @@
+{
+  "manifest_id": "reference-windows-entertainment-apply",
+  "example_only": true,
+  "generated_from": "config/flash-packs/windows10-entertainment.json",
+  "usb_device": "/dev/sdc",
+  "dry_run": false,
+  "install_profile": "windows10-entertainment",
+  "profile_mode": "windows-entertainment",
+  "boot_targets": [
+    "windows10-gaming-console"
+  ],
+  "verification": {
+    "payload_dir_exists": true,
+    "required_images": [
+      "memory/sonic/artifacts/payloads/windows/windows10-ltsc.iso"
+    ],
+    "destructive_steps_present": true
+  },
+  "steps": [
+    {"id": 1, "name": "confirm device and free space", "destructive": false},
+    {"id": 2, "name": "write GPT and fixed partitions", "destructive": true},
+    {"id": 3, "name": "format filesystem surfaces", "destructive": true},
+    {"id": 4, "name": "stage uDOS boot/core payloads", "destructive": false},
+    {"id": 5, "name": "stage Windows media payload", "destructive": false},
+    {"id": 6, "name": "finalize boot selector", "destructive": false}
+  ]
+}

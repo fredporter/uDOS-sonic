@@ -9,6 +9,7 @@
 - howto/dry-run.md
 - howto/dev-workflow.md
 - howto/standalone-release-and-install.md
+- howto/vault-templates-and-examples.md
 - ../LEGAL.md
 - ../CONTRIBUTING.md
 - ../CONTRIBUTORS.md

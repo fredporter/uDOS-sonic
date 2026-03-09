@@ -1,0 +1,24 @@
+{
+  "profile_id": "windows10-gaming-single-surface",
+  "source": "config/boot-selector.json",
+  "profile_mode": "single-surface",
+  "format_mode": "gpt",
+  "auto_scale": true,
+  "boot_targets": [
+    "windows10-gaming-console"
+  ],
+  "surfaces": [
+    {
+      "id": "windows10-gaming",
+      "os": "windows",
+      "kind": "gaming-console"
+    }
+  ],
+  "partition_plan": [
+    {"name": "esp", "fs": "fat32", "size_gb": 0.5, "role": "efi"},
+    {"name": "win10", "fs": "ntfs", "size_gb": 96, "role": "windows"},
+    {"name": "media", "fs": "exfat", "size_gb": 48, "role": "media"},
+    {"name": "cache", "fs": "ext4", "remainder": true, "role": "cache"}
+  ],
+  "notes": "Windows-first profile for game-room devices where Linux runtime is out of scope."
+}

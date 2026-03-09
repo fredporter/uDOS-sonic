@@ -1,9 +1,7 @@
 # Vault Device Profiles
 
-Tracked example device profiles belong here.
+Tracked example device profiles now live under:
 
-Use this folder for:
+- `vault/templates/device-profiles/`
 
-- learner-facing device examples
-- profile walkthroughs
-- Markdown notes that complement the structured catalog data
+This folder remains as a compatibility pointer for earlier docs.

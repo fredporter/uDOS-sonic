@@ -1,0 +1,25 @@
+{
+  "profile_id": "rescue-maintenance-stick",
+  "source": "config/sonic-layout.json",
+  "profile_mode": "maintenance",
+  "format_mode": "full",
+  "auto_scale": false,
+  "boot_targets": [
+    "uhome-steam-console"
+  ],
+  "surfaces": [
+    {
+      "id": "uhome-maintenance",
+      "os": "linux",
+      "kind": "recovery"
+    }
+  ],
+  "partition_plan": [
+    {"name": "esp", "fs": "fat32", "size_gb": 0.5, "role": "efi"},
+    {"name": "udos_ro", "fs": "squashfs", "size_gb": 6, "role": "udos"},
+    {"name": "udos_rw", "fs": "ext4", "size_gb": 6, "role": "udos"},
+    {"name": "rescue", "fs": "ext4", "size_gb": 12, "role": "rescue-tools"},
+    {"name": "logs", "fs": "ext4", "remainder": true, "role": "evidence"}
+  ],
+  "notes": "Maintenance-only profile for collecting logs and performing controlled recovery operations."
+}

@@ -1,0 +1,30 @@
+{
+  "manifest_id": "reference-dualboot-dry-run",
+  "example_only": true,
+  "generated_from": "vault/templates/device-profiles/uhome-steam-windows10-dualboot.profile.json",
+  "usb_device": "/dev/sdb",
+  "dry_run": true,
+  "install_profile": "uhome-steam-windows10-dualboot",
+  "profile_mode": "dual-boot",
+  "boot_targets": [
+    "uhome-steam-console",
+    "windows10-gaming-console"
+  ],
+  "verification": {
+    "payload_dir_exists": true,
+    "required_images": [
+      "memory/sonic/artifacts/payloads/udos/udos.squashfs",
+      "memory/sonic/artifacts/payloads/windows/windows10-ltsc.iso"
+    ],
+    "destructive_steps_present": true
+  },
+  "steps": [
+    {"id": 1, "name": "validate target device", "destructive": false},
+    {"id": 2, "name": "render partition plan", "destructive": false},
+    {"id": 3, "name": "write GPT layout", "destructive": true},
+    {"id": 4, "name": "format partitions", "destructive": true},
+    {"id": 5, "name": "stage Linux payload", "destructive": false},
+    {"id": 6, "name": "stage Windows payload", "destructive": false},
+    {"id": 7, "name": "install boot assets", "destructive": false}
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "profile_id": "linux-uhome-single-surface",
+  "source": "config/sonic-layout.json",
+  "profile_mode": "single-surface",
+  "format_mode": "full",
+  "auto_scale": true,
+  "boot_targets": [
+    "uhome-steam-console"
+  ],
+  "surfaces": [
+    {
+      "id": "uhome-steam-server",
+      "os": "linux",
+      "kind": "uhome-server"
+    }
+  ],
+  "partition_plan": [
+    {"name": "esp", "fs": "fat32", "size_gb": 0.5, "role": "efi"},
+    {"name": "udos_ro", "fs": "squashfs", "size_gb": 8, "role": "udos"},
+    {"name": "udos_rw", "fs": "ext4", "size_gb": 10, "role": "udos"},
+    {"name": "swap", "fs": "swap", "size_gb": 4, "role": "swap"},
+    {"name": "uhome", "fs": "ext4", "size_gb": 32, "role": "uhome"},
+    {"name": "media", "fs": "exfat", "size_gb": 24, "role": "media"},
+    {"name": "cache", "fs": "ext4", "remainder": true, "role": "cache"}
+  ],
+  "notes": "Single-surface Linux profile for kiosks and media-serving nodes."
+}

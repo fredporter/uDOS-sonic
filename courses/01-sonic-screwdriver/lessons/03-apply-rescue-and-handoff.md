@@ -279,8 +279,9 @@ At this handoff:
 
 For complex rescue scenarios:
 - **Rescue procedures**: `modules/rescue/` in the repo
-- **Detailed diagnostics**: `docs/howto/dry-run.md`
-- **Troubleshooting guide**: [Lesson 04 - Troubleshooting](04-troubleshooting.md) (under development)
+- **Detailed diagnostics**: [docs/howto/dry-run.md](../../../docs/howto/dry-run.md)
+- **Troubleshooting guide**: [Lesson 04 - Troubleshooting](04-troubleshooting.md)
+- **Deployment note examples**: [vault/deployment-notes/README.md](../../../vault/deployment-notes/README.md)
 
 ---
 

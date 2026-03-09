@@ -1,7 +1,7 @@
-# Sonic Development Status - v1.6 Planning Phase
+# Sonic Development Status - v1.6 Execution Phase
 
 **Last Updated**: 2026-03-10  
-**Status**: Ready for @dev workspace hand-off  
+**Status**: Active binder execution  
 **Version Cycle**: v1.5.5 → v1.6
 
 ---
@@ -13,8 +13,9 @@
 | v1.5.5 Release | ✅ Complete | Tagged and pushed 2026-03-09 |
 | v1.6 Roadmap | ✅ Published | [docs/ROADMAP-v1.6.md](ROADMAP-v1.6.md) |
 | Binder Breakdown | ✅ Published | [docs/BINDER-BREAKDOWN-v1.6.md](BINDER-BREAKDOWN-v1.6.md) |
-| @dev Workspace Sync | ⏳ Pending | Ready for @dev team to create binders |
-| First Binder (education-pathway) | 🟡 Ready to start | No blockers identified |
+| @dev Workspace Sync | 🟡 In progress | Public outputs now include completed binder artifacts |
+| Education binder (v1.6.1) | ✅ Complete | [docs/BINDER-PROGRESS-2026-03-10.md](BINDER-PROGRESS-2026-03-10.md) |
+| Vault binder (v1.6.3) | ✅ Complete | [docs/BINDER-PROGRESS-v1.6.3-2026-03-10.md](BINDER-PROGRESS-v1.6.3-2026-03-10.md) |
 | Packaging binder | 🟡 Ready to start | No blockers identified |
 | uHOME-boundary binder | 🟠 Blocked | Waiting for uHOME-server confirmation |
 
@@ -25,25 +26,21 @@
 ### High Priority (Start Week 1)
 
 **#binder/sonic-education-pathway** (p1.6.1)
-- Status: Ready to start immediately
-- Owner: (assign from @dev workspace)
-- First 2 tasks (1.1-1.2) require no external dependencies
-- Effort: ~8 hours for initial setup
-- **Action**: Create binder in @dev, assign tasks 1.1-1.2
+- Status: Complete
+- Progress: [docs/BINDER-PROGRESS-2026-03-10.md](BINDER-PROGRESS-2026-03-10.md)
+- **Action**: Reuse completed course outputs and gather learner feedback
 
 **#binder/sonic-vault-templates** (v1.6.3)
-- Status: Ready to start immediately
-- Owner: (assign from @dev workspace)
-- Can run in parallel with education pathway
-- Effort: ~10 hours total
-- **Action**: Create binder, assign task 3.1 first
+- Status: Complete
+- Progress: [docs/BINDER-PROGRESS-v1.6.3-2026-03-10.md](BINDER-PROGRESS-v1.6.3-2026-03-10.md)
+- **Action**: Validate examples against next layout contract change
 
 **#binder/sonic-services-architecture** (v1.6.4)
 - Status: Ready to start immediately
 - Owner: (assign from @dev workspace)
 - Pure documentation work, no code changes needed
 - Effort: ~13 hours total
-- **Action**: Create binder, can start on any task
+- **Action**: Start with Task 4.1 and 4.2 in parallel
 
 ### Medium Priority (Start Week 2-3)
 
@@ -145,12 +142,13 @@
 
 ---
 
-## Success Criteria for Planning Phase
+## Success Criteria for Execution Phase
 
-✅ All binders accepted into @dev workspace  
-✅ Task assignments made for week 1  
-✅ uHOME-server blocker clarified (timeline or fallback approach)  
-✅ First binder (education-pathway) at least 25% complete by end of week 2
+✅ Education binder complete (`v1.6.1`)  
+✅ Vault binder complete (`v1.6.3`)  
+⏳ Services architecture binder started (`v1.6.4`)  
+⏳ Packaging binder started (`v1.6.5`)  
+⚠️ uHOME boundary timeline confirmed (`v1.6.2`)
 
 ---
 
