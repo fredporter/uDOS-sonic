@@ -18,7 +18,7 @@
 | Vault binder (v1.6.3) | ✅ Complete | [docs/BINDER-PROGRESS-v1.6.3-2026-03-10.md](BINDER-PROGRESS-v1.6.3-2026-03-10.md) |
 | Services architecture binder (v1.6.4) | ✅ Complete | [docs/BINDER-PROGRESS-v1.6.4-2026-03-10.md](BINDER-PROGRESS-v1.6.4-2026-03-10.md) |
 | Packaging binder (v1.6.5) | 🟡 In progress | [docs/BINDER-PROGRESS-v1.6.5-2026-03-10.md](BINDER-PROGRESS-v1.6.5-2026-03-10.md) |
-| uHOME-boundary binder | 🟠 Blocked | Waiting for uHOME-server confirmation |
+| uHOME-boundary binder (v1.6.2) | 🟠 In progress (blocked) | [docs/BINDER-PROGRESS-v1.6.2-2026-03-10.md](BINDER-PROGRESS-v1.6.2-2026-03-10.md) |
 
 ---
 
@@ -53,10 +53,11 @@
 ### Blocked (Waiting)
 
 **#binder/sonic-uhome-boundary** (v1.6.2)
-- Status: Blocked on external dependency
+- Status: In progress (Task 2.1 complete, remaining tasks blocked)
+- Progress: [docs/BINDER-PROGRESS-v1.6.2-2026-03-10.md](BINDER-PROGRESS-v1.6.2-2026-03-10.md)
 - Blocker: uHOME-server release with public imports
 - **Action needed**: Contact uHOME-server team for release timeline
-- **Fallback**: Can start tasks 2.1 (inventory) without external dependency
+- **Fallback done**: Task 2.1 inventory completed locally
 - Effort: ~18 hours total
 
 ---
@@ -147,7 +148,7 @@
 ✅ Vault binder complete (`v1.6.3`)  
 ✅ Services architecture binder complete (`v1.6.4`)  
 🟡 Packaging binder locally validated (`v1.6.5`)  
-⚠️ uHOME boundary timeline confirmed (`v1.6.2`)
+🟡 uHOME boundary inventory complete (`v1.6.2`), external timeline pending
 
 ---
 

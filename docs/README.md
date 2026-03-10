@@ -8,6 +8,7 @@
 - architecture/services-manifest.md
 - architecture/services-catalog.md
 - architecture/services-testing.md
+- architecture/uhome-module-inventory-2026-03-10.md
 - sonic-structure-assessment-2026-03-08.md
 - howto/build-usb.md
 - howto/quickstart.md
