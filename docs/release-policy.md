@@ -33,3 +33,23 @@ Rationale:
   stable, reviewable output lane
 - large generated payloads remain outside the git repo and should not be
   invented during release creation
+
+## Current Artifact Candidates
+
+The first candidate release surfaces are:
+
+- `distribution/installers/bundles/*.json`
+- `distribution/installers/usb/*.json`
+- `distribution/launchers/`
+
+These are candidates because they are:
+
+- tracked in git
+- small enough to review
+- already documented as public packaging descriptors
+
+They are not attached yet because the repo still needs:
+
+- explicit artifact naming conventions
+- a stable packaging build step for release assembly
+- a clear distinction between tracked descriptors and generated payloads
