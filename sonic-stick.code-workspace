@@ -1,6 +1,6 @@
 {
   "folders": [
-    { "name": "sonic", "path": "." },
+    { "name": "sonic-screwdriver", "path": "." },
     { "name": "core", "path": "core" },
     { "name": "docs", "path": "docs" }
   ],
