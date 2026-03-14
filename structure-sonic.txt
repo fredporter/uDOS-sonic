@@ -1,0 +1,341 @@
+Last login: Tue Mar 10 22:37:14 on ttys000
+fredbook@FredBookAir ~ % cd Code/uDOS-sonic                     
+fredbook@FredBookAir uDOS-sonic % tree
+.
+├── __init__.py
+├── __pycache__
+│   └── __init__.cpython-313.pyc
+├── apps
+│   ├── README.md
+│   ├── sonic-cli
+│   │   ├── __pycache__
+│   │   │   └── cli.cpython-313.pyc
+│   │   ├── cli.py
+│   │   └── README.md
+│   └── sonic-ui
+│       ├── index.html
+│       ├── package-lock.json
+│       ├── package.json
+│       ├── postcss.config.js
+│       ├── README.md
+│       ├── src
+│       │   ├── app.css
+│       │   ├── App.svelte
+│       │   └── main.js
+│       ├── tailwind.config.js
+│       └── vite.config.js
+├── build
+│   ├── bdist.macosx-10.9-universal2
+│   └── lib
+│       ├── installers
+│       │   ├── __init__.py
+│       │   └── bundles
+│       │       └── __init__.py
+│       ├── services
+│       │   ├── __init__.py
+│       │   ├── http_api.py
+│       │   ├── manifest.py
+│       │   ├── mcp_server.py
+│       │   ├── os_limits.py
+│       │   ├── planner.py
+│       │   ├── runtime_service.py
+│       │   └── verify.py
+│       ├── sonic_cli.py
+│       └── udos_sonic
+│           ├── __init__.py
+│           └── services
+│               └── __init__.py
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── config
+│   ├── boot-selector.json
+│   ├── flash-packs
+│   │   └── windows10-entertainment.json
+│   ├── image-sources
+│   │   ├── alpine-udos.json
+│   │   ├── ubuntu-wizard.json
+│   │   └── windows10-ltsc.json
+│   ├── sonic-layout.json
+│   └── sonic-manifest.json.example
+├── CONTRIBUTING.md
+├── CONTRIBUTORS.md
+├── core
+│   └── __pycache__
+│       ├── os_limits.cpython-312.pyc
+│       ├── sonic_api.cpython-312.pyc
+│       └── sonic_mcp.cpython-312.pyc
+├── courses
+│   ├── 01-sonic-screwdriver
+│   │   ├── LEARNING-PATHS.md
+│   │   ├── lessons
+│   │   │   ├── 01-framework-and-boundaries.md
+│   │   │   ├── 02-layout-manifest-and-dry-run.md
+│   │   │   ├── 03-apply-rescue-and-handoff.md
+│   │   │   └── 04-troubleshooting.md
+│   │   ├── objectives.md
+│   │   ├── overview.md
+│   │   ├── prerequisites.md
+│   │   ├── project
+│   │   │   ├── PHASES.md
+│   │   │   └── README.md
+│   │   └── README.md
+│   ├── 02-deployment-patterns
+│   │   ├── lessons
+│   │   │   ├── 01-staged-rollouts-and-release-gates.md
+│   │   │   ├── 02-multi-host-and-fleet-planning.md
+│   │   │   ├── 03-dualboot-and-recovery-patterns.md
+│   │   │   └── 04-post-deploy-validation-and-audit-trails.md
+│   │   ├── objectives.md
+│   │   ├── overview.md
+│   │   ├── prerequisites.md
+│   │   ├── project
+│   │   │   ├── PHASES.md
+│   │   │   └── README.md
+│   │   └── README.md
+│   ├── 03-extension-and-customization
+│   │   ├── lessons
+│   │   │   ├── 01-extension-model-and-ownership-boundaries.md
+│   │   │   ├── 02-custom-build-engines-and-package-hooks.md
+│   │   │   ├── 03-service-contracts-and-integration-testing.md
+│   │   │   └── 04-packaging-distribution-and-compatibility-policy.md
+│   │   ├── objectives.md
+│   │   ├── overview.md
+│   │   ├── prerequisites.md
+│   │   ├── project
+│   │   │   ├── PHASES.md
+│   │   │   └── README.md
+│   │   └── README.md
+│   ├── COURSE-DEPENDENCY-MAP.md
+│   └── README.md
+├── datasets
+│   ├── README.md
+│   ├── sonic-devices.schema.json
+│   ├── sonic-devices.sql
+│   ├── sonic-devices.table.md
+│   └── version.json
+├── distribution
+│   ├── installers
+│   │   ├── bundles
+│   │   │   └── uhome-steam-server.json
+│   │   └── usb
+│   │       └── uhome-steam-windows10-dualboot.json
+│   ├── launchers
+│   │   ├── uhome
+│   │   │   ├── README.md
+│   │   │   └── uhome-console.sh
+│   │   └── windows
+│   │       ├── README.md
+│   │       ├── WindowsHome.cmd
+│   │       ├── WindowsLibrary.cmd
+│   │       └── WindowsSettings.cmd
+│   ├── README.md
+│   └── templates
+│       └── submissions
+│           ├── sonic-device-containers-template.md
+│           ├── sonic-device-drivers-template.md
+│           ├── sonic-device-installers-template.md
+│           └── sonic-device-settings-template.md
+├── Dockerfile
+├── docs
+│   ├── architecture
+│   │   ├── services-catalog.md
+│   │   ├── services-manifest.md
+│   │   ├── services-overview.md
+│   │   ├── services-planner.md
+│   │   ├── services-testing.md
+│   │   └── uhome-module-inventory-2026-03-10.md
+│   ├── BINDER-BREAKDOWN-v1.6.md
+│   ├── BINDER-PROGRESS-2026-03-10.md
+│   ├── BINDER-PROGRESS-v1.6.2-2026-03-10.md
+│   ├── BINDER-PROGRESS-v1.6.3-2026-03-10.md
+│   ├── BINDER-PROGRESS-v1.6.4-2026-03-10.md
+│   ├── BINDER-PROGRESS-v1.6.5-2026-03-10.md
+│   ├── DEVELOPMENT-STATUS-v1.6.md
+│   ├── devlog
+│   │   └── 2026-01-24-sonic-standalone-baseline.md
+│   ├── howto
+│   │   ├── build-usb.md
+│   │   ├── cross-platform-validation.md
+│   │   ├── dev-workflow.md
+│   │   ├── development-install.md
+│   │   ├── dry-run.md
+│   │   ├── production-install.md
+│   │   ├── quickstart.md
+│   │   ├── standalone-release-and-install.md
+│   │   └── vault-templates-and-examples.md
+│   ├── integration-spec.md
+│   ├── LEARNING-MODEL-PROPOSAL.md
+│   ├── README.md
+│   ├── ROADMAP-v1.6.md
+│   ├── SESSION-ARCHIVE-2026-03-10.md
+│   ├── SESSION-COMPLETE-2026-03-10.md
+│   ├── SESSION-SUMMARY-2026-03-10.md
+│   ├── sonic-structure-assessment-2026-03-08.md
+│   ├── specs
+│   │   └── sonic-screwdriver.md
+│   ├── uDOS-sonic-dev-brief.md
+│   ├── uDOS-sonic-education-dev-brief.md
+│   └── V1.6-MILESTONE-SUMMARY.md
+├── examples
+│   └── custom-build-engine
+│       ├── example_engine.py
+│       └── README.md
+├── installers
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
+│   ├── bundles
+│   │   ├── __init__.py
+│   │   └── uhome
+│   ├── setup
+│   │   ├── install-sonic-editable.sh
+│   │   └── README.md
+│   └── usb
+│       └── __pycache__
+│           ├── __init__.cpython-312.pyc
+│           ├── manifest.cpython-312.pyc
+│           ├── plan.cpython-312.pyc
+│           └── service.cpython-312.pyc
+├── LEGAL.md
+├── library
+│   ├── README.md
+│   └── sonic
+│       └── README.md
+├── LICENSE
+├── memory
+│   ├── README.md
+│   └── sonic
+│       ├── README.md
+│       ├── seed
+│       │   └── sonic-devices.seed.db
+│       ├── sonic-devices.db
+│       └── user
+│           └── sonic-devices.user.db
+├── modules
+│   ├── dualboot
+│   │   └── README.md
+│   ├── README.md
+│   ├── rescue
+│   │   └── README.md
+│   ├── uhome-bundle
+│   │   └── README.md
+│   └── usb-installer
+│       └── README.md
+├── payloads
+│   └── README.md
+├── pyproject.toml
+├── README.md
+├── scripts
+│   ├── apply-payloads-v2.sh
+│   ├── collect-logs.sh
+│   ├── create-data-partition.sh
+│   ├── download-payloads.sh
+│   ├── lib
+│   │   └── logging.sh
+│   ├── partition-layout.sh
+│   ├── scan-library.sh
+│   ├── smoke
+│   │   └── linux-runtime-smoke.sh
+│   ├── sonic-stick.sh
+│   ├── tinycore-bootlog.sh
+│   ├── validate-packaging.ps1
+│   ├── validate-packaging.sh
+│   └── verify-usb-layout.sh
+├── services
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-313.pyc
+│   │   ├── http_api.cpython-313.pyc
+│   │   ├── manifest.cpython-313.pyc
+│   │   ├── mcp_server.cpython-313.pyc
+│   │   ├── os_limits.cpython-313.pyc
+│   │   ├── planner.cpython-313.pyc
+│   │   └── runtime_service.cpython-313.pyc
+│   ├── build-engine
+│   │   └── README.md
+│   ├── device-catalog
+│   │   └── README.md
+│   ├── http_api.py
+│   ├── manifest
+│   │   └── README.md
+│   ├── manifest.py
+│   ├── mcp_server.py
+│   ├── os_limits.py
+│   ├── planner
+│   │   └── README.md
+│   ├── planner.py
+│   ├── README.md
+│   ├── runtime_service.py
+│   └── verify.py
+├── sonic_cli.py
+├── sonic-stick.code-workspace
+├── structure.txt
+├── tests
+│   ├── __pycache__
+│   │   ├── test_http_api.cpython-313-pytest-9.0.2.pyc
+│   │   ├── test_import_paths.cpython-313-pytest-9.0.2.pyc
+│   │   ├── test_launchers.cpython-313-pytest-9.0.2.pyc
+│   │   ├── test_linux_smoke_script.cpython-313-pytest-9.0.2.pyc
+│   │   ├── test_manifest.cpython-313-pytest-9.0.2.pyc
+│   │   ├── test_packaging_setup.cpython-313-pytest-9.0.2.pyc
+│   │   ├── test_planner.cpython-313-pytest-9.0.2.pyc
+│   │   ├── test_runtime_service.cpython-313-pytest-9.0.2.pyc
+│   │   └── test_sonic_cli.cpython-313-pytest-9.0.2.pyc
+│   ├── test_http_api.py
+│   ├── test_import_paths.py
+│   ├── test_launchers.py
+│   ├── test_linux_smoke_script.py
+│   ├── test_packaging_setup.py
+│   ├── test_runtime_service.py
+│   └── test_sonic_cli.py
+├── udos_sonic
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-313.pyc
+│   └── services
+│       ├── __init__.py
+│       └── __pycache__
+│           └── __init__.cpython-313.pyc
+├── udos_sonic.egg-info
+│   ├── dependency_links.txt
+│   ├── entry_points.txt
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   └── top_level.txt
+├── ui
+│   └── src
+├── vault
+│   ├── deployment-notes
+│   │   ├── dualboot-lab-retro.md
+│   │   ├── README.md
+│   │   ├── recovery-escalation-example.md
+│   │   └── windows-entertainment-canary.md
+│   ├── device-profiles
+│   │   └── README.md
+│   ├── manifests
+│   │   ├── README.md
+│   │   ├── reference-dualboot-dry-run.manifest.json
+│   │   ├── reference-rescue-maintenance-dry-run.manifest.json
+│   │   └── reference-windows-entertainment-apply.manifest.json
+│   ├── README.md
+│   └── templates
+│       ├── device-profiles
+│       │   ├── dualboot-minimal-lab.profile.json
+│       │   ├── linux-uhome-single-surface.profile.json
+│       │   ├── README.md
+│       │   ├── rescue-maintenance-stick.profile.json
+│       │   ├── uhome-steam-windows10-dualboot.profile.json
+│       │   ├── windows10-entertainment-flashpack.profile.json
+│       │   └── windows10-gaming-single-surface.profile.json
+│       └── README.md
+├── version.json
+└── wiki
+    ├── _Sidebar.md
+    ├── Education-Pathways.md
+    ├── FAQ.md
+    ├── Getting-Started.md
+    ├── Home.md
+    └── Repo-Map.md
+
+91 directories, 244 files
+fredbook@FredBookAir uDOS-sonic % 
